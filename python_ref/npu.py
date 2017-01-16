@@ -5,6 +5,12 @@ QUANTIZE_BIT = 8
 MAX_VALUE = (2 ** QUANTIZE_BIT) - 1
 
 
+def deQuantize_scalar(x, min, max):
+    """量子化を元に戻す"""
+    gain = (max - min) / MAX_VALUE
+    return x * gain + min
+
+
 def deQuantize(arr, min, max):
     """量子化を元に戻す"""
     gain = (max - min) / MAX_VALUE
@@ -16,6 +22,14 @@ def Quantize(arr, min, max):
     range = max - min
     range_scale = range / MAX_VALUE
     return ((arr - min) / range_scale).astype(np.int)
+
+def reQuantize(arr, min, max, new_min, new_max):
+    gain = (max - min) / (new_max - new_min)
+
+    # start vector
+    c_qt = arr * gain
+
+    return c_qt
 
 
 def q_inv(a_qt, a_min, a_max):
@@ -34,7 +48,7 @@ def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
     c_qt = b_qt * gain + a_qt
     c_qt *= q_param
 
-    return c_qt, min, max
+    return c_qt.astype(np.int), min, max
 
 
 def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
@@ -60,5 +74,5 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     c_qt /= q_param
 
 
-    return c_qt, min, max
+    return c_qt.astype(np.int), min, max
 
