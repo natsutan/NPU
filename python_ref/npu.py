@@ -2,7 +2,7 @@ import numpy as np
 
 # 8bitの最大値
 QUANTIZE_BIT = 8
-MAX_VALUE = (2 ** QUANTIZE_BIT) - 1
+MAX_VALUE = (2 ** (QUANTIZE_BIT - 1) )- 1
 
 
 def deQuantize_scalar(x, min, max):
@@ -23,13 +23,14 @@ def Quantize(arr, min, max):
     range_scale = range / MAX_VALUE
     return ((arr - min) / range_scale).astype(np.int)
 
+
 def reQuantize(arr, min, max, new_min, new_max):
-    gain = (max - min) / (new_max - new_min)
-
+    gain = (new_max - new_min) / (max - min)
+    offset = min / gain
     # start vector
-    c_qt = arr * gain
+    c_qt = arr * gain - offset
 
-    return c_qt
+    return c_qt.astype(np.int)
 
 
 def q_inv(a_qt, a_min, a_max):
