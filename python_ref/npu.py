@@ -59,5 +59,6 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     c_qt = AB + gaob_A + gboa_B
     c_qt /= q_param
 
+
     return c_qt, min, max
 
