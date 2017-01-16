@@ -15,7 +15,12 @@ def Quantize(arr, min, max):
     """量子化を行う"""
     range = max - min
     range_scale = range / MAX_VALUE
-    return (arr - min) / range_scale
+    return ((arr - min) / range_scale).astype(np.int)
+
+
+def q_inv(a_qt):
+    """符号反転"""
+    return MAX_VALUE - a_qt
 
 
 def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
