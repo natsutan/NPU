@@ -4,12 +4,12 @@ import npu
 import matplotlib.pyplot as plt
 
 
-def save_img(fname, V, q_V, deq_V, n = 1):
+def save_img(fname: object, V: object, q_V: object, deq_V: object, n: object = 1) -> object:
     x = np.arange(0, 1023)
     plt.figure(n)
-    plt.plot(x, V, color="r")
+    plt.plot(x, V, color="green")
     plt.plot(x, q_V, color="b")
-    plt.plot(x, deq_V, color="yellow")
+    plt.plot(x, deq_V, color="r")
     plt.savefig(fname)
 
 
@@ -30,15 +30,11 @@ save_img('lin.png', A, q_A, deq_A)
 save_img('sin.png', B, q_B, deq_B, n=2)
 
 # inv
-q_Ainv = npu.q_inv(q_A)
-a_inv_min = - a_max
-a_inv_max = - a_min
+q_Ainv, a_inv_min, a_inv_max = npu.q_inv(q_A, a_min, a_max)
 deq_Ainv = npu.deQuantize(q_Ainv, a_inv_min, a_inv_max)
 save_img('lin_inv.png', A, q_Ainv, deq_Ainv, n=3)
 
-q_Binv = npu.q_inv(q_B)
-b_inv_min = - b_max
-b_inv_max = - b_min
+q_Binv, b_inv_min, b_inv_max = npu.q_inv(q_B, b_min, b_max)
 deq_Binv = npu.deQuantize(q_Binv, b_inv_min, b_inv_max)
 save_img('sin_inv.png', B, q_Binv, deq_Binv, n=4)
 

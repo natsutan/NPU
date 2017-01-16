@@ -18,9 +18,9 @@ def Quantize(arr, min, max):
     return ((arr - min) / range_scale).astype(np.int)
 
 
-def q_inv(a_qt):
+def q_inv(a_qt, a_min, a_max):
     """符号反転"""
-    return MAX_VALUE - a_qt
+    return MAX_VALUE - a_qt, - a_max, - a_min
 
 
 def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
@@ -29,8 +29,11 @@ def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
     min = a_min + b_min
     max = a_max + b_max
     c_qt = b_qt * gain + a_qt
-    q_param = (max - min) / MAX_VALUE
-    c_qt /= q_param
+    x = np.max(c_qt) - np.min(c_qt)
+    q_param = x / MAX_VALUE
+
+    c_qt *= q_param
+
 
     return c_qt, min, max
 
