@@ -28,12 +28,11 @@ def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
     gain = (b_max - b_min) / (a_max - a_min)
     min = a_min + b_min
     max = a_max + b_max
+    q_param = (a_max - a_min) / (max - min)
+
+    # start vector
     c_qt = b_qt * gain + a_qt
-    x = np.max(c_qt) - np.min(c_qt)
-    q_param = x / MAX_VALUE
-
     c_qt *= q_param
-
 
     return c_qt, min, max
 
