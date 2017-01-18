@@ -62,19 +62,25 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
 
     # constant mul
     if b_min < 0:
-        qt_A_bmin, A_bmin_min, A_bmin_max = q_inv(a_qt, a_max * b_min, a_min * b_min)
+        # 符号反転
+        qt_A_bmin, A_bmin_min_inv, A_bmin_max_inv = q_inv(a_qt, a_min, a_max)
+        # 定数倍
+        A_bmin_min = A_bmin_min_inv * -b_min
+        A_bmin_max = A_bmin_max_inv * -b_min
     else:
         A_bmin_max = a_max * b_min
         A_bmin_min = a_min * b_min
         qt_A_bmin = a_qt
 
     if a_min < 0:
-        qt_B_amin, B_amin_min, B_amin_max = q_inv(b_qt, b_max * a_min, a_min * b_min)
+        qt_B_amin, B_amin_min_inv, B_amin_max_inv = q_inv(b_qt, b_min, b_max)
+        B_amin_max = B_amin_max_inv * -a_min
+        B_amin_min = B_amin_min_inv * -a_min
+
     else:
         B_amin_max = b_max * a_min
         B_amin_min = b_min * a_min
         qt_B_amin = b_qt
-
 
     C_qt_0, C_qt_0_min, C_qt_0_max = q_add(qt_A_bmin, A_bmin_min, A_bmin_max, qt_B_amin, B_amin_min, B_amin_max)
 

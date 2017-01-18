@@ -42,7 +42,9 @@ def do_test(p):
 
 
 # test set
-test_set = [[50, 100, 'pp_pp', 1],]
+test_set = [[50, 100, 'pp_pp', 1],
+            [-2000, -1000, 'nn_nn', 2],
+            ]
 
 
-do_test(test_set[0])
+do_test(test_set[1])
