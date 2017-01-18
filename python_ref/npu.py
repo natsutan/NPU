@@ -62,17 +62,25 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
 
     # constant mul
     if b_min < 0:
-        qt_A_bmin_min, A_bmin_min, A_bmin_max =  q_inv(a_qt, a_max * b_min, a_min * b_min)
+        qt_A_bmin, A_bmin_min, A_bmin_max = q_inv(a_qt, a_max * b_min, a_min * b_min)
     else:
         A_bmin_max = a_max * b_min
         A_bmin_min = a_min * b_min
-        qt_A_bmin_min = a_qt
+        qt_A_bmin = a_qt
 
-    B_bmin_max = b_max * a_min
-    B_bmin_min = b_min * a_min
+    if a_min < 0:
+        qt_B_amin, B_amin_min, B_amin_max = q_inv(b_qt, b_max * a_min, a_min * b_min)
+    else:
+        B_amin_max = b_max * a_min
+        B_amin_min = b_min * a_min
+        qt_B_amin = b_qt
 
-    C_qt_0, C_qt_0_min, C_qt_0_max = q_add(qt_A_bmin_min, A_bmin_min, A_bmin_max, b_qt, B_bmin_min, B_bmin_max)
 
+    C_qt_0, C_qt_0_min, C_qt_0_max = q_add(qt_A_bmin, A_bmin_min, A_bmin_max, qt_B_amin, B_amin_min, B_amin_max)
+
+    # 引き算なので符号反転
+    #C_qt_1, C_qt_1_min, C_qt_1_max = q_inv(C_qt_0, C_qt_0_min, C_qt_0_max)
+    #C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_1, C_qt_1_min, C_qt_1_max)
     C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_0, C_qt_0_min, C_qt_0_max)
 
     f1 = a_min * b_min
@@ -82,8 +90,8 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
 
 #    c_min = -94622
 #    c_max = 211407
-    c_max = c_max + f3
-    c_min = c_min + f3
+    c_max = c_max + (a_max * b_min)
+    c_min = c_min + (a_max * b_min)
 
     return C_qt.astype(np.int), c_min, c_max
 
