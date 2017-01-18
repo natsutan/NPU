@@ -2,7 +2,7 @@ import numpy as np
 
 # 8bitの最大値
 QUANTIZE_BIT = 8
-MAX_VALUE = (2 ** (QUANTIZE_BIT - 1) )- 1
+MAX_VALUE = (2 ** QUANTIZE_BIT )- 1
 
 
 def deQuantize_scalar(x, min, max):
@@ -11,15 +11,14 @@ def deQuantize_scalar(x, min, max):
     return x * gain + min
 
 
-def deQuantize(arr, min, max):
+def deQuantize(arr, a_min, a_max):
     """量子化を元に戻す"""
-    gain = (max - min) / MAX_VALUE
-    return arr * gain + min
-
+    gain = (a_max - a_min) / MAX_VALUE
+    return arr * gain + a_min
 
 def Quantize(arr, min, max):
     """量子化を行う"""
-    range = max - min
+    range = (max - min)
     range_scale = range / MAX_VALUE
     return ((arr - min) / range_scale).astype(np.int)
 
@@ -28,7 +27,7 @@ def reQuantize(arr, min, max, new_min, new_max):
     gain = (new_max - new_min) / (max - min)
     offset = min / gain
     # start vector
-    c_qt = arr * gain - offset
+    c_qt = arr * gain
 
     return c_qt.astype(np.int)
 
@@ -54,26 +53,59 @@ def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
 
 def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     """乗算"""
+    Adash_max = a_max - a_min
+    Adash_min = 0.0
+    Bdash_max = b_max - b_min
+    Bdash_min = 0.0
+
+    AdBd_qt, AdBd_min, AdBd_max = q_mul_core(a_qt, Adash_min, Adash_max, b_qt, Bdash_min, Bdash_max)
+
+    # constant mul
+    if b_min < 0:
+        qt_A_bmin_min, A_bmin_min, A_bmin_max =  q_inv(a_qt, a_max * b_min, a_min * b_min)
+    else:
+        A_bmin_max = a_max * b_min
+        A_bmin_min = a_min * b_min
+        qt_A_bmin_min = a_qt
+
+    B_bmin_max = b_max * a_min
+    B_bmin_min = b_min * a_min
+
+    C_qt_0, C_qt_0_min, C_qt_0_max = q_add(qt_A_bmin_min, A_bmin_min, A_bmin_max, b_qt, B_bmin_min, B_bmin_max)
+
+    C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_0, C_qt_0_min, C_qt_0_max)
+
+    f1 = a_min * b_min
+    f2 = a_max * b_max
+    f3 = a_max * b_min
+    f4 = a_min * b_max
+
+#    c_min = -94622
+#    c_max = 211407
+    c_max = c_max + f3
+    c_min = c_min + f3
+
+    return C_qt.astype(np.int), c_min, c_max
+
+
+def q_mul_core(a_qt, a_min, a_max, b_qt, b_min, b_max):
+    """乗算"""
     gain_a = (a_max - a_min) / MAX_VALUE
     gain_b = (b_max - b_min) / MAX_VALUE
-    offset_a = a_min
-    offset_b = b_min
-    p_gagb = gain_a * gain_b
-    p_gaob = gain_a * offset_b
-    p_gboa = gain_b * offset_a
-    p_oaob = offset_a * offset_b
-    min = p_oaob
+    min = a_min * b_min
     max = a_max * b_max
-    q_param = (max - min) / MAX_VALUE
+    q_param = MAX_VALUE / (max - min)
+
+
+    p_gagb = gain_a * gain_b * q_param
+    p_gaob = gain_a * b_min * q_param
+    p_gboa = gain_b * a_min * q_param
 
     # start vector alu
-    AB = p_gagb * a_qt * b_qt
-    gaob_A = a_qt * p_gaob
-    gboa_B = b_qt * p_gboa
-
+    AB = (p_gagb * a_qt * b_qt).astype(np.int)
+    gaob_A = (a_qt * p_gaob).astype(np.int)
+    gboa_B = (b_qt * p_gboa).astype(np.int)
     c_qt = AB + gaob_A + gboa_B
-    c_qt /= q_param
-
 
     return c_qt.astype(np.int), min, max
 

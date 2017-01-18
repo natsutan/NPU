@@ -9,7 +9,7 @@ def save_img(fname, V, q_V, deq_V, n = 1):
     plt.plot(x, V, color="green")
     plt.plot(x, q_V, color="b")
     plt.plot(x, deq_V, color="r")
-    plt.savefig(fname)
+    plt.savefig('img/'+fname)
 
 
 A = np.arange(0, 1023, 1.0) + 50
