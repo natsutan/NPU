@@ -43,11 +43,17 @@ q_C, c_min, c_max = npu.q_mul(q_A, a_min, a_max, q_B, b_min, b_max)
 deq_C = npu.deQuantize(q_C, c_min, c_max)
 save_img('mul.png', C, q_C, deq_C, n=2)
 
+"""
+q_C, c_min, c_max = npu.q_mul(q_B, b_min, b_max, q_A, a_min, a_max)
+deq_C = npu.deQuantize(q_C, c_min, c_max)
+save_img('mul2.png', C, q_C, deq_C, n=3)
+"""
+
 # deQuantize
-q_c_min = np.min(q_C)
-q_c_max = np.max(q_C)
-c_min2 = npu.deQuantize_scalar(q_c_min, c_min, c_max)
-c_max2 = npu.deQuantize_scalar(q_c_max, c_min, c_max)
-req_C2 = npu.reQuantize(q_C, c_min, c_max, c_min2, c_max2)
-deq_C2 = npu.deQuantize(req_C2, c_min2, c_max2)
-save_img('mul2.png', C, q_C, deq_C2, n=3)
+#q_c_min = np.min(q_C)
+#q_c_max = np.max(q_C)
+#c_min2 = npu.deQuantize_scalar(q_c_min, c_min, c_max)
+#c_max2 = npu.deQuantize_scalar(q_c_max, c_min, c_max)
+#req_C2 = npu.reQuantize(q_C, c_min, c_max, c_min2, c_max2)
+#deq_C2 = npu.deQuantize(req_C2, c_min2, c_max2)
+#save_img('mul2.png', C, q_C, deq_C2, n=3)

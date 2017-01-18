@@ -81,7 +81,9 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     # 引き算なので符号反転
     #C_qt_1, C_qt_1_min, C_qt_1_max = q_inv(C_qt_0, C_qt_0_min, C_qt_0_max)
     #C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_1, C_qt_1_min, C_qt_1_max)
+
     C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_0, C_qt_0_min, C_qt_0_max)
+
 
     f1 = a_min * b_min
     f2 = a_max * b_max
@@ -90,10 +92,19 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
 
 #    c_min = -94622
 #    c_max = 211407
-    c_max = c_max + (a_max * b_min)
-    c_min = c_min + (a_max * b_min)
+#    c_max_f = c_max + (a_max * b_min)
+#    c_min_f = c_min + (a_max * b_min)
+    c_max_f = c_max - f1
+    c_min_f = c_min - f1
 
-    return C_qt.astype(np.int), c_min, c_max
+    if True:
+        print("A_bmin:%f - %f" % (A_bmin_min, A_bmin_max))
+        print("B_amin:%f - %f" % (B_amin_min, B_amin_max))
+        print("C_qt_0:%f - %f" % (C_qt_0_min, C_qt_0_max))
+        print("C_qt:%f - %f" % (c_min, c_max))
+        print(f1 ,f2, f3, f4)
+
+    return C_qt.astype(np.int), c_min_f, c_max_f
 
 
 def q_mul_core(a_qt, a_min, a_max, b_qt, b_min, b_max):
