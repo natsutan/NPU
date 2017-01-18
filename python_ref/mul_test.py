@@ -44,7 +44,9 @@ def do_test(p):
 # test set
 test_set = [[50, 100, 'pp_pp', 1],
             [-2000, -1000, 'nn_nn', 2],
+            [-1000, -500, 'pn_pn', 3],
+            [50, -600, 'pp_pn', 4],
             ]
 
 
-do_test(test_set[1])
+do_test(test_set[3])
