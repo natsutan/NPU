@@ -52,6 +52,32 @@ module npu8_top
 
    wire [7:0] 	 RMAX;
    wire [7:0] 	 RMIN;
+
+   wire [7:0] 	 M0_RDATA;
+
+   wire 	 M1_WR;
+   wire [9:0]	 M1_WADR;
+   wire [9:0]	 M1_RADR;
+   wire [7:0]	 M1_WDATA;
+   wire [7:0]	 M1_RDATA;
+
+   wire 	 M2_WR;
+   wire [9:0]	 M2_WADR;
+   wire [9:0]	 M2_RADR;
+   wire [7:0]	 M2_WDATA;
+   wire [7:0]	 M2_RDATA;
+
+   wire 	 M3_WR;
+   wire [9:0]	 M3_WADR;
+   wire [9:0]	 M3_RADR;
+   wire [7:0]	 M3_WDATA;
+   wire [7:0]	 M3_RDATA;
+
+   wire 	 NPU_EN;
+   wire [7:0] 	 A_RDATA;
+   wire [7:0] 	 B_RDATA;
+   wire 	 LM_EN;
+   wire 	 C_WDATA;
    
 
    //cpu if
@@ -111,21 +137,60 @@ module npu8_top
    );
 
 
-
-
    
-   //mem
+   //local memory
+   M0 m0(.M0VAL(M0VAL), .RDATA(M0_RDATA));
+   local_mem m1( .CLK(CLK), .WR(M1_WR), .WADR(M1_WADR), .RADR(M1_RADR), .WDATA(M1_WDATA), .RDATA(M1_RDATA));
+   local_mem m2( .CLK(CLK), .WR(M2_WR), .WADR(M2_WADR), .RADR(M2_RADR), .WDATA(M2_WDATA), .RDATA(M2_RDATA));
+   local_mem m3( .CLK(CLK), .WR(M3_WR), .WADR(M3_WADR), .RADR(M3_RADR), .WDATA(M3_WDATA), .RDATA(M3_RDATA));
 
+   //local memory controller
+   lmcnt lmcnt
+  (
+   .CLK(CLK),
+   .RESET_X(RESET_X),
+   
+   .SOFT_RESET(SOFT_RESET),
+   .START(START),
+   .FINISH(FINISH),
+   .MSEL_INPUTA_SEL(MSEL_INPUTA_SEL),
+   .MSEL_INPUTB_SEL(MSEL_INPUTB_SEL),
+   .MSEL_OUTPUTC_SEL(MSEL_OUTPUTC_SEL),
+   .M1POS(M1POS),
+   .M1SIZE(M1SIZE),
+   .M2POS(M2POS),
+   .M3POS(M3POS),
+   
+   .M0_RDATA(M0_RDATA),
+   
+   .M1_WR(M1_WR),
+   .M1_WDATA(M1_WDATA),
+   .M1_RADR(M1_RADR),
+   .M1_RDATA(M1_RDATA),
 
+   .M2_WR(M2_WR),
+   .M2_WDATA(M2_WDATA),
+   .M2_RADR(M2_RADR),
+   .M2_RDATA(M2_RDATA),
+   
+   .M2_WR(M2_WR),
+   .M2_WDATA(M2_WDATA),
+   .M2_RADR(M2_RADR),
+   .M2_RDATA(M2_RDATA),
 
-
+   .NPU_EN(NPU_EN),
+   .A_RDATA(A_RDATA),
+   .B_RDATA(B_RDATA),
+   
+   .LM_EN(LM_EN),
+   .C_WDATA(C_WDATA)
+   );
    
 
    //NPU8
 
 
    //dummy
-   assign FINISH = START;
    assign RMAX = 8'h00;
    assign RMIN = 8'h00;
    
