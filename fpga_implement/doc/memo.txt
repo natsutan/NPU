@@ -1,0 +1,59 @@
+
+
+register
+ADR Name  function 
+00  CTRL  bit 0 reset(W)
+          bit 1 start(W)
+04  STS   bit 0 finish(R)
+          bit 1 runnnig(R)
+08  OP    0:ADD
+          1:MUL
+	  2:RQT
+0C  MSEL  bit [1:0] input A sel
+          bit [3:2] input B sel 
+	  bit [5:4] output C sel
+10  INV   bit 0:Asel inv
+          bit 1:Bsel inv
+14  M0VAL Memory 0 Value
+18  M0MAX Memory 0 MAX (no use)
+1C  M0MIN Memory 0 MIN (no use)
+
+20  M1SPOS [9:0] memory 1 start pos
+24  M1SIZE [9:0] memory 1 size
+28  M1MAX  memory 1 max (no use)
+2C  M1MIN  memory 1 max (no use)
+
+30  M2SPOS [9:0] memory 2 start pos
+34  M2SIZE [9:0] memory 2 size (no use)
+38  M2MAX  memory 2 max (no use)
+3C  M2MIN  memory 2 max (no use)
+
+40  M3SPOS [9:0] memory 3 start pos
+44  M3SIZE [9:0] memory 3 size (no use)
+48  M3MAX  memory 3 max (no use)
+4C  M3MIN  memory 3 max (no use)
+
+-- ADD
+50  AD_GAIN   for add
+54  AD_QPARAM for add
+
+-- MULL CORE
+60 MLC_GAGB for mul core
+64 MLC_GAOB for mul core
+68 MLC_GBOA for mul core
+
+-- MULL ADD1
+70  ML1_GAIN   for add1
+74  ML1_QPARAM for add1
+78  ML2_GAIN   for add2
+7C  ML2_QPARAM for add2
+
+-- REQ
+80 REQ_MID
+84 REQ_GAIN
+
+-- output
+C0  RMAX   result max
+C4  RMIN   resutl min
+
+
