@@ -23,10 +23,11 @@ def Quantize(arr, min, max):
     return ((arr - min) / range_scale).astype(np.int)
 
 
-def reQuantize(arr, min, max, new_min, new_max):
-    gain = (new_max - new_min) / (max - min)
+def reQuantize(arr, q_min, q_max, new_min, new_max):
+    mid = (q_max + q_min) / 2
+    gain = MAX_VALUE  / (q_max - q_min)
     # start vector
-    c_qt = arr * gain
+    c_qt = (arr - mid) * gain + (MAX_VALUE / 2)
 
     return c_qt.astype(np.int)
 
