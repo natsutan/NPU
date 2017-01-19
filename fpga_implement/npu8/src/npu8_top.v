@@ -164,19 +164,22 @@ module npu8_top
    .M0_RDATA(M0_RDATA),
    
    .M1_WR(M1_WR),
+   .M1_WADR(M1_WADR),
    .M1_WDATA(M1_WDATA),
    .M1_RADR(M1_RADR),
    .M1_RDATA(M1_RDATA),
 
    .M2_WR(M2_WR),
+   .M2_WADR(M2_WADR),
    .M2_WDATA(M2_WDATA),
    .M2_RADR(M2_RADR),
    .M2_RDATA(M2_RDATA),
    
-   .M2_WR(M2_WR),
-   .M2_WDATA(M2_WDATA),
-   .M2_RADR(M2_RADR),
-   .M2_RDATA(M2_RDATA),
+   .M3_WR(M3_WR),
+   .M3_WADR(M3_WADR),
+   .M3_WDATA(M3_WDATA),
+   .M3_RADR(M3_RADR),
+   .M3_RDATA(M3_RDATA),
 
    .NPU_EN(NPU_EN),
    .A_RDATA(A_RDATA),
@@ -193,6 +196,9 @@ module npu8_top
    //dummy
    assign RMAX = 8'h00;
    assign RMIN = 8'h00;
+
+   assign LM_EN = NPU_EN;
+   assign C_WDATA = A_RDATA;
    
    
 
