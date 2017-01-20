@@ -58,8 +58,6 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     Bdash_max = b_max - b_min
     Bdash_min = 0.0
 
-    AdBd_qt, AdBd_min, AdBd_max = q_mul_core(a_qt, Adash_min, Adash_max, b_qt, Bdash_min, Bdash_max)
-
     # constant mul
     if b_min < 0:
         # 符号反転
@@ -82,6 +80,8 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
         B_amin_min = b_min * a_min
         qt_B_amin = b_qt
 
+    # vector
+    AdBd_qt, AdBd_min, AdBd_max = q_mul_core(a_qt, Adash_min, Adash_max, b_qt, Bdash_min, Bdash_max)
     C_qt_0, C_qt_0_min, C_qt_0_max = q_add(qt_A_bmin, A_bmin_min, A_bmin_max, qt_B_amin, B_amin_min, B_amin_max)
     C_qt, c_min, c_max = q_add(AdBd_qt, AdBd_min, AdBd_max, C_qt_0, C_qt_0_min, C_qt_0_max)
 
@@ -100,7 +100,6 @@ def q_mul_core(a_qt, a_min, a_max, b_qt, b_min, b_max):
     min = a_min * b_min
     max = a_max * b_max
     q_param = MAX_VALUE / (max - min)
-
 
     p_gagb = gain_a * gain_b * q_param
     p_gaob = gain_a * b_min * q_param

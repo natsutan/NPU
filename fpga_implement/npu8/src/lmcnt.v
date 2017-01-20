@@ -24,18 +24,18 @@ module lmcnt
    output [7:0]     M1_WDATA,
    output [9:0]     M1_RADR,
    input [7:0] 	    M1_RDATA,
-   
-   output 	    M2_WR,
-   output [9:0]     M2_WADR,
-   output [7:0]     M2_WDATA,
-   output [9:0]     M2_RADR,
-   input [7:0] 	    M2_RDATA,
 
    output 	    M2_WR,
    output [9:0]     M2_WADR,
    output [7:0]     M2_WDATA,
    output [9:0]     M2_RADR,
    input [7:0] 	    M2_RDATA,
+
+   output 	    M3_WR,
+   output [9:0]     M3_WADR,
+   output [7:0]     M3_WDATA,
+   output [9:0]     M3_RADR,
+   input [7:0] 	    M3_RDATA,
 
    
    //npu
@@ -62,7 +62,7 @@ module lmcnt
       end else begin
 	 if ((rcnt == 0) & (START == 1))begin
 	    rcnt <= 1;
-	 end else if(rcnt != 10'3FF)begin
+	 end else if(rcnt != 10'h3FF)begin
 	    rcnt <= rcnt + 1;
 	 end
       end
@@ -73,8 +73,8 @@ module lmcnt
 	 NPU_EN <= 0;
       end else begin
 	 if (START == 1)begin
-	    NPU_EN <= 1;   
-	 end else if(rcnt == 10'3FF)begin
+	    NPU_EN <= 1;
+	 end else if(rcnt == 10'h3FF)begin
 	    NPU_EN <= 0;
 	 end
       end
@@ -132,9 +132,9 @@ module lmcnt
    end 
 
    //write
-   assign M1_WR = (MSEL_OUTPUTC_SEL == 2b'01) ? LM_EN : 0;
-   assign M2_WR = (MSEL_OUTPUTC_SEL == 2b'10) ? LM_EN : 0;   
-   assign M3_WR = (MSEL_OUTPUTC_SEL == 2b'11) ? LM_EN : 0;
+   assign M1_WR = (MSEL_OUTPUTC_SEL == 2'b01) ? LM_EN : 0;
+   assign M2_WR = (MSEL_OUTPUTC_SEL == 2'b10) ? LM_EN : 0;   
+   assign M3_WR = (MSEL_OUTPUTC_SEL == 2'b11) ? LM_EN : 0;
 
    assign M1_WADR = wcnt;
    assign M2_WADR = wcnt;
