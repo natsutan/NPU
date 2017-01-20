@@ -34,6 +34,11 @@
 `define REG_RMAX 8'hC0
 `define REG_RMIN 8'hC4
 
+`define M0_SEL (0)
+`define M1_SEL (1)
+`define M2_SEL (2)
+`define M3_SEL (3)
+
 
 reg 	 CLK;
 reg 	 RESET_X;
@@ -91,3 +96,19 @@ npu8_top npu8_top
    endtask // hard_reset
    
    
+
+   task dram_to_sram; 
+      input [80*8:1] fname;
+      input [1:0] msel;     
+     begin
+	if(msel == `M0_SEL)begin
+	   $display("WARNING:DMA to M0");
+	end else if(msel == `M1_SEL) begin	
+	   $readmemh({"../../../sim/memrw/input/", fname} ,  npu8_top.m1.mem);
+	   $display("DMA %s to M0", fname);
+	end 
+     end
+   endtask // dram_to_sram
+   
+
+     

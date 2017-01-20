@@ -6,7 +6,7 @@ module tb_top();
 
    initial begin
       hard_reset();
-      
+      dram_to_sram("lin.dat", `M1_SEL);
       $finish();
    end
    
