@@ -77,7 +77,7 @@ module npu8_top
    wire [7:0] 	 A_RDATA;
    wire [7:0] 	 B_RDATA;
    wire 	 LM_EN;
-   wire 	 C_WDATA;
+   wire [7:0]	 C_WDATA;
    
 
    //cpu if

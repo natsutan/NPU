@@ -60,9 +60,9 @@ module lmcnt
       if (rst_x == 0)begin
 	 rcnt <= 0;
       end else begin
-	 if ((rcnt == 0) & (START == 1))begin
+	 if ((rcnt == 0) && (START == 1))begin
 	    rcnt <= 1;
-	 end else if(rcnt != 10'h3FF)begin
+	 end else if((rcnt != 0) && (rcnt != 10'h3FF))begin
 	    rcnt <= rcnt + 1;
 	 end
       end
@@ -140,8 +140,8 @@ module lmcnt
    assign M2_WADR = wcnt;
    assign M3_WADR = wcnt;
 
-   assign M1_WADR = C_WDATA;
-   assign M2_WADR = C_WDATA;
-   assign M3_WADR = C_WDATA;
+   assign M1_WDATA = C_WDATA;
+   assign M2_WDATA = C_WDATA;
+   assign M3_WDATA = C_WDATA;
    
 endmodule // lmcnt
