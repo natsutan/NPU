@@ -1,4 +1,8 @@
 
+`define SIM_PATH "../../../sim/"
+   
+
+
 //registe address
 `define REG_CTRL 8'h00
 `define REG_STS  8'h04
@@ -78,7 +82,7 @@ npu8_top npu8_top
    .INT(INT)	 
    );
 
-
+   //HARDWARE API
    task hard_reset();
    begin
       # (PERIOD * 10)
@@ -103,12 +107,132 @@ npu8_top npu8_top
      begin
 	if(msel == `M0_SEL)begin
 	   $display("WARNING:DMA to M0");
-	end else if(msel == `M1_SEL) begin	
-	   $readmemh({"../../../sim/memrw/input/", fname} ,  npu8_top.m1.mem);
-	   $display("DMA %s to M0", fname);
-	end 
+	end else if (msel == `M1_SEL) begin	
+	   $readmemh({`SIM_PATH, `SCENARIO, "/input/", fname} ,  npu8_top.m1.mem);
+	   $display("DMA %s to M1", fname);
+	end else if (msel == `M2_SEL) begin
+	   $readmemh({`SIM_PATH, `SCENARIO, "/input/", fname} ,  npu8_top.m2.mem);
+	   $display("DMA %s to M2", fname);
+	end else if (msel == `M3_SEL) begin
+	   $readmemh({`SIM_PATH, `SCENARIO, "/input/", fname} ,  npu8_top.m3.mem);
+	   $display("DMA %s to M3", fname);
+	end else begin
+	   $display("DMA %s to %d", fname, msel);
+	end
      end
    endtask // dram_to_sram
    
 
-     
+   task sram_to_dram; 
+      input [80*8:1] fname;
+      input [1:0] msel;     
+     begin
+	if(msel == `M0_SEL)begin
+	   $display("WARNING:DMA from M0");
+	end else if (msel == `M1_SEL) begin	
+	   $writememh({`SIM_PATH, `SCENARIO, "/output/", fname},   npu8_top.m1.mem);
+	   $display("DMA M1 to %s ", fname);
+	end else if (msel == `M2_SEL) begin
+	   $writememh({`SIM_PATH, `SCENARIO, "/output/", fname},   npu8_top.m2.mem);
+	   $display("DMA %s to M2", fname);
+	end else if (msel == `M3_SEL) begin
+	   $writememh({`SIM_PATH, `SCENARIO, "/output/", fname},   npu8_top.m3.mem);
+	   $display("DMA %s to M2", fname);
+	end else begin
+	   $display("WARNING DMA %s from %d", fname, msel);
+	end
+     end
+   endtask // sram to dram
+   
+
+   // LOW LEVEL API
+   task WRITE_REG;
+      input [7:0] adr;
+      input [31:0] data;
+      begin
+	 @(posedge CLK);
+         ADR = adr;
+	 WR = 1;
+	 WDATA = data;
+	 @(posedge CLK);
+         ADR = 0;
+	 WR = 0;
+	 WDATA = 0;
+	 @(posedge CLK);
+      end
+   endtask //
+
+   task READ_REG;
+      input [7:0] adr;
+      output [31:0] rdata;
+      
+      begin
+	 @(posedge CLK);
+         ADR = adr;
+	 RD = 1;
+	 @(posedge CLK);
+	 rdata = RDATA;
+	 @(posedge CLK);
+         ADR = 0;
+	 RD = 0;
+	 @(posedge CLK);
+      end
+   endtask //
+   
+
+
+   // MIDDLE LEVEL API
+   task START_OPERATION;
+      begin
+	 WRITE_REG(`REG_CTRL, 32'h00000002);
+      end
+   endtask // WRITE_REG
+
+   task SET_OPERAND;
+      input [1:0] OP1;
+      input [1:0] OP2;
+      input [1:0] OP3;
+      begin
+	 WRITE_REG(`REG_MSEL, {26'h00000002, OP3, OP2, OP1});
+      end
+   endtask // WRITE_REG
+
+   
+   // APPLICATION API
+   task soft_reset;
+      begin
+	 WRITE_REG(`REG_CTRL, 32'h00000001);
+	 $display("soft reset");
+      end
+   endtask // WRITE_REG
+   
+   
+   task wait_irq;
+     input [31:0] timeout;
+      reg [31:0]  cnt;
+      reg 	  err;      
+      begin
+	 cnt = 0;
+	 err = 0;
+	 begin : BREAK
+	    while (INT == 0) begin
+	       @(posedge CLK);
+	       cnt = cnt + 1;
+	       if (cnt >=  timeout) begin
+		  err = 1;
+		  disable BREAK;
+		  
+	       end
+	    end
+	 end
+
+	 if (err == 1) begin
+	    $display("ERROR timeout");
+	 end else begin
+	    $display("Interrupt");
+	 end
+	 
+      end
+   endtask //
+   
+	
