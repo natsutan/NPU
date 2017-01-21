@@ -139,10 +139,10 @@ npu8_top npu8_top
 	   $display("DMA M1 to %s ", fname);
 	end else if (msel == `M2_SEL) begin
 	   $writememh({`SIM_PATH, `SCENARIO, "/output/", fname},   npu8_top.m2.mem);
-	   $display("DMA %s to M2", fname);
+	   $display("DMA M2 to %s", fname);
 	end else if (msel == `M3_SEL) begin
 	   $writememh({`SIM_PATH, `SCENARIO, "/output/", fname},   npu8_top.m3.mem);
-	   $display("DMA %s to M2", fname);
+	   $display("DMA M3 to %s", fname);
 	end else begin
 	   $display("WARNING DMA %s from %d", fname, msel);
 	end
