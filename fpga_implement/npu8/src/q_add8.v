@@ -23,8 +23,8 @@ module q_add8
    //# start vector
    // c_qt = b_qt * gain + a_qt
    // c_qt *= q_param
-   wire [23:0] 	 mul_1st_zp8;  //int 1: mul_1st_zp8[8] = 1
-   reg [24:0] 	 mul_add_zp8_r;
+   wire [15:0] 	 mul_1st_zp8;  //int 1: mul_1st_zp8[8] = 1
+   reg [16:0] 	 mul_add_zp8_r;
    wire [8:0] 	 mul_2nd_out;
    
    reg [`ADD_DELAY-1:0] 	 en_r;
@@ -39,7 +39,7 @@ module q_add8
       end
    end
 
-   mul17_16 mul_2nd(.CLK(CLK), .A(mul_add_zp8_r[24:8]), .B(Q_PARAM), .P(mul_2nd_out));
+   mul17_16 mul_2nd(.CLK(CLK), .A(mul_add_zp8_r[16:0]), .B(Q_PARAM), .P(mul_2nd_out));
    
    assign C_OUT = mul_2nd_out[7:0];
    
