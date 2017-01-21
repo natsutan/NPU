@@ -198,8 +198,8 @@ module npu8_top
       .SOFT_RESET(SOFT_RESET),
 
       .OP(OP),
-      .INV_ASEL(MSEL_INPUTA_SEL),
-      .INV_BSEL(MSEL_INPUTB_SEL),
+      .INV_ASEL(INV_ASEL),
+      .INV_BSEL(INV_BSEL),
       
       .INPUT_EN(NPU_EN),
       .A_IN(A_RDATA),

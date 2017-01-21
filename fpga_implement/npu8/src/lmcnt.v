@@ -48,14 +48,17 @@ module lmcnt
    );
 
    wire 	    rst_x;
-
-
    assign rst_x = RESET_X & ~SOFT_RESET;
+
+   reg 		    npu_en_r;
+   wire 	    npu_en_w;
+   
+   assign npu_en_w = START | npu_en_r;
    
    
    reg [9:0] 	    rcnt;
    reg [9:0] 	    wcnt;
-
+   
    always @ (posedge CLK or negedge rst_x)begin
       if (rst_x == 0)begin
 	 rcnt <= 0;
@@ -71,11 +74,13 @@ module lmcnt
    always @ (posedge CLK or negedge rst_x)begin
       if (rst_x == 0)begin
 	 NPU_EN <= 0;
+	 npu_en_r <= 0;
       end else begin
+	 NPU_EN <= npu_en_w; 
 	 if (START == 1)begin
-	    NPU_EN <= 1;
+	    npu_en_r <= 1;
 	 end else if(rcnt == 10'h3FF)begin
-	    NPU_EN <= 0;
+	    npu_en_r <= 0;
 	 end
       end
    end 
