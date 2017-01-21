@@ -29,7 +29,7 @@ module q_add8
    
    reg [`ADD_DELAY-1:0] 	 en_r;
    
-   mul8_16 mul_1st(.CLK, .A(B_IN), .B(GAIN), .P(mul_1st_zp8));
+   mul8_16 mul_1st(.CLK, .A(B_IN), .B(GAIN[15:0]), .P(mul_1st_zp8));
    
    always @ (posedge CLK or negedge RESET_X)begin
       if (RESET_X == 0) begin
@@ -39,7 +39,7 @@ module q_add8
       end
    end
 
-   mul17_16 mul_2nd(.CLK(CLK), .A(mul_add_zp8_r), .B(Q_PARAM), .P(mul_2nd_out));
+   mul17_16 mul_2nd(.CLK(CLK), .A(mul_add_zp8_r[24:8]), .B(Q_PARAM), .P(mul_2nd_out));
    
    assign C_OUT = mul_2nd_out[7:0];
    
@@ -49,11 +49,11 @@ module q_add8
 	 MAX <= 0;
       end else begin
 	 if(OUTPUT_EN)begin
-	    if (MAX > COUT) begin
-	       MAX <= COUT;
+	    if (MAX > C_OUT) begin
+	       MAX <= C_OUT;
 	    end
-	    if (MIN < COUT) begin
-	       MIN <= COUT;
+	    if (MIN < C_OUT) begin
+	       MIN <= C_OUT;
 	    end
 	 end
       end // else: !if(RESET_X)
@@ -68,6 +68,6 @@ module q_add8
       end
    end
    
-   assign output_en = en_r[`ADD_DELAY-1];
+   assign OUTPUT_EN = en_r[`ADD_DELAY-1];
    
 endmodule // q_add8

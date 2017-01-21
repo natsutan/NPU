@@ -51,25 +51,26 @@ module npu_core
    wire [7:0] 	    c_out_add, c_out_mul, c_out_rqt;
    wire [15:0] 	    rmax_add, rmax_mul, rmax_rqt;
    wire [15:0] 	    rmin_add, rmin_mul, rmin_rqt;
-   
-   assign op_add_sel = (OP == 2'b00);
-   assign op_mul_sel = (OP == 2'b01);
-   assign op_rqt_sel = (OP == 2'b10);
 
-   assign input_en_add = input_en_1t & op_add_sel;
-   assign input_en_mul = input_en_1t & op_add_mul;
-   assign input_en_rqt = input_en_1t & op_add_rqt;
- 
    reg 		    input_en_1t;
    reg [7:0] 	    a_in_r;
    reg [7:0] 	    b_in_r;
    
    wire [7:0] 	    a_in_inv;
    wire [7:0] 	    b_in_inv;
-  
+
+   
+   assign op_add_sel = (OP == 2'b00);
+   assign op_mul_sel = (OP == 2'b01);
+   assign op_rqt_sel = (OP == 2'b10);
+
+   assign input_en_add = input_en_1t & op_add_sel;
+   assign input_en_mul = input_en_1t & op_mul_sel;
+   assign input_en_rqt = input_en_1t & op_rqt_sel;
+ 
    // invert input
    q_inv8 inv_a(.A(A_IN), .B(a_in_inv));
-   q_inv8 inv_b(.B(B_IN), .B(b_in_inv));
+   q_inv8 inv_b(.A(B_IN), .B(b_in_inv));
 
    always @ (posedge CLK or negedge rst_x)begin
       if (rst_x == 0) begin
@@ -122,9 +123,8 @@ module npu_core
       if (rst_x == 0) begin
 	 OUTPUT_EN <= 0;
 	 C_OUT <= 8'h00;
-	 R_MAX <= 16'h0000;
-	 R_MIN <= 16'h0000;
-	 
+	 RMAX <= 16'h0000;
+	 RMIN <= 16'h0000;
       end else begin
 	 if (op_add_sel == 1) begin
 	    OUTPUT_EN <= output_en_add;
@@ -166,10 +166,9 @@ module npu_core
    assign c_out_rqt = 0;
 
    assign rmax_mul = 0;
-   assign rmim_mul = 0;
+   assign rmin_mul = 0;
    
    assign rmax_rqt = 0;
-   assign rmim_rqt = 0;
+   assign rmin_rqt = 0;
 
-   
 endmodule // npu_core

@@ -17,7 +17,7 @@
     <Option Name="CompiledLibDirRiviera" Val="$PCACHEDIR/compile_simlib/riviera"/>
     <Option Name="CompiledLibDirActivehdl" Val="$PCACHEDIR/compile_simlib/activehdl"/>
     <Option Name="BoardPart" Val=""/>
-    <Option Name="ActiveSimSet" Val="memrw"/>
+    <Option Name="ActiveSimSet" Val="q_add_01"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
     <Option Name="IPCachePermission" Val="read"/>
@@ -28,20 +28,20 @@
     <Option Name="IPStaticSourceDir" Val="$PPRDIR/npu8.ip_user_files/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="25"/>
+    <Option Name="WTXSimLaunchSim" Val="39"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="0"/>
-    <Option Name="WTModelSimExportSim" Val="0"/>
-    <Option Name="WTQuestaExportSim" Val="0"/>
-    <Option Name="WTIesExportSim" Val="0"/>
-    <Option Name="WTVcsExportSim" Val="0"/>
-    <Option Name="WTRivieraExportSim" Val="0"/>
-    <Option Name="WTActivehdlExportSim" Val="0"/>
+    <Option Name="WTXSimExportSim" Val="7"/>
+    <Option Name="WTModelSimExportSim" Val="7"/>
+    <Option Name="WTQuestaExportSim" Val="7"/>
+    <Option Name="WTIesExportSim" Val="7"/>
+    <Option Name="WTVcsExportSim" Val="7"/>
+    <Option Name="WTRivieraExportSim" Val="7"/>
+    <Option Name="WTActivehdlExportSim" Val="7"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -51,7 +51,14 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/src/cpu_if.v">
+      <File Path="$PPRDIR/src/q_inv8.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/src/q_add8.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -79,6 +86,20 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/src/cpu_if.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/src/npu_core.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/src/npu8_top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -99,6 +120,7 @@
       </Config>
     </FileSet>
     <FileSet Name="memrw" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/memrw">
+      <Filter Type="Srcs"/>
       <File Path="$PPRDIR/sim/memrw/memrw_tb.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -111,6 +133,82 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/sim/q_add_01/q_add_01_tb.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="tb_top"/>
+        <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopRTLFile" Val="$PPRDIR/sim/memrw/memrw_tb.v"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+        <Option Name="TransportPathDelay" Val="0"/>
+        <Option Name="TransportIntDelay" Val="0"/>
+        <Option Name="SimMode" Val="post-implementation"/>
+        <Option Name="SrcSet" Val="sources_1"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_top_behav.wcfg"/>
+        <Option Name="xsim.simulate.runtime" Val=""/>
+      </Config>
+    </FileSet>
+    <FileSet Name="mul8_16" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul8_16">
+      <File Path="$PSRCDIR/sources_1/ip/mul8_16/mul8_16.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="hdl/xbip_bram18k_v3_0_vh_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="hdl/xbip_pipe_v3_0_vh_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16.vho"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="hdl/mult_gen_v12_0_vh_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="doc/mult_gen_v12_0_changelog.txt"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16.veo"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="hdl/xbip_utils_v3_0_vh_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16_stub.v"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="sim/mul8_16.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16_sim_netlist.vhdl"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="synth/mul8_16.vhd"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16.xml"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="mul8_16.xci" FileRelPathName="mul8_16_sim_netlist.v"/>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="mul8_16"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="mul17_16" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul17_16">
+      <File Path="$PSRCDIR/sources_1/ip/mul17_16/mul17_16.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="mul17_16"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="q_add_01" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/q_add_01">
+      <File Path="$PPRDIR/sim/q_add_01/q_add_01_tb.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/tb_top_behav1.wcfg">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="tb_top"/>
@@ -119,7 +217,7 @@
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_top_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/tb_top_behav1.wcfg"/>
         <Option Name="xsim.simulate.runtime" Val=""/>
       </Config>
     </FileSet>
@@ -154,9 +252,59 @@
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
+    <Run Id="mul8_16_synth_1" Type="Ft3:Synth" SrcSet="mul8_16" Part="xcku035-fbva676-3-e" ConstrsSet="mul8_16" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/mul8_16_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul17_16_synth_1" Type="Ft3:Synth" SrcSet="mul17_16" Part="xcku035-fbva676-3-e" ConstrsSet="mul17_16" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/mul17_16_synth_1" IncludeInArchive="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xcku035-fbva676-3-e" ConstrsSet="constrs_1" Description="Default settings for Implementation." State="current" SynthRun="synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul8_16_impl_1" Type="Ft2:EntireDesign" Part="xcku035-fbva676-3-e" ConstrsSet="mul8_16" Description="Default settings for Implementation." SynthRun="mul8_16_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+    </Run>
+    <Run Id="mul17_16_impl_1" Type="Ft2:EntireDesign" Part="xcku035-fbva676-3-e" ConstrsSet="mul17_16" Description="Default settings for Implementation." SynthRun="mul17_16_synth_1" IncludeInArchive="false">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

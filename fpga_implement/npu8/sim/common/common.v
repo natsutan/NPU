@@ -25,7 +25,7 @@
 `define REG_M3MAX    8'h48
 `define REG_M3MIN    8'h4C
 `define REG_AD_GAIN  8'h50
-`define REG_AD_QPARAM 8'54
+`define REG_AD_QPARAM 8'h54
 `define REG_MLC_GAGB 8'60
 `define REG_MLC_GAOB 8'h64
 `define REG_MLC_GBOA 8'h68
@@ -37,6 +37,11 @@
 `define REG_REQ_GAIN 8'h84  
 `define REG_RMAX 8'hC0
 `define REG_RMIN 8'hC4
+
+`define OPCODE_ADD 2'b00
+`define OPCODE_MUL 2'b01
+`define OPCODE_RQT 2'b10
+
 
 `define M0_SEL (0)
 `define M1_SEL (1)
@@ -144,7 +149,7 @@ npu8_top npu8_top
      end
    endtask // sram to dram
    
-
+   //-------------------------------------------------------------
    // LOW LEVEL API
    task WRITE_REG;
       input [7:0] adr;
@@ -178,9 +183,10 @@ npu8_top npu8_top
 	 @(posedge CLK);
       end
    endtask //
+
    
 
-
+   //-------------------------------------------------------------
    // MIDDLE LEVEL API
    task START_OPERATION;
       begin
@@ -193,11 +199,43 @@ npu8_top npu8_top
       input [1:0] OP2;
       input [1:0] OP3;
       begin
-	 WRITE_REG(`REG_MSEL, {26'h00000002, OP3, OP2, OP1});
+	 WRITE_REG(`REG_MSEL, {26'h00000000, OP3, OP2, OP1});
       end
    endtask // WRITE_REG
 
+   task SET_INPUT_INV;
+      input A_INV;
+      input B_INV;
+      begin
+	 WRITE_REG(`REG_INV, {30'h00000000, B_INV, A_INV });
+      end
+   endtask // WRITE_REG
+
+   task SET_OPCODE;
+      input [1:0] OP;
+      begin
+	 WRITE_REG(`REG_INV, {30'h00000000, OP });
+      end
+   endtask // WRITE_REG
+
+   task SET_ADD_GAIN;
+     input [15:0] GAIN;
+      begin
+	 WRITE_REG(`REG_AD_GAIN, {16'h0000, GAIN});
+      end
+   endtask // WRITE_REG
+
+   task SET_ADD_Q_PARAM;
+      input [15:0] Q_PARAM;
+      begin
+	 WRITE_REG(`REG_AD_QPARAM, {16'h0000, Q_PARAM});
+      end
+   endtask // WRITE_REG
    
+      
+   
+
+   //-------------------------------------------------------------
    // APPLICATION API
    task soft_reset;
       begin

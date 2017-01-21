@@ -5,6 +5,6 @@ module q_inv8
    output [7:0] B
    );
 
-   assign B = 255 - a;
+   assign B = 255 - A;
    
 endmodule // q_inv8
