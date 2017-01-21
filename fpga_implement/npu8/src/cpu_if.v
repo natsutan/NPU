@@ -43,7 +43,6 @@ module cpu_if
    output reg [31:0] MLC_GAGB, 
    output reg [31:0] MLC_GAOB,
    output reg [31:0] MLC_GBOA, 
-	     
    
    // MULL ADD1
    output reg [31:0] ML1_GAIN,
@@ -53,10 +52,9 @@ module cpu_if
 		     
    output reg [7:0]  REQ_MID,
    output reg [31:0] REQ_GAIN,
-
    
-   input [7:0] 	     RMAX,
-   input [7:0] 	     RMIN
+   input [15:0] 	     RMAX,
+   input [15:0] 	     RMIN
    );
 
    reg 		     run_r;
@@ -106,7 +104,6 @@ module cpu_if
 	 end
       end
    end
-   
    
    always @ (posedge CLK or negedge RESET_X) begin
       if (RESET_X==0)begin
@@ -327,12 +324,12 @@ module cpu_if
 		 RDATA[0] <= FINISH;
 	      end
 	      8'hC0: begin
-		 RDATA[31:8] <= 24'h000000;
-		 RDATA[7:0] <= RMAX;
+		 RDATA[31:16] <= 24'h000000;
+		 RDATA[15:0] <= RMAX;
 	      end
 	      8'hC4: begin
-		 RDATA[31:8] <= 24'h000000;
-		 RDATA[7:0] <= RMIN;
+		 RDATA[31:16] <= 24'h000000;
+		 RDATA[15:0] <= RMIN;
 	      end
 	      default: RDATA <= 0;
 	      
@@ -340,9 +337,5 @@ module cpu_if
 	 end
       end
    end
-   
-
-
-
    
 endmodule // cpu_if

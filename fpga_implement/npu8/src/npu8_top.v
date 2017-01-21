@@ -191,14 +191,43 @@ module npu8_top
    
 
    //NPU8
+   npu_core npu_core
+     (
+      .CLK(CLK),
+      .RESET_X(RESET_X),
+      .SOFT_RESET(SOFT_RESET),
 
+      .OP(OP),
+      .INV_ASEL(MSEL_INPUTA_SEL),
+      .INV_BSEL(MSEL_INPUTB_SEL),
+      
+      .INPUT_EN(NPU_EN),
+      .A_IN(A_RDATA),
+      .B_IN(B_RDATA),
 
-   //dummy
-   assign RMAX = 8'h00;
-   assign RMIN = 8'h00;
+      .OUTPUT_EN(LM_EN),
+      .C_OUT(C_WDATA),
 
-   assign LM_EN = NPU_EN;
-   assign C_WDATA = A_RDATA;
+      .AD_GAIN(AD_GAIN),
+      .AD_QPARAM(AD_QPARAM),
+
+      .MLC_GAGB(MLC_GAGB), 
+      .MLC_GAOB(MLC_GAOB),
+      .MLC_GBOA(MLC_GBOA), 
+
+      .ML1_GAIN(ML1_GAIN),
+      .ML1_QPARAM(ML1_QPARAM),
+      .ML2_GAIN(ML2_GAIN),
+      .ML2_QPARAM(ML2_QPARAM),
+      
+      .REQ_MID(REQ_MID),
+      .REQ_GAIN(REQ_GAIN),
+
+      .RMAX(RMAX),
+      .RMIN(RMIN)
+
+   );
+
    
    
 
