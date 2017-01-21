@@ -39,11 +39,13 @@ save_img('const_mul_inv.png', -3 * B, q_B_inv, deq_B_inv, n = 10)
 
 # mul
 C = A * B
-q_C, c_min, c_max = npu.q_mul(q_A, a_min, a_max, q_B, b_min, b_max)
+q_C, c_min, c_max = npu.q_mul(q_A, a_min, a_max, q_B, b_min, b_max, debug=True)
 deq_C = npu.deQuantize(q_C, c_min, c_max)
 save_img('mul.png', C, q_C, deq_C, n=2)
+save_img('mul_a.png', q_C, q_C, q_C, n=4)
 
-q_C, c_min, c_max = npu.q_mul(q_B, b_min, b_max, q_A, a_min, a_max)
+
+q_C, c_min, c_max = npu.q_mul(q_B, b_min, b_max, q_A, a_min, a_max, debug=True)
 deq_C = npu.deQuantize(q_C, c_min, c_max)
 save_img('mul2.png', C, q_C, deq_C, n=3)
 
