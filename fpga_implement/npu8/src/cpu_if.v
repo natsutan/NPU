@@ -73,11 +73,14 @@ module cpu_if
    always @ (posedge CLK or negedge RESET_X) begin
       if (RESET_X==0)begin
 	 START <= 0;
+	 SOFT_RESET <= 0;
       end else begin
 	 if((ADR==8'h00) && WR)begin
-	    START <= WDATA[0];
+	    START <= WDATA[1];
+	    SOFT_RESET <= WDATA[0];
 	 end else begin
 	    START <= 0;
+	    SOFT_RESET <= 0;
 	 end
       end
    end

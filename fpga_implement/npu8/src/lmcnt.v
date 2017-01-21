@@ -50,7 +50,7 @@ module lmcnt
    wire 	    rst_x;
 
 
-   assign rst_x = RESET_X & SOFT_RESET;
+   assign rst_x = RESET_X & ~SOFT_RESET;
    
    
    reg [9:0] 	    rcnt;
