@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1733598 on Wed Dec 14 22:35:42 MST 2016
+# IP Build 1731160 on Wed Dec 14 23:47:21 MST 2016
+# Start of session at: Sat Jan 21 22:59:00 2017
+# Process ID: 5071
+# Current directory: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/mul_16_32_synth_1
+# Command line: vivado -log mul_16_32.vds -stack 2000 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mul_16_32.tcl
+# Log file: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/mul_16_32_synth_1/mul_16_32.vds
+# Journal file: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/mul_16_32_synth_1/vivado.jou
+#-----------------------------------------------------------
+source mul_16_32.tcl -notrace

@@ -1,0 +1,12 @@
+0.6
+2016.4
+Dec 14 2016
+22:45:39
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.sim/memrw/behav/glbl.v,1481753704,verilog,,,,glbl,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/sim/common/common.v,1484966579,verilog,,,,,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/sim/memrw/memrw_tb.v,1484965514,verilog,,,/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/sim/common/common.v,tb_top,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v,1484755881,verilog,,,,M0,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/cpu_if.v,1484967029,verilog,,,,cpu_if,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/lmcnt.v,1484968215,verilog,,,,lmcnt,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v,1484754074,verilog,,,,local_mem,,,,,,,,
+/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v,1484968028,verilog,,,,npu8_top,,,,,,,,

@@ -39,13 +39,13 @@ module q_mul8
    wire [7:0] 	     C_qt_0;
    wire [7:0] 	     qt_A_bmin;
    wire [7:0] 	     qt_B_amin;
-   wrre              add_1st_en;
+   wire              add_1st_en;
    
-   
-   assign qt_A_bmin = A_SEL_INV ? A_IN : A_IN_INV;
-   assign qt_b_bmin = B_SEL_INV ? B_IN : B_IN_INV;
-   
+   assign qt_A_bmin = A_SEL_INV ? A_IN_INV : A_IN;
+   assign qt_B_amin = B_SEL_INV ? B_IN_INV : B_IN;
 
+   reg [7:0] 	     AdBd_qt_1t;
+   
    
    q_mul_core8 mul_core
      (
@@ -86,9 +86,9 @@ module q_mul8
       .CLK(CLK),
       .RESET_X(RESET_X),
       
-      .INPUT_EN(mul_core_en),
-      .A_IN(C_qt_0),
-      .B_IN(AdBd_qt),
+      .INPUT_EN(add_1st_en),
+      .A_IN(AdBd_qt_1t),
+      .B_IN(C_qt_0),
       
       .OUTPUT_EN(OUTPUT_EN),
       .C_OUT(C_OUT),
@@ -100,4 +100,14 @@ module q_mul8
       .MAX(MAX)
    );
 
+
+   always @ (posedge CLK or negedge RESET_X)begin
+      if (RESET_X == 0)begin
+	 AdBd_qt_1t <= 8'h00;
+      end else begin
+	 AdBd_qt_1t <= AdBd_qt;
+      end
+   end
+   
+   
 endmodule // q_mul8

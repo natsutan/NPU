@@ -16,18 +16,18 @@ module q_mul_core8
 
    `define MUL_DELAY 7
    
-   reg [`ADD_DELAY-1:0] en_r;
+   reg [`MUL_DELAY-1:0] en_r;
 
    
   // start vector alu
   //  AB = (p_gagb * a_qt * b_qt).astype(np.int)
    wire [15:0] 	mul_1st_out;
-   wire [15:0] 	mul_2nd_out;
+   wire [47:0] 	mul_2nd_out;
    
    mul8_8 mul_1st(.CLK(CLK), .A(A_IN), .B(B_IN), .P(mul_1st_out));
-   mul16_16 mul_2nd(.CLK(CLK), .A(mul_1st_out), .B(MLC_GAGB[15:0]), .P(mul_2nd_out));
+   mul_16_32 mul_2nd(.CLK(CLK), .A(mul_1st_out), .B(MLC_GAGB), .P(mul_2nd_out));
    
-   assign C_OUT = mul_2nd_out[7:0];
+   assign C_OUT = mul_2nd_out[24:17];
    
    //delay
    always @ (posedge CLK or negedge RESET_X)begin

@@ -1,0 +1,9 @@
+Vivado Simulator 2016.4
+Time resolution is 1 ps
+hard reset
+DMA                                                                         lin2.dat to M1
+DMA                                                                         lin2.dat to M2
+soft reset
+Interrupt
+DMA M3 to                                                                         lin2.dat
+$finish called at time : 10750 ns : File "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/sim/q_add_01/q_add_01_tb.v" Line 28

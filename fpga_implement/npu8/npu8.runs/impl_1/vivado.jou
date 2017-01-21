@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2016.4 (64-bit)
+# SW Build 1733598 on Wed Dec 14 22:35:42 MST 2016
+# IP Build 1731160 on Wed Dec 14 23:47:21 MST 2016
+# Start of session at: Sat Jan 21 19:04:54 2017
+# Process ID: 3906
+# Current directory: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/impl_1
+# Command line: vivado -log npu8_top.vdi -applog -stack 2000 -product Vivado -messageDb vivado.pb -mode batch -source npu8_top.tcl -notrace
+# Log file: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/impl_1/npu8_top.vdi
+# Journal file: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source npu8_top.tcl -notrace

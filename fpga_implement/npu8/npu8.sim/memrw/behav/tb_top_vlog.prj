@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  "../../../src/cpu_if.v"
+verilog xil_defaultlib  "../../../src/M0.v"
+verilog xil_defaultlib  "../../../src/local_mem.v"
+verilog xil_defaultlib  "../../../src/lmcnt.v"
+verilog xil_defaultlib  "../../../src/npu8_top.v"
+verilog xil_defaultlib  "../../../sim/memrw/memrw_tb.v"
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

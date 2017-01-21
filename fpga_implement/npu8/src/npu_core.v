@@ -181,12 +181,12 @@ module npu_core
 	    C_OUT <= c_out_add;
 	    RMAX <= rmax_add;
 	    RMIN <= rmin_add;
-	 end else if(op_add_sel == 1) begin
+	 end else if(op_mul_sel == 1) begin
 	    OUTPUT_EN <= output_en_mul;
 	    C_OUT <= c_out_mul;
 	    RMAX <= rmax_mul;
 	    RMIN <= rmin_mul;
-	 end else if (op_mul_sel == 1) begin
+	 end else if (op_rqt_sel == 1) begin
 	    OUTPUT_EN <= output_en_rqt;
 	    C_OUT <= c_out_rqt;
 	    RMAX <= rmax_rqt;

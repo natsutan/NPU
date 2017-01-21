@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="mul_16_32_synth_1" LaunchPart="xcku035-fbva676-3-e" LaunchTime="1485007140">
+  <File Type="VDS-TIMING-PB" Name="mul_16_32_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="mul_16_32_timing_summary_synth.rpt"/>
+  <File Type="RDS-RDS" Name="mul_16_32.vds"/>
+  <File Type="PA-TCL" Name="mul_16_32.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="mul_16_32_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="mul_16_32_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="mul_16_32_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="mul_16_32.dcp"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul_16_32">
+    <File Path="$PSRCDIR/sources_1/ip/mul_16_32/mul_16_32.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="mul_16_32"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul_16_32">
+    <File Path="$PSRCDIR/sources_1/ip/mul_16_32/mul_16_32.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="mul_16_32"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>

@@ -1,0 +1,751 @@
+
+*** Running vivado
+    with args -log npu8_top.vds -m64 -stack 2000 -product Vivado -mode batch -messageDb vivado.pb -notrace -source npu8_top.tcl
+
+
+****** Vivado v2016.4 (64-bit)
+  **** SW Build 1733598 on Wed Dec 14 22:35:42 MST 2016
+  **** IP Build 1731160 on Wed Dec 14 23:47:21 MST 2016
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+source npu8_top.tcl -notrace
+Command: synth_design -top npu8_top -part xcku035-fbva676-3-e
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcku035'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcku035'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 3775 
+Terminated helper option '--stack' cannot be specified more than once
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3110.570 ; gain = 199.094 ; free physical = 207 ; free virtual = 10108
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'npu8_top' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:3]
+INFO: [Synth 8-638] synthesizing module 'cpu_if' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/cpu_if.v:2]
+INFO: [Synth 8-256] done synthesizing module 'cpu_if' (1#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/cpu_if.v:2]
+WARNING: [Synth 8-689] width (8) of port connection 'RMAX' does not match port width (16) of module 'cpu_if' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:135]
+WARNING: [Synth 8-689] width (8) of port connection 'RMIN' does not match port width (16) of module 'cpu_if' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:136]
+INFO: [Synth 8-638] synthesizing module 'M0' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v:2]
+INFO: [Synth 8-256] done synthesizing module 'M0' (2#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v:2]
+WARNING: [Synth 8-689] width (32) of port connection 'M0VAL' does not match port width (8) of module 'M0' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:142]
+INFO: [Synth 8-638] synthesizing module 'local_mem' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v:2]
+INFO: [Synth 8-256] done synthesizing module 'local_mem' (3#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v:2]
+INFO: [Synth 8-638] synthesizing module 'lmcnt' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/lmcnt.v:2]
+INFO: [Synth 8-256] done synthesizing module 'lmcnt' (4#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/lmcnt.v:2]
+INFO: [Synth 8-638] synthesizing module 'npu_core' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu_core.v:1]
+INFO: [Synth 8-638] synthesizing module 'q_inv8' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_inv8.v:2]
+INFO: [Synth 8-256] done synthesizing module 'q_inv8' (5#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_inv8.v:2]
+INFO: [Synth 8-638] synthesizing module 'q_add8' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v:1]
+INFO: [Synth 8-638] synthesizing module 'mul8_16' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul8_16_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'mul8_16' (6#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul8_16_stub.v:6]
+INFO: [Synth 8-638] synthesizing module 'mul17_16' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul17_16_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'mul17_16' (7#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul17_16_stub.v:6]
+WARNING: [Synth 8-689] width (32) of port connection 'B' does not match port width (16) of module 'mul17_16' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v:43]
+INFO: [Synth 8-256] done synthesizing module 'q_add8' (8#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v:1]
+INFO: [Synth 8-638] synthesizing module 'q_mul8' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:1]
+INFO: [Synth 8-638] synthesizing module 'q_mul_core8' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul_core8.v:1]
+INFO: [Synth 8-638] synthesizing module 'mul8_8' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul8_8_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'mul8_8' (9#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul8_8_stub.v:6]
+INFO: [Synth 8-638] synthesizing module 'mul16_16' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul16_16_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'mul16_16' (10#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/realtime/mul16_16_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'q_mul_core8' (11#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul_core8.v:1]
+WARNING: [Synth 8-3848] Net qt_B_amin in module/entity q_mul8 does not have driver. [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:41]
+INFO: [Synth 8-256] done synthesizing module 'q_mul8' (12#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:1]
+INFO: [Synth 8-256] done synthesizing module 'npu_core' (13#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu_core.v:1]
+WARNING: [Synth 8-689] width (8) of port connection 'RMAX' does not match port width (16) of module 'npu_core' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:226]
+WARNING: [Synth 8-689] width (8) of port connection 'RMIN' does not match port width (16) of module 'npu_core' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:227]
+INFO: [Synth 8-256] done synthesizing module 'npu8_top' (14#1) [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:3]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[31]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[30]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[29]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[28]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[27]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[26]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[25]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[24]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[23]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[22]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[21]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[20]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[19]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[18]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[17]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port GAIN[16]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[31]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[30]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[29]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[28]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[27]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[26]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[25]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[24]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[23]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[22]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[21]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[20]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[19]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[18]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[17]
+WARNING: [Synth 8-3331] design q_add8 has unconnected port Q_PARAM[16]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[31]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[30]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[29]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[28]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[27]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[26]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[25]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[24]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[23]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[22]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[21]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[20]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[19]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[18]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[17]
+WARNING: [Synth 8-3331] design q_mul_core8 has unconnected port MLC_GAGB[16]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[7]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[6]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[5]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[4]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[3]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[2]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[1]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_IN_INV[0]
+WARNING: [Synth 8-3331] design q_mul8 has unconnected port B_SEL_INV
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[31]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[30]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[29]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[28]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[27]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[26]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[25]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[24]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[23]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[22]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[21]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[20]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[19]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[18]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[17]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[16]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[15]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[14]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[13]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[12]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[11]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[10]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[9]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[8]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[7]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[6]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[5]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[4]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[3]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[2]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[1]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GAOB[0]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[31]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[30]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[29]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[28]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[27]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[26]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[25]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[24]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[23]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[22]
+WARNING: [Synth 8-3331] design npu_core has unconnected port MLC_GBOA[21]
+INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3152.039 ; gain = 240.562 ; free physical = 166 ; free virtual = 10067
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[7] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[6] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[5] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[4] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[3] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[2] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[1] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+WARNING: [Synth 8-3295] tying undriven pin add_1st:B_IN[0] to constant 0 [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v:62]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3152.039 ; gain = 240.562 ; free physical = 166 ; free virtual = 10066
+---------------------------------------------------------------------------------
+WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'mul16_16' instantiated as 'npu_core/q_mul8/mul_core/mul_2nd' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul_core8.v:28]
+WARNING: [Project 1-560] Could not resolve non-primitive black box cell 'mul17_16' instantiated as 'npu_core/q_add8/mul_2nd'. 3 instances of this cell are unresolved black boxes. [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v:43]
+WARNING: [Project 1-560] Could not resolve non-primitive black box cell 'mul8_16' instantiated as 'npu_core/q_add8/mul_1st'. 3 instances of this cell are unresolved black boxes. [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v:33]
+WARNING: [Project 1-486] Could not resolve non-primitive black box cell 'mul8_8' instantiated as 'npu_core/q_mul8/mul_core/mul_1st' [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul_core8.v:27]
+INFO: [Device 21-403] Loading part xcku035-fbva676-3-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_add8/mul_1st'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_add8/mul_1st'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_mul8/add_1st/mul_1st'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_mul8/add_1st/mul_1st'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_mul8/add_2nd/mul_1st'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp/mul8_16_in_context.xdc] for cell 'npu_core/q_mul8/add_2nd/mul_1st'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_2/mul8_8_in_context.xdc] for cell 'npu_core/q_mul8/mul_core/mul_1st'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_2/mul8_8_in_context.xdc] for cell 'npu_core/q_mul8/mul_core/mul_1st'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_3/mul16_16_in_context.xdc] for cell 'npu_core/q_mul8/mul_core/mul_2nd'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_3/mul16_16_in_context.xdc] for cell 'npu_core/q_mul8/mul_core/mul_2nd'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_add8/mul_2nd'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_add8/mul_2nd'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_mul8/add_1st/mul_2nd'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_mul8/add_1st/mul_2nd'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_mul8/add_2nd/mul_2nd'
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/.Xil/Vivado-3770-natu-OMEN-by-HP-Laptop/dcp_4/mult_17x16_in_context.xdc] for cell 'npu_core/q_mul8/add_2nd/mul_2nd'
+Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3667.344 ; gain = 0.000 ; free physical = 200 ; free virtual = 9721
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3667.344 ; gain = 755.867 ; free physical = 207 ; free virtual = 9726
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcku035-fbva676-3-e
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3667.344 ; gain = 755.867 ; free physical = 207 ; free virtual = 9726
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for npu_core/q_add8/mul_2nd. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for npu_core/q_mul8/add_1st/mul_2nd. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for npu_core/q_mul8/add_2nd/mul_2nd. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3667.344 ; gain = 755.867 ; free physical = 207 ; free virtual = 9726
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "npu_en_r" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "FINISH" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3667.344 ; gain = 755.867 ; free physical = 197 ; free virtual = 9717
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     17 Bit       Adders := 3     
+	   2 Input     10 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 12    
+	               17 Bit    Registers := 3     
+	               16 Bit    Registers := 8     
+	               10 Bit    Registers := 7     
+	                8 Bit    Registers := 22    
+	                7 Bit    Registers := 1     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 2     
+	   2 Input     10 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 7     
+	   3 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module cpu_if 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 12    
+	               10 Bit    Registers := 5     
+	                8 Bit    Registers := 1     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 6     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module lmcnt 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     10 Bit       Adders := 2     
++---Registers : 
+	               10 Bit    Registers := 2     
+	                8 Bit    Registers := 2     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     10 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 5     
+	   3 Input      1 Bit        Muxes := 1     
+Module q_add8__xdcDup__1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     17 Bit       Adders := 1     
++---Registers : 
+	               17 Bit    Registers := 1     
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 4     
+Module q_mul_core8 
+Detailed RTL Component Info : 
++---Registers : 
+	                7 Bit    Registers := 1     
+Module q_add8__xdcDup__2 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     17 Bit       Adders := 1     
++---Registers : 
+	               17 Bit    Registers := 1     
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 4     
+Module q_add8 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     17 Bit       Adders := 1     
++---Registers : 
+	               17 Bit    Registers := 1     
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 4     
+Module q_mul8 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+Module npu_core 
+Detailed RTL Component Info : 
++---Registers : 
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 7     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1700 (col length:120)
+BRAMs: 1080 (col length: RAMB18 120 RAMB36 60)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "lmcnt/FINISH" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[31]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[30]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[29]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[28]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[27]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[26]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[25]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[24]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[23]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[22]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[21]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[20]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[19]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[18]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[17]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[16]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[15]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[14]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[13]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[12]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[11]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[10]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[9]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[8]' (FDCE) to 'cpu_if/M0VAL_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[0]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[1]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[2]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[3]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[4]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[5]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/M0VAL_reg[6]' (FDCE) to 'cpu_if/M0VAL_reg[7]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu_if/M0VAL_reg[7] )
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[8]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[9]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[10]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[11]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[12]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[13]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MAX_reg[14]' (FDCE) to 'npu_core/q_add8/MAX_reg[15]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\npu_core/q_add8/MAX_reg[15] )
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[8]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[9]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[10]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[11]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[12]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3886] merging instance 'npu_core/q_add8/MIN_reg[13]' (FDPE) to 'npu_core/q_add8/MIN_reg[14]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\npu_core/q_add8/MIN_reg[15] )
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[8]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[9]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[10]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[11]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[12]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[13]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[14]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[15]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[16]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[17]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[18]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[19]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[20]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[21]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[22]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[23]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[24]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[25]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[26]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[27]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[28]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[29]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3886] merging instance 'cpu_if/RDATA_reg[30]' (FDCE) to 'cpu_if/RDATA_reg[31]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu_if/RDATA_reg[31] )
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[0]' (FDCE) to 'npu_core/RMAX_reg[1]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[1]' (FDCE) to 'npu_core/RMAX_reg[2]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[2]' (FDCE) to 'npu_core/RMAX_reg[3]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[3]' (FDCE) to 'npu_core/RMAX_reg[4]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[4]' (FDCE) to 'npu_core/RMAX_reg[5]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[5]' (FDCE) to 'npu_core/RMAX_reg[6]'
+INFO: [Synth 8-3886] merging instance 'npu_core/RMAX_reg[6]' (FDCE) to 'npu_core/RMAX_reg[7]'
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[9]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[8]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[7]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[6]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[5]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[4]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[3]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[2]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[1]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[0]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[9]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[8]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[7]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[6]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[5]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[4]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[3]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[2]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[1]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/M2POS_reg[0]__0) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[15]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[14]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[7]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[6]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[5]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[4]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[3]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[2]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[1]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MIN_reg[0]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[15]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[14]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[13]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[12]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[11]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[10]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[9]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMAX_reg[8]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/q_add8/MAX_reg[15]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[15]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[14]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[13]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[12]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[11]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[10]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[9]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (npu_core/RMIN_reg[8]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/RDATA_reg[31]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[31]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[30]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[29]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[28]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[27]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[26]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[25]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[24]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[23]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[22]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[21]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[20]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[19]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[18]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[17]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_GAIN_reg[16]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[31]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[30]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[29]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[28]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[27]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[26]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[25]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[24]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[23]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[22]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[21]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[20]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[19]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[18]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[17]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/AD_QPARAM_reg[16]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[31]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[30]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[29]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[28]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[27]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[26]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[25]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[24]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[23]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[22]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[21]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[20]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[19]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[18]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[17]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/MLC_GAGB_reg[16]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/ML1_GAIN_reg[31]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/ML1_GAIN_reg[30]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/ML1_GAIN_reg[29]) is unused and will be removed from module npu8_top.
+WARNING: [Synth 8-3332] Sequential element (cpu_if/ML1_GAIN_reg[28]) is unused and will be removed from module npu8_top.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 3667.344 ; gain = 755.867 ; free physical = 182 ; free virtual = 9702
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++------------+------------+-----------+----------------------+-----------------+
+|Module Name | RTL Object | Inference | Size (Depth x Width) | Primitives      | 
++------------+------------+-----------+----------------------+-----------------+
+|npu8_top    | m1/mem_reg | Implied   | 1 K x 8              | RAM64X1D x 16   | 
+|npu8_top    | m2/mem_reg | Implied   | 1 K x 8              | RAM64X1D x 16   | 
+|npu8_top    | m3/mem_reg | Implied   | 1 K x 8              | RAM64X1D x 16   | 
++------------+------------+-----------+----------------------+-----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 3820.422 ; gain = 908.945 ; free physical = 135 ; free virtual = 9451
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 3821.422 ; gain = 909.945 ; free physical = 147 ; free virtual = 9447
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++------------+--------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name | RTL Name                       | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++------------+--------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|npu8_top    | npu_core/q_add8/en_r_reg[7]    | 10     | 1     | YES          | NO                 | YES               | 1      | 0       | 
+|npu8_top    | npu_core/q_add8/a_in_3t_reg[7] | 4      | 8     | YES          | NO                 | YES               | 8      | 0       | 
++------------+--------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |mul8_16       |         3|
+|2     |mul17_16      |         3|
+|3     |mul8_8        |         1|
+|4     |mul16_16      |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+------------+------+
+|      |Cell        |Count |
++------+------------+------+
+|1     |mul16_16    |     1|
+|2     |mul17_16    |     1|
+|3     |mul17_16__3 |     1|
+|4     |mul17_16__4 |     1|
+|5     |mul8_16     |     1|
+|6     |mul8_16__3  |     1|
+|7     |mul8_16__4  |     1|
+|8     |mul8_8      |     1|
+|9     |BUFG        |     1|
+|10    |CARRY8      |     8|
+|11    |LUT1        |    40|
+|12    |LUT2        |    62|
+|13    |LUT3        |    41|
+|14    |LUT4        |    19|
+|15    |LUT5        |    78|
+|16    |LUT6        |   122|
+|17    |MUXF7       |    48|
+|18    |MUXF8       |    24|
+|19    |RAM64M8     |    48|
+|20    |RAM64X1D    |    48|
+|21    |SRL16E      |     9|
+|22    |FDCE        |   365|
+|23    |FDRE        |     9|
+|24    |IBUF        |    28|
+|25    |OBUF        |    33|
++------+------------+------+
+
+Report Instance Areas: 
++------+---------------+------------------+------+
+|      |Instance       |Module            |Cells |
++------+---------------+------------------+------+
+|1     |top            |                  |  1138|
+|2     |  cpu_if       |cpu_if            |   198|
+|3     |  lmcnt        |lmcnt             |   152|
+|4     |  m1           |local_mem         |    88|
+|5     |  m2           |local_mem_0       |    88|
+|6     |  m3           |local_mem_1       |    88|
+|7     |  npu_core     |npu_core          |   462|
+|8     |    inv_a      |q_inv8            |     8|
+|9     |    q_add8     |q_add8__xdcDup__1 |   138|
+|10    |    q_mul8     |q_mul8            |   241|
+|11    |      add_1st  |q_add8__xdcDup__2 |   100|
+|12    |      add_2nd  |q_add8            |   101|
+|13    |      mul_core |q_mul_core8       |    32|
++------+---------------+------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 153 ; free virtual = 9425
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 248 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 3843.453 ; gain = 281.578 ; free physical = 153 ; free virtual = 9425
+Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3843.453 ; gain = 931.977 ; free physical = 152 ; free virtual = 9425
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 125 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 125 instances were transformed.
+  BUFG => BUFGCE: 1 instances
+  IBUF => IBUF (IBUFCTRL, INBUF): 28 instances
+  RAM64M8 => RAM64M8 (RAMD64E, RAMD64E, RAMD64E, RAMD64E, RAMD64E, RAMD64E, RAMD64E, RAMD64E): 48 instances
+  RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 48 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+132 Infos, 219 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 3885.469 ; gain = 855.480 ; free physical = 137 ; free virtual = 9409
+INFO: [Common 17-1381] The checkpoint '/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.runs/synth_1/npu8_top.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.12 . Memory (MB): peak = 3909.480 ; gain = 0.000 ; free physical = 156 ; free virtual = 9406
+INFO: [Common 17-206] Exiting Vivado at Sat Jan 21 19:04:45 2017...

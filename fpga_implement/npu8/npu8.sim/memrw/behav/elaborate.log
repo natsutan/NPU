@@ -1,0 +1,32 @@
+Vivado Simulator 2016.4
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/natu/data/xilinx/Vivado/2016.4/bin/unwrapped/lnx64.o/xelab -wto e0283adeb57146e0b1a94210642f9a58 --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_top_behav xil_defaultlib.tb_top xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 8 for port M0VAL [/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v:142]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v" Line 3. Module npu8_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/cpu_if.v" Line 2. Module cpu_if doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v" Line 2. Module M0 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/lmcnt.v" Line 2. Module lmcnt doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/npu8_top.v" Line 3. Module npu8_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/cpu_if.v" Line 2. Module cpu_if doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v" Line 2. Module M0 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" Line 2. Module local_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/lmcnt.v" Line 2. Module lmcnt doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.cpu_if
+Compiling module xil_defaultlib.M0
+Compiling module xil_defaultlib.local_mem
+Compiling module xil_defaultlib.lmcnt
+Compiling module xil_defaultlib.npu8_top
+Compiling module xil_defaultlib.tb_top
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_top_behav

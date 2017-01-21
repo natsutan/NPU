@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="694000001fs"></ZoomEndTime>
+      <Cursor1Time time="270000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="63"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="43" />
+   <wvobject type="logic" fp_name="/tb_top/CLK">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/RESET_X">
+      <obj_property name="ElementShortName">RESET_X</obj_property>
+      <obj_property name="ObjectShortName">RESET_X</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/ADR">
+      <obj_property name="ElementShortName">ADR[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ADR[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/WR">
+      <obj_property name="ElementShortName">WR</obj_property>
+      <obj_property name="ObjectShortName">WR</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/RD">
+      <obj_property name="ElementShortName">RD</obj_property>
+      <obj_property name="ObjectShortName">RD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/RDATA">
+      <obj_property name="ElementShortName">RDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RDATA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/WDATA">
+      <obj_property name="ElementShortName">WDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WDATA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/INT">
+      <obj_property name="ElementShortName">INT</obj_property>
+      <obj_property name="ObjectShortName">INT</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/SOFT_RESET">
+      <obj_property name="ElementShortName">SOFT_RESET</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider53" type="divider">
+      <obj_property name="label">lmcnt</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/CLK">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/RESET_X">
+      <obj_property name="ElementShortName">RESET_X</obj_property>
+      <obj_property name="ObjectShortName">RESET_X</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/SOFT_RESET">
+      <obj_property name="ElementShortName">SOFT_RESET</obj_property>
+      <obj_property name="ObjectShortName">SOFT_RESET</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/FINISH">
+      <obj_property name="ElementShortName">FINISH</obj_property>
+      <obj_property name="ObjectShortName">FINISH</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/MSEL_INPUTA_SEL">
+      <obj_property name="ElementShortName">MSEL_INPUTA_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">MSEL_INPUTA_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/MSEL_INPUTB_SEL">
+      <obj_property name="ElementShortName">MSEL_INPUTB_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">MSEL_INPUTB_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/MSEL_OUTPUTC_SEL">
+      <obj_property name="ElementShortName">MSEL_OUTPUTC_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">MSEL_OUTPUTC_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M0_RDATA">
+      <obj_property name="ElementShortName">M0_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M0_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/M1_WR">
+      <obj_property name="ElementShortName">M1_WR</obj_property>
+      <obj_property name="ObjectShortName">M1_WR</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M1_WADR">
+      <obj_property name="ElementShortName">M1_WADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M1_WADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M1_WDATA">
+      <obj_property name="ElementShortName">M1_WDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M1_WDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M1_RADR">
+      <obj_property name="ElementShortName">M1_RADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M1_RADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M1_RDATA">
+      <obj_property name="ElementShortName">M1_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M1_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/M2_WR">
+      <obj_property name="ElementShortName">M2_WR</obj_property>
+      <obj_property name="ObjectShortName">M2_WR</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M2_WADR">
+      <obj_property name="ElementShortName">M2_WADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M2_WADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M2_WDATA">
+      <obj_property name="ElementShortName">M2_WDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M2_WDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M2_RADR">
+      <obj_property name="ElementShortName">M2_RADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M2_RADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M2_RDATA">
+      <obj_property name="ElementShortName">M2_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M2_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/M3_WR">
+      <obj_property name="ElementShortName">M3_WR</obj_property>
+      <obj_property name="ObjectShortName">M3_WR</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M3_WADR">
+      <obj_property name="ElementShortName">M3_WADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M3_WADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M3_WDATA">
+      <obj_property name="ElementShortName">M3_WDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M3_WDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M3_RADR">
+      <obj_property name="ElementShortName">M3_RADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">M3_RADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/M3_RDATA">
+      <obj_property name="ElementShortName">M3_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">M3_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/NPU_EN">
+      <obj_property name="ElementShortName">NPU_EN</obj_property>
+      <obj_property name="ObjectShortName">NPU_EN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/A_RDATA">
+      <obj_property name="ElementShortName">A_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">A_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/B_RDATA">
+      <obj_property name="ElementShortName">B_RDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">B_RDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/LM_EN">
+      <obj_property name="ElementShortName">LM_EN</obj_property>
+      <obj_property name="ObjectShortName">LM_EN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/C_WDATA">
+      <obj_property name="ElementShortName">C_WDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">C_WDATA[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/rst_x">
+      <obj_property name="ElementShortName">rst_x</obj_property>
+      <obj_property name="ObjectShortName">rst_x</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/rcnt">
+      <obj_property name="ElementShortName">rcnt[9:0]</obj_property>
+      <obj_property name="ObjectShortName">rcnt[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/lmcnt/START">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/lmcnt/wcnt">
+      <obj_property name="ElementShortName">wcnt[9:0]</obj_property>
+      <obj_property name="ObjectShortName">wcnt[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_top/npu8_top/C_WDATA">
+      <obj_property name="ElementShortName">C_WDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">C_WDATA[7:0]</obj_property>
+   </wvobject>
+</wave_config>

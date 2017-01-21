@@ -26,7 +26,7 @@
 `define REG_M3MIN    8'h4C
 `define REG_AD_GAIN  8'h50
 `define REG_AD_QPARAM 8'h54
-`define REG_MLC_GAGB 8'60
+`define REG_MLC_GAGB 8'h60
 `define REG_MLC_GAOB 8'h64
 `define REG_MLC_GBOA 8'h68
 `define REG_ML1_GAIN  8'h70
@@ -214,7 +214,7 @@ npu8_top npu8_top
    task SET_OPCODE;
       input [1:0] OP;
       begin
-	 WRITE_REG(`REG_INV, {30'h00000000, OP });
+	 WRITE_REG(`REG_OP, {30'h00000000, OP });
       end
    endtask // WRITE_REG
 
@@ -232,8 +232,41 @@ npu8_top npu8_top
       end
    endtask // WRITE_REG
    
-      
+   task SET_MUL_GAGB;
+     input [15:0] GAGB;
+      begin
+	 WRITE_REG(`REG_MLC_GAGB, {16'h0000, GAGB});
+      end
+   endtask // WRITE_REG
    
+   task SET_MUL1_GAIN;
+      input [15:0] GAIN;
+      begin
+	 WRITE_REG(`REG_ML1_GAIN, {16'h0000, GAIN});
+      end
+   endtask // WRITE_REG
+
+   task SET_MUL2_GAIN;
+      input [15:0] GAIN;
+      begin
+	 WRITE_REG(`REG_ML2_GAIN, {16'h0000, GAIN});
+      end
+   endtask // WRITE_REG
+
+   task SET_MUL1_QPARAM;
+      input [15:0] QPARAM;
+      begin
+	 WRITE_REG(`REG_ML1_QPARAM, {16'h0000, QPARAM});
+      end
+   endtask // WRITE_REG
+
+   task SET_MUL2_QPARAM;
+      input [15:0] QPARAM;
+      begin
+	 WRITE_REG(`REG_ML2_QPARAM, {16'h0000, QPARAM});
+      end
+   endtask // WRITE_REG
+
 
    //-------------------------------------------------------------
    // APPLICATION API

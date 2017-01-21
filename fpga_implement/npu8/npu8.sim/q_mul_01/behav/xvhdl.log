@@ -1,0 +1,8 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.srcs/sources_1/ip/mul_16_32/sim/mul_16_32.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity mul_16_32
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.srcs/sources_1/ip/mul8_8/sim/mul8_8.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity mul8_8
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.srcs/sources_1/ip/mul8_16/sim/mul8_16.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity mul8_16
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.srcs/sources_1/ip/mul17_16/sim/mul17_16.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity mul17_16
