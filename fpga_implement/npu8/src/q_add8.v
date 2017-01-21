@@ -1,18 +1,18 @@
 module q_add8 
   (
-   input 	 CLK,
-   input 	 RESET_X,
-   input 	 OP_SEL,
+   input 	     CLK,
+   input 	     RESET_X,
+   input 	     OP_SEL,
    
-   input 	 INPUT_EN,
-   input [7:0] 	 A_IN,
-   input [7:0] 	 B_IN,
+   input 	     INPUT_EN,
+   input [7:0] 	     A_IN,
+   input [7:0] 	     B_IN,
 
-   output [7:0]  OUTPUT_EN,
-   output [7:0]  C_OUT,
+   output 	     OUTPUT_EN,
+   output [7:0]      C_OUT,
 
-   input [31:0]  GAIN,
-   input [31:0]  Q_PARAM,
+   input [31:0]      GAIN,
+   input [31:0]      Q_PARAM,
 
    output reg [15:0] MIN,
    output reg [15:0] MAX
@@ -25,7 +25,9 @@ module q_add8
    // c_qt *= q_param
    wire [15:0] 	 mul_1st_zp8;  //int 1: mul_1st_zp8[8] = 1
    reg [16:0] 	 mul_add_zp8_r;
-   wire [8:0] 	 mul_2nd_out;
+   wire [24:0] 	 mul_2nd_out;
+   reg [7:0] 	 a_in_1t, a_in_2t, a_in_3t;
+   
    
    reg [`ADD_DELAY-1:0] 	 en_r;
    
@@ -35,7 +37,7 @@ module q_add8
       if (RESET_X == 0) begin
 	 mul_add_zp8_r <= 25'h000000;
       end else begin
-	 mul_add_zp8_r <= mul_1st_zp8 + (A_IN[7:0] << 8);
+	 mul_add_zp8_r <= mul_1st_zp8 + a_in_3t[7:0];
       end
    end
 
@@ -63,9 +65,15 @@ module q_add8
    always @ (posedge CLK or negedge RESET_X)begin
       if (RESET_X == 0)begin
 	 en_r <= 0;
+    	 a_in_1t <= 0;
+	 a_in_2t <= 0;
+	 a_in_3t <= 0;	 
       end else begin
 	 en_r <= { en_r[`ADD_DELAY-2:0], INPUT_EN};
-      end
+   	 a_in_1t <= A_IN;
+	 a_in_2t <= a_in_1t;
+	 a_in_3t <= a_in_2t;	 
+       end
    end
    
    assign OUTPUT_EN = en_r[`ADD_DELAY-1];
