@@ -89,7 +89,6 @@ def q_mul(a_qt, a_min, a_max, b_qt, b_min, b_max):
     c_max_f = c_max - f1
     c_min_f = c_min - f1
 
-
     return C_qt.astype(np.int), c_min_f, c_max_f
 
 

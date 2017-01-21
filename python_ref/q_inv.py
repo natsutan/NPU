@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def save_img(fname: object, V: object, q_V: object, deq_V: object, n: object = 1) -> object:
-    x = np.arange(0, 1023)
+    x = np.arange(0, 1024)
     plt.figure(n)
     plt.plot(x, V, color="green")
     plt.plot(x, q_V, color="b")
@@ -13,18 +13,26 @@ def save_img(fname: object, V: object, q_V: object, deq_V: object, n: object = 1
     plt.savefig('img/' + fname)
 
 
-A = np.arange(0, 1023, 1.0) + 50
+def save_mtx(fname, x):
+    with open(fname, "w") as fp:
+        for a in x:
+            fp.write("%02X\n" % a)
+
+A = np.arange(0, 1024, 1.0) + 50
 a_min = 50.0
 a_max = 1024+50.0
 q_A = npu.Quantize(A, a_min, a_max)
 deq_A = npu.deQuantize(q_A,a_min, a_max)
 
-B = 100 * np.sin(np.arange(0, 1023, 1.0) / 100) + 10
+save_mtx('lin.dat', q_A)
+
+
+B = 100 * np.sin(np.arange(0, 1024, 1.0) / 100) + 10
 b_min = np.min(B)
 b_max = np.max(B)
 q_B = npu.Quantize(B, b_min, b_max)
 deq_B = npu.deQuantize(q_B, b_min, b_max)
-
+save_mtx('sin.dat', q_B)
 
 save_img('lin.png', A, q_A, deq_A)
 save_img('sin.png', B, q_B, deq_B, n=2)
