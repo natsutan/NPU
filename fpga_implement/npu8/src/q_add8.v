@@ -2,7 +2,6 @@ module q_add8
   (
    input 	     CLK,
    input 	     RESET_X,
-   input 	     OP_SEL,
    
    input 	     INPUT_EN,
    input [7:0] 	     A_IN,

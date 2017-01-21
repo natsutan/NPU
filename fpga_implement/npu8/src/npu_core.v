@@ -53,12 +53,19 @@ module npu_core
    wire [15:0] 	    rmin_add, rmin_mul, rmin_rqt;
 
    reg 		    input_en_1t;
+
+   // for add
    reg [7:0] 	    a_in_r;
-   reg [7:0] 	    b_in_r;
-   
+   reg [7:0] 	    b_in_r;   
    wire [7:0] 	    a_in_inv;
    wire [7:0] 	    b_in_inv;
 
+   // for mul
+   reg [7:0] 	    a_in_mul;
+   reg [7:0] 	    b_in_mul;
+   reg [7:0] 	    a_in_mul_inv;
+   reg [7:0] 	    b_in_mul_inv;
+   
    
    assign op_add_sel = (OP == 2'b00);
    assign op_mul_sel = (OP == 2'b01);
@@ -72,6 +79,7 @@ module npu_core
    q_inv8 inv_a(.A(A_IN), .B(a_in_inv));
    q_inv8 inv_b(.A(B_IN), .B(b_in_inv));
 
+   // for add
    always @ (posedge CLK or negedge rst_x)begin
       if (rst_x == 0) begin
 	 a_in_r <= 8'h00;
@@ -96,12 +104,26 @@ module npu_core
       end
    end // always @ (posedge CLK or negedge rst_x)
   
+   // for mul
+   always @ (posedge CLK or negedge rst_x)begin
+      if (rst_x == 0) begin
+	 a_in_mul <= 8'h00;
+	 b_in_mul <= 8'h00;
+	 a_in_mul_inv <= 8'h00;
+	 b_in_mul_inv <= 8'h00;
+      end else begin
+	 a_in_mul <= A_IN;
+	 b_in_mul <= B_IN;
+	 a_in_mul_inv <= a_in_inv;
+	 b_in_mul_inv <= b_in_inv;
+      end
+   end 
+
    
    q_add8 q_add8
   (
    .CLK(CLK),
    .RESET_X(rst_x),
-   .OP_SEL(op_add_sel),
    
    .INPUT_EN(input_en_1t),
    .A_IN(a_in_r),
@@ -115,6 +137,34 @@ module npu_core
    
    .MIN(rmax_add),
    .MAX(rmin_add)
+   );
+
+   q_mul8 q_mul8
+  (
+   .CLK(CLK),
+   .RESET_X(RESET_X),
+   
+   .INPUT_EN(input_en_1t),
+   .A_IN(a_in_mul),
+   .B_IN(b_in_mul),
+   .A_IN_INV(a_in_mul_inv),
+   .B_IN_INV(b_in_mul_inv),
+   .A_SEL_INV(INV_ASEL),
+   .B_SEL_INV(INV_BSEL),
+   
+   .OUTPUT_EN(output_en_mul),
+   .C_OUT(c_out_mul),
+   
+   .MLC_GAGB(MLC_GAGB), 
+   
+   .ML1_GAIN(ML1_GAIN),
+   .ML1_QPARAM(ML1_QPARAM),
+   .ML2_GAIN(ML2_GAIN),
+   .ML2_QPARAM(ML2_QPARAM),
+   
+   .MIN(rmin_mul),
+   .MAX(rmax_mul)
+   
    );
 
 
@@ -159,15 +209,10 @@ module npu_core
    
 
    //dummy   	 
-   assign  output_en_mul = 0;
    assign  output_en_rqt = 0;
    
-   assign c_out_mul = 0;
    assign c_out_rqt = 0;
 
-   assign rmax_mul = 0;
-   assign rmin_mul = 0;
-   
    assign rmax_rqt = 0;
    assign rmin_rqt = 0;
 
