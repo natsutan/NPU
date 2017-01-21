@@ -37,12 +37,16 @@ def q_inv(a_qt, a_min, a_max):
     return MAX_VALUE - a_qt, - a_max, - a_min
 
 
-def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max):
+def q_add(a_qt, a_min, a_max, b_qt, b_min, b_max, debug=False):
     """加算"""
     gain = (b_max - b_min) / (a_max - a_min)
     min = a_min + b_min
     max = a_max + b_max
     q_param = (a_max - a_min) / (max - min)
+
+    # debug
+    if debug:
+        print("gain = %f(%x), q_param = %f(%x)" % (gain, int(gain * (2 ** 8)), q_param, int(q_param * (2 ** 8))))
 
     # start vector
     c_qt = b_qt * gain + a_qt

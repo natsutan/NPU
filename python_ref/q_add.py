@@ -11,6 +11,10 @@ def save_img(fname, V, q_V, deq_V, n = 1):
     plt.plot(x, deq_V, color="r")
     plt.savefig('img/'+fname)
 
+def save_mtx(fname, x):
+    with open(fname, "w") as fp:
+        for a in x:
+            fp.write("%02X\n" % a)
 
 A = np.arange(0, 1023, 1.0) + 50
 a_min = 50.0
@@ -32,6 +36,9 @@ save_img('const_add.png', B, q_B, deq_B)
 
 # Add
 C = A + B
-q_C, c_min, c_max = npu.q_add(q_A, a_min, a_max, q_B, b_min, b_max)
+q_C, c_min, c_max = npu.q_add(q_A, a_min, a_max, q_B, b_min, b_max, debug=True)
 deq_C = npu.deQuantize(q_C, c_min, c_max)
 save_img('add.png', C, q_C, deq_C, n=2)
+
+
+save_mtx("qc.dat", q_C)
