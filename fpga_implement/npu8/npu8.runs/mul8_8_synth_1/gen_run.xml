@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="mul8_8_synth_1" LaunchPart="xcku035-fbva676-3-e" LaunchTime="1484989002">
-  <File Type="RDS-UTIL" Name="mul8_8_utilization_synth.rpt"/>
+  <File Type="PA-TCL" Name="mul8_8.tcl"/>
+  <File Type="RDS-RDS" Name="mul8_8.vds"/>
   <File Type="RDS-PROPCONSTRS" Name="mul8_8_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="mul8_8_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="mul8_8_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="mul8_8.dcp"/>
   <File Type="VDS-TIMINGSUMMARY" Name="mul8_8_timing_summary_synth.rpt"/>
   <File Type="VDS-TIMING-PB" Name="mul8_8_timing_summary_synth.pb"/>
-  <File Type="RDS-RDS" Name="mul8_8.vds"/>
-  <File Type="PA-TCL" Name="mul8_8.tcl"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mul8_8">
     <File Path="$PSRCDIR/sources_1/ip/mul8_8/mul8_8.xci">
       <FileInfo>

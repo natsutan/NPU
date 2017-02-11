@@ -1,7 +1,11 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_inv8.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module q_inv8
 INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_add8.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module q_add8
+INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul_core8.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module q_mul_core8
+INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_inv8.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module q_inv8
+INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/q_mul8.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module q_mul8
 INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/M0.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module M0
 INFO: [VRFC 10-2263] Analyzing Verilog file "/media/natu/data/proj/myproj/NPU/fpga_implement/npu8/src/local_mem.v" into library xil_defaultlib

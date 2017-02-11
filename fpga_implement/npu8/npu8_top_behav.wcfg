@@ -12,12 +12,12 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="88600000001fs"></ZoomEndTime>
-      <Cursor1Time time="10720000000fs"></Cursor1Time>
+      <ZoomEndTime time="21820000001fs"></ZoomEndTime>
+      <Cursor1Time time="10920000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="150"></NameColumnWidth>
-      <ValueColumnWidth column_width="273"></ValueColumnWidth>
+      <NameColumnWidth column_width="123"></NameColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="54" />
    <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/CLK">
@@ -35,22 +35,22 @@
    <wvobject type="array" fp_name="/tb_top/npu8_top/npu_core/q_mul8/A_IN">
       <obj_property name="ElementShortName">A_IN[7:0]</obj_property>
       <obj_property name="ObjectShortName">A_IN[7:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_top/npu8_top/npu_core/q_mul8/B_IN">
       <obj_property name="ElementShortName">B_IN[7:0]</obj_property>
       <obj_property name="ObjectShortName">B_IN[7:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="CellHeight">100</obj_property>
+      <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_top/npu8_top/npu_core/q_mul8/B_IN_INV">
       <obj_property name="ElementShortName">B_IN_INV[7:0]</obj_property>
       <obj_property name="ObjectShortName">B_IN_INV[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/A_SEL_INV">
-      <obj_property name="ElementShortName">A_SEL_INV</obj_property>
-      <obj_property name="ObjectShortName">A_SEL_INV</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/B_SEL_INV">
-      <obj_property name="ElementShortName">B_SEL_INV</obj_property>
-      <obj_property name="ObjectShortName">B_SEL_INV</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/OUTPUT_EN">
       <obj_property name="ElementShortName">OUTPUT_EN</obj_property>
@@ -61,7 +61,7 @@
       <obj_property name="ObjectShortName">C_OUT[7:0]</obj_property>
       <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
       <obj_property name="CellHeight">200</obj_property>
-      <obj_property name="CustomSignalColor">#0000FF</obj_property>
+      <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
       <obj_property name="AnalogYRangeMin">0.000000</obj_property>
@@ -74,6 +74,14 @@
    <wvobject type="array" fp_name="/tb_top/npu8_top/npu_core/q_mul8/MLC_GAGB">
       <obj_property name="ElementShortName">MLC_GAGB[31:0]</obj_property>
       <obj_property name="ObjectShortName">MLC_GAGB[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/A_SEL_INV">
+      <obj_property name="ElementShortName">A_SEL_INV</obj_property>
+      <obj_property name="ObjectShortName">A_SEL_INV</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_top/npu8_top/npu_core/q_mul8/B_SEL_INV">
+      <obj_property name="ElementShortName">B_SEL_INV</obj_property>
+      <obj_property name="ObjectShortName">B_SEL_INV</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_top/npu8_top/npu_core/q_mul8/ML1_GAIN">
       <obj_property name="ElementShortName">ML1_GAIN[31:0]</obj_property>

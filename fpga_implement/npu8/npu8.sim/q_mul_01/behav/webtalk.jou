@@ -2,8 +2,8 @@
 # Webtalk v2016.4 (64-bit)
 # SW Build 1733598 on Wed Dec 14 22:35:42 MST 2016
 # IP Build 1731160 on Wed Dec 14 23:47:21 MST 2016
-# Start of session at: Sun Jan 22 00:06:07 2017
-# Process ID: 10173
+# Start of session at: Sun Jan 29 23:17:17 2017
+# Process ID: 6879
 # Current directory: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.sim/q_mul_01/behav
 # Command line: wbtcv -mode batch -source /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.sim/q_mul_01/behav/xsim.dir/tb_top_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: /media/natu/data/proj/myproj/NPU/fpga_implement/npu8/npu8.sim/q_mul_01/behav/webtalk.log

@@ -1,6 +1,8 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  "../../../src/q_inv8.v"
 verilog xil_defaultlib  "../../../src/q_add8.v"
+verilog xil_defaultlib  "../../../src/q_mul_core8.v"
+verilog xil_defaultlib  "../../../src/q_inv8.v"
+verilog xil_defaultlib  "../../../src/q_mul8.v"
 verilog xil_defaultlib  "../../../src/M0.v"
 verilog xil_defaultlib  "../../../src/local_mem.v"
 verilog xil_defaultlib  "../../../src/lmcnt.v"
