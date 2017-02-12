@@ -29,8 +29,6 @@ int main(void)
   strcpy(chiyaha_cnn.layer[0].name, "convolution2d_1");
   chiyaha_cnn.layer[0].p_param = &convolution2d_1;
   chiyaha_cnn.layer[1].p_data = NULL;
-
-
   
 
   return 0;
