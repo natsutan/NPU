@@ -12,6 +12,6 @@ typedef struct nnnet_layer_tag {
 
 
 typedef struct nnnet_tag {
-  int layrenum;
+  int layernum;
   NNNET_LAYER layer[NNN_MAX_LAYER_NUM];
 } NNNET;
