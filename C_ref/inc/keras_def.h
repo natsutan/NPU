@@ -64,9 +64,10 @@ typedef enum {
 } KR_BOADER_MODE;
 
 
-//
-// 未使用　init, activity_regularizer, W_constraint, W_regularizer dim_ordering, b_constraint, trainable, b_regularizer
 
+
+
+// 未使用　init, activity_regularizer, W_constraint, W_regularizer dim_ordering, b_constraint, trainable, b_regularizer
 typedef struct LY_Convolution2D_tag {
   int nb_filter;
   int nb_row;
@@ -80,4 +81,24 @@ typedef struct LY_Convolution2D_tag {
 } LY_Convolution2D;
 
 
+typedef struct LY_Activation_tag {
+  KR_ACTIVATION activation;
+} LY_Activation;
 
+
+typedef struct LY_Dropout_tag {
+  float p;
+} LY_Dropout;
+
+
+typedef struct LY_Flatten_tag {
+  /* nothing */
+} LY_Flatten;
+
+
+typedef struct LY_Dense_tag {
+  int input_dim;
+  int output_dim;
+  KR_ACTIVATION activation;
+  bool bias;
+} LY_Dense;
