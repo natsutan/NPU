@@ -8,11 +8,10 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 
 
-
 np.random.seed(1337)  # for reproducibility
 
 batch_size = 128
-nb_epoch = 60
+nb_epoch = 100
 
 kana_list = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん'
 image_size = 28
@@ -72,12 +71,6 @@ X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 1)
 X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 1)
 input_shape = (img_rows, img_cols, 1)
 
-#(X_train, y_train), (X_test, y_test) = mnist.load_data()
-
-# (60000, 28, 28)
-# (60000,)
-
-
 # convert class vectors to binary class matrices
 Y_train = y_train
 Y_test = y_test
@@ -104,7 +97,6 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adadelta',
               metrics=['accuracy'])
 
-
 with open('output/cnn.json', 'w') as fp:
     json_string = model.to_json()
     fp.write(json_string)
@@ -118,6 +110,12 @@ model.fit(X_train, Y_train, batch_size=batch_size, nb_epoch=nb_epoch,
 score = model.evaluate(X_test, Y_test, verbose=0)
 print('Test score:', score[0])
 print('Test accuracy:', score[1])
+
+#print model
+print(model.summary())
+config = model.get_config()
+for l in config:
+    print(l)
 
 # save model
 model.save('output/cnn.h5')
