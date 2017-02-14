@@ -11,6 +11,7 @@ int main(void)
 
   NNNET *np;
   np = nnn_init();
+  printf("%p\n", np);
 
   return 0;
 }

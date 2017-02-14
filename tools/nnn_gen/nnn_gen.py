@@ -10,10 +10,16 @@ output_dir = '/home/natu/myproj/NPU/example/keres_cnn/c_ref/nnn_gen'
 output_cfile = 'nnn_gen.c'
 output_hfile = 'nnn_gen.h'
 
+# nnnet.hに合わせる
+NNN_MAX_LAYER_NAME = 256
+
+activation_dic = {'linear' : 'LINEAR'}
+
 
 def generate_header_file(file):
     with open(file, 'w') as fp:
         write_file_header(fp)
+        fp.write('#include <string.h>\n')
         fp.write('#include "nnnet.h"\n')
         fp.write('NNNET* nnn_init(void);\n')
 
@@ -46,10 +52,43 @@ def write_global_vaiable(fp):
     fp.write('\n')
 
 
+
 def write_Convolution2D(fp, config):
-    pass
+    #'config': {'subsample': (1, 1), 'nb_filter': 32, 'nb_col': 3, 'trainable': True, 'init': 'glorot_uniform', 'W_regularizer': None, 'b_regularizer': None, 'W_constraint': None, 'nb_row': 3, 'name': 'convolution2d_2', '': 'linear', 'activity_regularizer': None, 'bias': True, 'dim_ordering': 'tf', 'b_constraint': None, 'border_mode': 'valid'}}
+    name = config['name']
+    fp.write('\t%s.nb_filter = %s;\n' % (name, config['nb_filter']))
+    fp.write('\t%s.nb_row = %s;\n' % (name, config['nb_row']))
+    fp.write('\t%s.nb_col = %s;\n' % (name, config['nb_col']))
+    activation = config['activation']
+
+    if activation not in activation_dic:
+        print('ERROR %s is not supported.' % activation)
+        sys.exit(1)
+    fp.write('\t%s.activation = %s;\n' % (name, activation_dic[activation]))
+
+"""
+int
+nb_filter;
+int
+;
+int
+;
+KR_ACTIVATION
+activation;
+int
+batch_input_shape[4];
+KR_BOADER_MODE
+border_mode;
+bool
+bias;
+NN_DTYPE
+input_dtype;
+int
+subsample[2];
+"""
 
 def write_Activation(fp, config):
+
     pass
 
 def write__MaxPooling2D(fp, config):
@@ -70,11 +109,21 @@ def write_nnn_init(fp):
     fp.write('{\n')
     laynum = len(model.get_config())
     fp.write('\tg_nnn.layernum = %d;\n' % laynum)
-    fp.write('\n;')
+    fp.write('\n')
 
+    cnt = 0
     for l in model.get_config():
         class_name = l['class_name']
         config = l['config']
+
+        name = config['name']
+
+        fp.write('\tstrcpy(g_nnn.layer[%d].name, "%s");\n' % (cnt, name) )
+
+        if len(name) > NNN_MAX_LAYER_NAME:
+            print("ERROR %s is too long" % name)
+            sys.exit(1)
+
         if class_name == 'Convolution2D':
             write_Convolution2D(fp, config)
         elif class_name == 'Activation':
@@ -91,6 +140,13 @@ def write_nnn_init(fp):
             print("ERROR:layer %s is not supported." % class_name)
             sys.exit(1)
 
+        fp.write('\tg_nnn.layer[%d].p_param = &%s;\n' % (cnt, name))
+        fp.write('\tg_nnn.layer[%d].p_data = NULL;\n' % cnt)
+
+        fp.write('\n')
+        cnt+=1
+
+
     fp.write('\treturn &g_nnn;\n')
     fp.write('}\n')
 
@@ -98,7 +154,7 @@ def write_nnn_init(fp):
 def generate_c_file(file):
     with open(file, 'w') as fp:
         write_file_header(fp)
-        fp.write('#include "nnnet.h"\n')
+        fp.write('#include "nnn_gen.h"\n')
         write_global_vaiable(fp)
         write_nnn_init(fp)
 
