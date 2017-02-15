@@ -2,22 +2,23 @@
 # https://github.com/fchollet/keras/blob/master/LICENSE
 # Kerasの学習データ抜き出しスクリプト
 import h5py
+import numpy as np
 
 input_hd5 = 'cnn.h5'
 
 
-def load_weights(filepath, by_name=False):
+def save_weights(filepath, by_name=False):
     f = h5py.File(filepath, mode='r')
     if 'layer_names' not in f.attrs and 'model_weights' in f:
         f = f['model_weights']
 
-    load_weights_from_hdf5_group(f)
+    save_weights_from_hdf5_group(f)
 
     if hasattr(f, 'close'):
         f.close()
 
 
-def load_weights_from_hdf5_group(f):
+def save_weights_from_hdf5_group(f):
 
     layer_names = [n.decode('utf8') for n in f.attrs['layer_names']]
     print(layer_names)
@@ -44,11 +45,9 @@ def load_weights_from_hdf5_group(f):
             data = g[weight_name].value
             print(data.shape)
 
+            filename = weight_name.replace(':0', '_z') + '.npy'
+            np.save(filename, data)
+            print("save %s to %s" % (weight_name, filename))
 
-#        layer = flattened_layers[k]
-
-
-
-
-load_weights(input_hd5)
+save_weights(input_hd5)
 
