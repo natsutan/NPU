@@ -102,3 +102,9 @@ typedef struct LY_Dense_tag {
   KR_ACTIVATION activation;
   bool bias;
 } LY_Dense;
+
+typedef struct LY_MaxPooling2D_tag {
+  int strides[2];
+  int pool_size[2];
+  KR_BOADER_MODE border_mode;  
+} LY_MaxPooling2D;
