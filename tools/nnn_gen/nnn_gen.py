@@ -2,6 +2,7 @@
 import os
 import datetime
 import keras
+import sys
 # いろいろいったん決め打ちで
 
 input_model = '/home/natu/myproj/NPU/example/keres_cnn/keras/output/cnn.json'
@@ -14,7 +15,8 @@ output_hfile = 'nnn_gen.h'
 NNN_MAX_LAYER_NAME = 256
 
 activation_dic = {'linear' : 'LINEAR'}
-
+border_mode_dic = {'valid' : 'BD_VALID'}
+input_dtype_dic = { 'float32' : 'NN_FLOAT32'}
 
 def generate_header_file(file):
     with open(file, 'w') as fp:
@@ -52,40 +54,59 @@ def write_global_vaiable(fp):
     fp.write('\n')
 
 
+def write_initialize_array_type(fp, config, member):
+    name = config['name']
+    arr = config.get(member, [0,])
+    a = [0 if x is None else x for x in arr]
+    for i in range(len(arr)):
+        fp.write('\t%s.%s[%d] = %d;\n' % (name, member, i, a[i]))
+
+
+def write_initialize_enum_type(fp, config, member, dic, default):
+    name = config['name']
+
+    if member not in config:
+        enum = default
+    else:
+        val = config[member]
+        if val in dic:
+            enum = dic[val]
+        else:
+            print('ERROR %s %s %s is not supported' % (name, member, val))
+            sys.exit(1)
+
+    fp.write('\t%s.%s = %s;\n' % (name, member, enum))
+
+
+def write_initialize_bool_type(fp, config, member):
+    name = config['name']
+    val = config[member]
+    if val:
+        s = 'true'
+    else:
+        s = 'false'
+    fp.write('\t%s.%s = %s;\n' % (name, member, s))
+
+
+def write_initialize_number_type(fp, config, member):
+    name = config['name']
+    val = config[member]
+    fp.write("\t%s.%s = %s;\n" % (name, member, str(val)))
+
 
 def write_Convolution2D(fp, config):
-    #'config': {'subsample': (1, 1), 'nb_filter': 32, 'nb_col': 3, 'trainable': True, 'init': 'glorot_uniform', 'W_regularizer': None, 'b_regularizer': None, 'W_constraint': None, 'nb_row': 3, 'name': 'convolution2d_2', '': 'linear', 'activity_regularizer': None, 'bias': True, 'dim_ordering': 'tf', 'b_constraint': None, 'border_mode': 'valid'}}
     name = config['name']
-    fp.write('\t%s.nb_filter = %s;\n' % (name, config['nb_filter']))
-    fp.write('\t%s.nb_row = %s;\n' % (name, config['nb_row']))
-    fp.write('\t%s.nb_col = %s;\n' % (name, config['nb_col']))
-    activation = config['activation']
+    print("genrating initialsze %s" % name)
+    write_initialize_number_type(fp, config, 'nb_filter')
+    write_initialize_number_type(fp, config, 'nb_row')
+    write_initialize_number_type(fp, config, 'nb_col')
+    write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
+    write_initialize_array_type(fp, config, 'batch_input_shape')
+    write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
+    write_initialize_bool_type(fp, config, 'bias')
+    write_initialize_enum_type(fp, config, 'input_dtype', input_dtype_dic, 'NN_DTYPE_NONE')
+    write_initialize_array_type(fp, config, 'subsample')
 
-    if activation not in activation_dic:
-        print('ERROR %s is not supported.' % activation)
-        sys.exit(1)
-    fp.write('\t%s.activation = %s;\n' % (name, activation_dic[activation]))
-
-"""
-int
-nb_filter;
-int
-;
-int
-;
-KR_ACTIVATION
-activation;
-int
-batch_input_shape[4];
-KR_BOADER_MODE
-border_mode;
-bool
-bias;
-NN_DTYPE
-input_dtype;
-int
-subsample[2];
-"""
 
 def write_Activation(fp, config):
 
