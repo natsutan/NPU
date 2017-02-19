@@ -55,6 +55,31 @@ def write_global_vaiable(fp):
         else:
             print("ERROR:layer %s is not supported." % class_name)
             sys.exit(1)
+
+    fp.write('\n')
+    fp.write('// weights\n')
+    for l in model.get_config():
+        class_name = l['class_name']
+        config = l['config']
+        name = config['name']
+        if class_name == 'Convolution2D':
+            fp.write('LY_Convolution2D %s;\n' % name)
+        elif class_name == 'Activation':
+            fp.write('LY_Activation %s;\n' % name)
+        elif class_name == 'MaxPooling2D':
+            fp.write('LY_MaxPooling2D %s;\n' % name)
+        elif class_name == 'Dropout':
+            fp.write('LY_Dropout %s;\n' % name)
+        elif class_name == 'Flatten':
+            fp.write('LY_Flatten %s;\n' % name)
+        elif class_name == 'Dense':
+            fp.write('LY_Dense %s;\n' % name)
+        else:
+            print("ERROR:layer %s is not supported." % class_name)
+            sys.exit(1)
+
+
+
     fp.write('\n')
 
 
@@ -204,15 +229,12 @@ def write_nnn_init(fp):
     fp.write('}\n')
 
 
-
 def generate_c_file(file):
     with open(file, 'w') as fp:
         write_file_header(fp)
         fp.write('#include "nnn_gen.h"\n')
         write_global_vaiable(fp)
         write_nnn_init(fp)
-
-
 
 
 def write_file_header(fp):
