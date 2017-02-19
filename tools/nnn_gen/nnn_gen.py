@@ -14,9 +14,11 @@ output_hfile = 'nnn_gen.h'
 # nnnet.hに合わせる
 NNN_MAX_LAYER_NAME = 256
 
-activation_dic = {'linear' : 'LINEAR'}
+activation_dic = {'linear' : 'LINEAR', 'relu' : 'RELU', 'softmax' : 'SOFTMAX'}
 border_mode_dic = {'valid' : 'BD_VALID'}
 input_dtype_dic = { 'float32' : 'NN_FLOAT32'}
+regularizer_dic = { None : 'RG_NONE'}
+
 
 def generate_header_file(file):
     with open(file, 'w') as fp:
@@ -94,35 +96,60 @@ def write_initialize_number_type(fp, config, member):
     fp.write("\t%s.%s = %s;\n" % (name, member, str(val)))
 
 
+def print_info(func):
+    import functools
+    import os
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        name = args[1]['name']
+        print("genrating initialsze %s" % name)
+        ret = func(*args, **kwargs)
+        return ret
+
+    return wrapper
+
+@print_info
 def write_Convolution2D(fp, config):
-    name = config['name']
-    print("genrating initialsze %s" % name)
     write_initialize_number_type(fp, config, 'nb_filter')
     write_initialize_number_type(fp, config, 'nb_row')
     write_initialize_number_type(fp, config, 'nb_col')
     write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
     write_initialize_array_type(fp, config, 'batch_input_shape')
     write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
+    write_initialize_enum_type(fp, config, 'b_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'W_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'activity_regularizer', regularizer_dic, 'RG_NONE')
+
     write_initialize_bool_type(fp, config, 'bias')
     write_initialize_enum_type(fp, config, 'input_dtype', input_dtype_dic, 'NN_DTYPE_NONE')
     write_initialize_array_type(fp, config, 'subsample')
 
 
+@print_info
 def write_Activation(fp, config):
+    write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
 
-    pass
-
+@print_info
 def write__MaxPooling2D(fp, config):
-    pass
+    write_initialize_array_type(fp, config, 'strides')
+    write_initialize_array_type(fp, config, 'pool_size')
+    write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
 
+@print_info
 def write_Dropout(fp, config):
-    pass
+    write_initialize_number_type(fp, config, 'p')
 
+
+@print_info
 def write_Flatten(fp, config):
+    # do nothing
     pass
 
+@print_info
 def write_Dense(fp, config):
-    pass
+    #  'b_regularizer': None, 'init': 'glorot_uniform', 'W_regularizer': None, 'input_dim': 4608, 'b_constraint': None, 'name': 'dense_1', 'W_constraint': None, 'activity_regularizer': None, 'bias': True}}
+    write_initialize_number_type(fp, config, 'output_dim')
+    write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
 
 
 def write_nnn_init(fp):
@@ -170,6 +197,7 @@ def write_nnn_init(fp):
 
     fp.write('\treturn &g_nnn;\n')
     fp.write('}\n')
+
 
 
 def generate_c_file(file):

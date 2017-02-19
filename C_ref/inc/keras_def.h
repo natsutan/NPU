@@ -56,18 +56,31 @@ typedef enum {
   SIGMOID,
   HARD_SIGMOID,
   LINEAR,
+  //-------
+  NO_ACTIVATION
 } KR_ACTIVATION;
 
 typedef enum {
   BD_VALID,
-  BD_SAME
+  BD_SAME,
+  //-------
+  BD_NONE
 } KR_BOADER_MODE;
 
 
+typedef enum {
+  RG_L1,
+  RG_L2,
+  RG_L1L2,
+  RG_ACTIVITY_L1,
+  RG_ACTIVITY_L2,
+  RG_ACTIVITY_L1L2,
+  //--------
+  RG_NONE
+} KR_REGULARIZER;
 
 
-
-// 未使用　init, activity_regularizer, W_constraint, W_regularizer dim_ordering, b_constraint, trainable, b_regularizer
+// 未使用　init, , W_constraint,  dim_ordering, b_constraint, trainable,
 typedef struct LY_Convolution2D_tag {
   int nb_filter;
   int nb_row;
@@ -75,6 +88,9 @@ typedef struct LY_Convolution2D_tag {
   KR_ACTIVATION activation;
   int batch_input_shape[4];
   KR_BOADER_MODE border_mode;
+  KR_REGULARIZER activity_regularizer;
+  KR_REGULARIZER W_regularizer;
+  KR_REGULARIZER b_regularizer;
   bool bias;
   NN_DTYPE input_dtype;
   int subsample[2];
@@ -100,6 +116,7 @@ typedef struct LY_Dense_tag {
   int input_dim;
   int output_dim;
   KR_ACTIVATION activation;
+  KR_REGULARIZER b_regularizer;
   bool bias;
 } LY_Dense;
 
