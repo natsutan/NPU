@@ -12,6 +12,7 @@ int main(void)
   NNNET *np;
   np = nnn_init();
   printf("%p\n", np);
-
+  nnn_run(np, NULL);
+  
   return 0;
 }

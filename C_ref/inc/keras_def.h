@@ -116,7 +116,9 @@ typedef struct LY_Dense_tag {
   int input_dim;
   int output_dim;
   KR_ACTIVATION activation;
+  KR_REGULARIZER W_regularizer;
   KR_REGULARIZER b_regularizer;
+  KR_REGULARIZER activity_regularizer;
   bool bias;
 } LY_Dense;
 

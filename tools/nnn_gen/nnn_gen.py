@@ -26,6 +26,8 @@ def generate_header_file(file):
         fp.write('#include <string.h>\n')
         fp.write('#include "nnnet.h"\n')
         fp.write('NNNET* nnn_init(void);\n')
+        fp.write('int nnn_load_weight(NNNET* np);\n')
+        fp.write('int nnn_run(NNNET* np, void *dp);\n')
 
 
 def write_global_vaiable(fp):
@@ -147,10 +149,13 @@ def write_Flatten(fp, config):
 
 @print_info
 def write_Dense(fp, config):
-    #  'b_regularizer': None, 'init': 'glorot_uniform', 'W_regularizer': None, 'input_dim': 4608, 'b_constraint': None, 'name': 'dense_1', 'W_constraint': None, 'activity_regularizer': None, 'bias': True}}
+    write_initialize_number_type(fp, config, 'input_dim')
     write_initialize_number_type(fp, config, 'output_dim')
     write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
-
+    write_initialize_enum_type(fp, config, 'b_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'W_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'activity_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_bool_type(fp, config, 'bias')
 
 def write_nnn_init(fp):
     fp.write('NNNET* nnn_init(void)\n')
