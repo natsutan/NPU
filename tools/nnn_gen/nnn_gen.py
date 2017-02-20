@@ -14,10 +14,12 @@ output_hfile = 'nnn_gen.h'
 # nnnet.hに合わせる
 NNN_MAX_LAYER_NAME = 256
 
-activation_dic = {'linear' : 'LINEAR', 'relu' : 'RELU', 'softmax' : 'SOFTMAX'}
-border_mode_dic = {'valid' : 'BD_VALID'}
-input_dtype_dic = { 'float32' : 'NN_FLOAT32'}
-regularizer_dic = { None : 'RG_NONE'}
+activation_dic = {'linear': 'LINEAR', 'relu': 'RELU', 'softmax': 'SOFTMAX'}
+border_mode_dic = {'valid': 'BD_VALID'}
+input_dtype_dic = {'float32': 'NN_FLOAT32'}
+regularizer_dic = {None: 'RG_NONE'}
+
+type_dic = {'float32': 'float'}
 
 
 def generate_header_file(file):
@@ -63,22 +65,29 @@ def write_global_vaiable(fp):
         config = l['config']
         name = config['name']
         if class_name == 'Convolution2D':
-            fp.write('LY_Convolution2D %s;\n' % name)
-        elif class_name == 'Activation':
-            fp.write('LY_Activation %s;\n' % name)
-        elif class_name == 'MaxPooling2D':
-            fp.write('LY_MaxPooling2D %s;\n' % name)
-        elif class_name == 'Dropout':
-            fp.write('LY_Dropout %s;\n' % name)
-        elif class_name == 'Flatten':
-            fp.write('LY_Flatten %s;\n' % name)
+            dtype = config.get('input_dtype', 'float32')
+            type_str = type_dic[dtype]
+            variable_name_w = 'w_' + name + '_W'
+            variable_name_b = 'w_' + name + '_B'
+
+            # row と colの値が違う場合は、仕様を決めること
+            assert(config['nb_row'] == config['nb_col'])
+            fp.write("%s %s[%d][%d][%d];\n" %
+                    (type_str, variable_name_w, config['nb_filter'], config['nb_col'], config['nb_row']))
+            fp.write("%s %s[%d];\n" %
+                 (type_str, variable_name_b, config['nb_filter']))
+
         elif class_name == 'Dense':
-            fp.write('LY_Dense %s;\n' % name)
-        else:
-            print("ERROR:layer %s is not supported." % class_name)
-            sys.exit(1)
+            dtype = config.get('input_dtype', 'float32')
+            type_str = type_dic[dtype]
+            variable_name_w = 'w_' + name + '_W'
+            variable_name_b = 'w_' + name + '_B'
+            fp.write("%s %s[%d];\n" %
+                     (type_str, variable_name_w, config['input_dim']))
+            fp.write("%s %s[%d];\n" %
+                     (type_str, variable_name_b, config['input_dim']))
 
-
+    # output
 
     fp.write('\n')
 
