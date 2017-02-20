@@ -259,6 +259,8 @@ def write_file_header(fp):
 json_string = open(input_model).read()
 model = keras.models.model_from_json(json_string)
 
+layers = model.layers
+
 print(model.summary())
 
 generate_header_file(os.path.join(output_dir, output_hfile))
