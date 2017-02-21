@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 from PIL import Image
 from PIL import ImageOps
@@ -27,8 +26,6 @@ print(ret)
 # output
 get_1st_layer_output = K.function([model.layers[0].input],
                                   [model.layers[0].output])
-layer_output = get_1st_layer_output([images,])[0]
-print(layer_output.shape)
-np.save('output/convolution2d_out.npy', layer_output, allow_pickle=False)
-
-
+layer_output = get_1st_layer_output([images,])
+print(layer_output[0].shape)
+np.save('output/convolution2d_out.npy', layer_output[0], allow_pickle=False)

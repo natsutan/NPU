@@ -14,9 +14,13 @@ output_hfile = 'nnn_gen.h'
 # nnnet.hに合わせる
 NNN_MAX_LAYER_NAME = 256
 
-activation_dic = {'linear' : 'LINEAR'}
-border_mode_dic = {'valid' : 'BD_VALID'}
-input_dtype_dic = { 'float32' : 'NN_FLOAT32'}
+activation_dic = {'linear': 'LINEAR', 'relu': 'RELU', 'softmax': 'SOFTMAX'}
+border_mode_dic = {'valid': 'BD_VALID'}
+input_dtype_dic = {'float32': 'NN_FLOAT32'}
+regularizer_dic = {None: 'RG_NONE'}
+
+type_dic = {'float32': 'float'}
+
 
 def generate_header_file(file):
     with open(file, 'w') as fp:
@@ -24,6 +28,8 @@ def generate_header_file(file):
         fp.write('#include <string.h>\n')
         fp.write('#include "nnnet.h"\n')
         fp.write('NNNET* nnn_init(void);\n')
+        fp.write('int nnn_load_weight(NNNET* np);\n')
+        fp.write('int nnn_run(NNNET* np, void *dp);\n')
 
 
 def write_global_vaiable(fp):
@@ -51,6 +57,38 @@ def write_global_vaiable(fp):
         else:
             print("ERROR:layer %s is not supported." % class_name)
             sys.exit(1)
+
+    fp.write('\n')
+    fp.write('// weights\n')
+    for l in model.get_config():
+        class_name = l['class_name']
+        config = l['config']
+        name = config['name']
+        if class_name == 'Convolution2D':
+            dtype = config.get('input_dtype', 'float32')
+            type_str = type_dic[dtype]
+            variable_name_w = 'w_' + name + '_W'
+            variable_name_b = 'w_' + name + '_B'
+
+            # row と colの値が違う場合は、仕様を決めること
+            assert(config['nb_row'] == config['nb_col'])
+            fp.write("%s %s[%d][%d][%d];\n" %
+                    (type_str, variable_name_w, config['nb_filter'], config['nb_col'], config['nb_row']))
+            fp.write("%s %s[%d];\n" %
+                 (type_str, variable_name_b, config['nb_filter']))
+
+        elif class_name == 'Dense':
+            dtype = config.get('input_dtype', 'float32')
+            type_str = type_dic[dtype]
+            variable_name_w = 'w_' + name + '_W'
+            variable_name_b = 'w_' + name + '_B'
+            fp.write("%s %s[%d];\n" %
+                     (type_str, variable_name_w, config['input_dim']))
+            fp.write("%s %s[%d];\n" %
+                     (type_str, variable_name_b, config['input_dim']))
+
+    # output
+
     fp.write('\n')
 
 
@@ -94,36 +132,64 @@ def write_initialize_number_type(fp, config, member):
     fp.write("\t%s.%s = %s;\n" % (name, member, str(val)))
 
 
+def print_info(func):
+    import functools
+    import os
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        name = args[1]['name']
+        print("genrating initialsze %s" % name)
+        ret = func(*args, **kwargs)
+        return ret
+
+    return wrapper
+
+@print_info
 def write_Convolution2D(fp, config):
-    name = config['name']
-    print("genrating initialsze %s" % name)
     write_initialize_number_type(fp, config, 'nb_filter')
     write_initialize_number_type(fp, config, 'nb_row')
     write_initialize_number_type(fp, config, 'nb_col')
     write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
     write_initialize_array_type(fp, config, 'batch_input_shape')
     write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
+    write_initialize_enum_type(fp, config, 'b_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'W_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'activity_regularizer', regularizer_dic, 'RG_NONE')
+
     write_initialize_bool_type(fp, config, 'bias')
     write_initialize_enum_type(fp, config, 'input_dtype', input_dtype_dic, 'NN_DTYPE_NONE')
     write_initialize_array_type(fp, config, 'subsample')
 
 
+@print_info
 def write_Activation(fp, config):
+    write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
 
-    pass
-
+@print_info
 def write__MaxPooling2D(fp, config):
-    pass
+    write_initialize_array_type(fp, config, 'strides')
+    write_initialize_array_type(fp, config, 'pool_size')
+    write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
 
+@print_info
 def write_Dropout(fp, config):
-    pass
+    write_initialize_number_type(fp, config, 'p')
 
+
+@print_info
 def write_Flatten(fp, config):
+    # do nothing
     pass
 
+@print_info
 def write_Dense(fp, config):
-    pass
-
+    write_initialize_number_type(fp, config, 'input_dim')
+    write_initialize_number_type(fp, config, 'output_dim')
+    write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
+    write_initialize_enum_type(fp, config, 'b_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'W_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_enum_type(fp, config, 'activity_regularizer', regularizer_dic, 'RG_NONE')
+    write_initialize_bool_type(fp, config, 'bias')
 
 def write_nnn_init(fp):
     fp.write('NNNET* nnn_init(void)\n')
@@ -180,8 +246,6 @@ def generate_c_file(file):
         write_nnn_init(fp)
 
 
-
-
 def write_file_header(fp):
     today = datetime.date.today()
 
@@ -194,6 +258,8 @@ def write_file_header(fp):
 
 json_string = open(input_model).read()
 model = keras.models.model_from_json(json_string)
+
+layers = model.layers
 
 print(model.summary())
 
