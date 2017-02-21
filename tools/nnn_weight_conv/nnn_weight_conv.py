@@ -46,7 +46,7 @@ def save_weights_from_hdf5_group(f):
             print(data.shape)
 
             filename = weight_name.replace(':0', '_z') + '.npy'
-            np.save(filename, data)
+            np.save(filename, data, allow_pickle=False)
             print("save %s to %s" % (weight_name, filename))
 
 save_weights(input_hd5)
