@@ -1,11 +1,5 @@
 #include "nnnet.h"
-#include "nnn_op.h"
-
-int nnn_load_weight(NNNET* np)
-{
-
-    return 0;
-}
+#include "nnnet_op.h"
 
 int nnn_run(NNNET* np, void *dp)
 {

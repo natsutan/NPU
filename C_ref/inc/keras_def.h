@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "nnntype.h"
+#include "numpy.h"
 
 typedef enum  {
   //core
@@ -94,6 +95,9 @@ typedef struct LY_Convolution2D_tag {
   bool bias;
   NN_DTYPE input_dtype;
   int subsample[2];
+  //
+  void *nnn_wp;
+  void *nnn_bp;
 } LY_Convolution2D;
 
 
@@ -120,6 +124,9 @@ typedef struct LY_Dense_tag {
   KR_REGULARIZER b_regularizer;
   KR_REGULARIZER activity_regularizer;
   bool bias;
+  //
+  void *nnn_wp;
+  void *nnn_bp;
 } LY_Dense;
 
 typedef struct LY_MaxPooling2D_tag {
