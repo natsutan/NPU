@@ -26,9 +26,10 @@ def generate_header_file(file):
     with open(file, 'w') as fp:
         write_file_header(fp)
         fp.write('#include <string.h>\n')
+        fp.write('#include <assert.h>\n')
         fp.write('#include "nnnet.h"\n')
         fp.write('NNNET* nnn_init(void);\n')
-        fp.write('int nnn_load_weight(NNNET* np);\n')
+        fp.write('int nnn_load_weight_from_files(NNNET* np, const char *path);\n')
         fp.write('int nnn_run(NNNET* np, void *dp);\n')
 
 
@@ -67,8 +68,7 @@ def write_global_vaiable(fp):
         if class_name == 'Convolution2D':
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
-            variable_name_w = 'w_' + name + '_W'
-            variable_name_b = 'w_' + name + '_B'
+            [variable_name_w, variable_name_b] = make_weight_variable_names(name)
 
             # row と colの値が違う場合は、仕様を決めること
             assert(config['nb_row'] == config['nb_col'])
@@ -116,6 +116,12 @@ def make_output_variable_name(name):
     return name+'_output'
 
 
+def make_weight_variable_names(name):
+    w = 'w_' + name + '_W'
+    b = 'w_' + name + '_B'
+    return w, b
+
+
 def write_initialize_array_type(fp, config, member):
     name = config['name']
     arr = config.get(member, [0,])
@@ -156,6 +162,13 @@ def write_initialize_number_type(fp, config, member):
     fp.write("\t%s.%s = %s;\n" % (name, member, str(val)))
 
 
+def write_initialize_wight(fp, config):
+    name = config['name']
+    [variable_name_w, variable_name_b] = make_weight_variable_names(name)
+    fp.write("\t%s.nnn_wp=%s;\n" % (name, variable_name_w))
+    fp.write("\t%s.nnn_bp=%s;\n" % (name, variable_name_b))
+
+
 def print_info(func):
     import functools
     @functools.wraps(func)
@@ -182,6 +195,8 @@ def write_Convolution2D(fp, config):
     write_initialize_bool_type(fp, config, 'bias')
     write_initialize_enum_type(fp, config, 'input_dtype', input_dtype_dic, 'NN_DTYPE_NONE')
     write_initialize_array_type(fp, config, 'subsample')
+
+    write_initialize_wight(fp, config)
 
 
 @print_info
@@ -258,6 +273,41 @@ def write_nnn_init(fp):
 
     fp.write('\treturn &g_nnn;\n')
     fp.write('}\n')
+    fp.write('\n')
+
+
+def write_nnn_load_weight_from_files(fp):
+    fp.write('int nnn_load_weight_from_files(NNNET* np, const char *path)\n')
+    fp.write('{\n')
+    fp.write('\tchar buf[NNN_MAX_PATH];\n')
+    fp.write('\tint path_len;\n')
+    fp.write('\tint fname_w_len;\n')
+    fp.write('\tint fname_b_len;\n')
+    fp.write('\n')
+
+    for l in model.get_config():
+        class_name = l['class_name']
+        config = l['config']
+
+        if class_name in ['Convolution2D', 'Dense']:
+            name = config['name']
+            fname_w = name+'_W_z.npy'
+            fname_b = name+'_B_z.npy'
+
+            fp.write('// %s\n' % name)
+            fp.write('\tpath_len = strlen(path);\n')
+            fp.write('\tfname_w_len = strlen("%s");\n' % fname_w)
+            fp.write('\tfname_b_len = strlen("%s");\n' % fname_b)
+            fp.write('\tassert(path_len+fname_w_len<NNN_MAX_PATH);\n')
+            fp.write('\tassert(path_len+fname_b_len<NNN_MAX_PATH);\n')
+
+
+
+            fp.write('\n')
+
+    fp.write('\treturn NNN_RET_OK;\n')
+    fp.write('}\n')
+    fp.write('\n')
 
 
 def generate_c_file(file):
@@ -266,6 +316,7 @@ def generate_c_file(file):
         fp.write('#include "nnn_gen.h"\n')
         write_global_vaiable(fp)
         write_nnn_init(fp)
+        write_nnn_load_weight_from_files(fp)
 
 
 def write_file_header(fp):

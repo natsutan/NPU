@@ -13,6 +13,7 @@ int main(void)
   np = nnn_init();
   printf("%p\n", np);
   nnn_run(np, NULL);
-  
+  nnn_load_weight_from_files(np, "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/");
+
   return 0;
 }
