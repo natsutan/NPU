@@ -44,7 +44,7 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
   printf("load from %s\n", numpy_fname);
   np_print_heaer_info(hp);
 
-  //ˆø”‚ÌƒTƒCƒY‚ÆAnumpyƒwƒbƒ_[‚ÌƒTƒCƒY‚ð”äŠr
+  //å¼•æ•°ã®ã‚µã‚¤ã‚ºã¨ã€numpyãƒ˜ãƒƒãƒ€ãƒ¼ã®ã‚µã‚¤ã‚ºã‚’æ¯”è¼ƒ
   size_from_shape = hp->shape[0] *  hp->shape[1] *  hp->shape[2] *  hp->shape[3];
   if(size != size_from_shape) {
 	printf("ERROR:numpy header error %s\n", numpy_fname);
@@ -61,16 +61,16 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
 
 //---------------------------------------------------------------------
 // np_check_header
-// ‹@”\Fnumpyƒtƒ@ƒCƒ‹‚Ìƒwƒbƒ_[ƒ`ƒFƒbƒN‚µAfp‚ðƒf[ƒ^‚Ìæ“ª‚Ü‚Åseek‚·‚é 
+// æ©Ÿèƒ½ï¼šnumpyãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒã‚§ãƒƒã‚¯ã—ã€fpã‚’ãƒ‡ãƒ¼ã‚¿ã®å…ˆé ­ã¾ã§seekã™ã‚‹ 
 //
-// ˆø”
-//  fp numpyƒtƒ@ƒCƒ‹‚Ö‚Ìƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^Bƒtƒ@ƒCƒ‹æ“ª‚ðŽw‚µ‚Ä‚¢‚é‚±‚Æ
-//      (fopen’¼Œã‚Ìó‘Ô‚Å‚ ‚é‚±‚Æ)
-//   hp ƒwƒbƒ_[î•ñ‚ÌŠi”[æ
+// å¼•æ•°
+//  fp numpyãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã€‚ãƒ•ã‚¡ã‚¤ãƒ«å…ˆé ­ã‚’æŒ‡ã—ã¦ã„ã‚‹ã“ã¨
+//      (fopenç›´å¾Œã®çŠ¶æ…‹ã§ã‚ã‚‹ã“ã¨)
+//   hp ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ã®æ ¼ç´å…ˆ
 //
-// –ß‚è’lF
-//   ƒwƒbƒ_[î•ñ‚ª‚¨‚©‚µ‚¢‚Æ‚«ANNN_NP_HEADER_ERR‚ð•Ô‚·B
-//   ƒwƒbƒ_[î•ñ‚ª–â‘è‚È‚¢ê‡‚Í, NNN_RET_OK‚ð•Ô‚·B
+// æˆ»ã‚Šå€¤ï¼š
+//   ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ãŒãŠã‹ã—ã„ã¨ãã€NNN_NP_HEADER_ERRã‚’è¿”ã™ã€‚
+//   ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ãŒå•é¡Œãªã„å ´åˆã¯, NNN_RET_OKã‚’è¿”ã™ã€‚
 int np_check_header(FILE *fp, NUMPY_HEADER *hp)
 {
   unsigned char buf[NNN_NP_BUF_SIZE];
@@ -110,16 +110,16 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
 
 //---------------------------------------------------------------------
 // np_check_header
-// ‹@”\Fnumpy‚Ìƒwƒbƒ_[‚ÉŠÜ‚Ü‚ê‚éŽ«‘‚ðƒp[ƒXŽAˆø”‚Ìhp‚É’l‚ðÝ’è‘f‚·‚éB
+// æ©Ÿèƒ½ï¼šnumpyã®ãƒ˜ãƒƒãƒ€ãƒ¼ã«å«ã¾ã‚Œã‚‹è¾žæ›¸ã‚’ãƒ‘ãƒ¼ã‚¹æ°ã€å¼•æ•°ã®hpã«å€¤ã‚’è¨­å®šç´ ã™ã‚‹ã€‚
 //
-// ˆø”F
-//   fp numpyƒtƒ@ƒCƒ‹‚Ö‚Ìƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^Bdicæ“ª‚ðŽw‚µ‚Ä‚¢‚é‚±‚Æ
-//      fp‚Ì’l‚ÍXV‚³‚ê‚éB
-//   hp ƒwƒbƒ_[î•ñ‚ÌŠi”[æ
+// å¼•æ•°ï¼š
+//   fp numpyãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã€‚dicå…ˆé ­ã‚’æŒ‡ã—ã¦ã„ã‚‹ã“ã¨
+//      fpã®å€¤ã¯æ›´æ–°ã•ã‚Œã‚‹ã€‚
+//   hp ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ã®æ ¼ç´å…ˆ
 //
-// –ß‚è’lF
-//   ƒwƒbƒ_[î•ñ‚ª‚¨‚©‚µ‚¢‚Æ‚«ANNN_NP_HEADER_ERR‚ð•Ô‚·B
-//   ƒwƒbƒ_[î•ñ‚ª–â‘è‚È‚¢ê‡‚Í, NNN_RET_OK‚ð•Ô‚·B
+// æˆ»ã‚Šå€¤ï¼š
+//   ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ãŒãŠã‹ã—ã„ã¨ãã€NNN_NP_HEADER_ERRã‚’è¿”ã™ã€‚
+//   ãƒ˜ãƒƒãƒ€ãƒ¼æƒ…å ±ãŒå•é¡Œãªã„å ´åˆã¯, NNN_RET_OKã‚’è¿”ã™ã€‚
 int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 {
   char *cp;
@@ -151,7 +151,7 @@ int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 	  }
 	} else if(strstr(cp, "'fortran_order'")!=NULL) {
 	  cp = strtok(NULL, delimiter);
-	  //ˆê•¶Žš–Ú‚Å”»’f
+	  //ä¸€æ–‡å­—ç›®ã§åˆ¤æ–­
 	  if(*cp=='F') {
 		hp->fortran_order = false;
 	  } else {
@@ -161,9 +161,9 @@ int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 	} else if(strstr(cp, "'shape':")!=NULL) {
 	  do {
 		cp = strtok(NULL, delimiter);
-		//—v‘f”‚ª1‚ÌŽž‚ÍI—¹
+		//è¦ç´ æ•°ãŒ1ã®æ™‚ã¯çµ‚äº†
 		if(*cp==')') break;
-		//(‚ÍƒXƒy[ƒX‚Å‚Â‚Ô‚·
+		//(ã¯ã‚¹ãƒšãƒ¼ã‚¹ã§ã¤ã¶ã™
 		if(*cp=='(') *cp = ' ';
 		ret = sscanf(cp, "%d", &size);
 		if(ret!=1) {
@@ -171,7 +171,7 @@ int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 		  return NNN_NP_HEADER_ERR;
 		}
 
-		//hp->shape‚ªƒTƒCƒY4‚Ì”z—ñ‚¾‚©‚çB
+		//hp->shapeãŒã‚µã‚¤ã‚º4ã®é…åˆ—ã ã‹ã‚‰ã€‚
 		if(dim>4) {
 		  printf("ERROR unsupported shape %s\n", cp);
 		  return NNN_NP_HEADER_ERR;
