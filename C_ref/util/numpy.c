@@ -10,8 +10,11 @@ const NUMPY_HEADER default_numpy_header = {0,0,0,0,0,{0,0,0,0}};
 //x93NUMPY
 const unsigned char np_magic[6] = {0x93, 0x4E, 0x55, 0x4D, 0x50, 0x59};
 
+
 int np_check_header(FILE *fp, NUMPY_HEADER *hp);
+int np_parse_header_dic(char *buf, NUMPY_HEADER *hp);
 void np_print_heaer_info(const NUMPY_HEADER *hp);
+
 
 int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *hp)
 {
@@ -60,8 +63,8 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
 // np_check_header
 // 機能：numpyファイルのヘッダーチェックし、fpをデータの先頭までseekする 
 //
-// 引数：
-//   fp numpyファイルへのファイルポインタ。ファイル先頭を指していること
+// 引数
+//  fp numpyファイルへのファイルポインタ。ファイル先頭を指していること
 //      (fopen直後の状態であること)
 //   hp ヘッダー情報の格納先
 //
@@ -73,10 +76,6 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
   unsigned char buf[NNN_NP_BUF_SIZE];
   int i;
   int size;
-  char *cp;
-  const char *delimiter = ",{} ";
-  int ch;
-  int dim = 0;
   int ret;
 
   //check magic number
@@ -96,9 +95,40 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
   hp->header_len = size;
   assert(hp->header_len < NNN_NP_BUF_SIZE-1);
 
-  //info 
   fread(&buf, 1, hp->header_len, fp);
   buf[hp->header_len] = '\0';
+
+  ret = np_parse_header_dic((char *)buf, hp);
+  if(ret != NNN_RET_OK) {
+	return ret;
+  }
+	
+  fseek(fp, 8+2+(hp->header_len), 0);
+
+  return NNN_RET_OK;
+}
+
+//---------------------------------------------------------------------
+// np_check_header
+// 機能：numpyのヘッダーに含まれる辞書をパース氏、引数のhpに値を設定素する。
+//
+// 引数：
+//   fp numpyファイルへのファイルポインタ。dic先頭を指していること
+//      fpの値は更新される。
+//   hp ヘッダー情報の格納先
+//
+// 戻り値：
+//   ヘッダー情報がおかしいとき、NNN_NP_HEADER_ERRを返す。
+//   ヘッダー情報が問題ない場合は, NNN_RET_OKを返す。
+int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
+{
+  char *cp;
+  const char *delimiter = ",{} ";
+  int dim = 0;
+  int ret;
+  int size;
+  
+  //info 
   hp->shape[0] = 0;
   hp->shape[1] = 0;
   hp->shape[2] = 0;
@@ -106,8 +136,7 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
 
   cp = strtok((char *)buf, delimiter);
   while(cp!=NULL) {
-	ch = *cp;
-	if ((ch == ' ') || ch == '{') {
+	if ((*cp == ' ') || *cp == '{') {
 	  cp = strtok(NULL, delimiter);
 	  continue;
 	} 
@@ -155,11 +184,9 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
 	cp = strtok(NULL, delimiter);
   }
 
-  fseek(fp, 8+2+(hp->header_len), 0);
 
   return NNN_RET_OK;
 }
-
 
 void np_print_heaer_info(const NUMPY_HEADER *hp)
 {
@@ -196,9 +223,69 @@ void np_print_heaer_info(const NUMPY_HEADER *hp)
 
 }
 
-int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER hp)
+int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER *hp)
 {
+  
+  FILE *fp;
+  unsigned char buf[NNN_NP_BUF_SIZE];
+  int i;
+  int len;
+  char *descr;
+  char *type_float = "<f4";
+  
+  assert(dp!=NULL);
+  assert(numpy_fname!=NULL);
+  assert(hp!=NULL);
+  assert(hp->shape[0] != 0);
+  assert(hp->fortran_order == false);
+	
+	
+  fp = fopen(numpy_fname, "wb");
+  if(fp==NULL) {
+	printf("ERROR:cant'open %s\n", numpy_fname);
+	return NNN_ERR_NO_FILE;
+  }
 
+  //write magic number
+  fwrite(np_magic, 1, 6, fp);
+
+  //version
+  fwrite(&(hp->major_version), 1, 1, fp);
+  fwrite(&(hp->minor_version), 1, 1, fp);
+
+  //size
+  fwrite(&(hp->header_len), 2, 1, fp);
+
+  //dictionary
+  //padding
+  for(i=0;i<NNN_NP_BUF_SIZE;i++) {
+	buf[i] = ' ';
+  }
+
+  if(hp->descr == NN_FLOAT32) {
+	descr = type_float;
+  } else {
+	printf("ERROR unkown descr %d\n", hp->descr);
+	return NNN_NP_HEADER_ERR;
+  }
+  
+  //{'descr': '<f4', 'fortran_order': False, 'shape': (32,), }
+  if(hp->shape[1] == 0) {
+	len = sprintf((char *)buf, "{'descr': '%s', 'fortran_order': False, 'shape': (%d,), }", descr, hp->shape[0]);
+  } else if(hp->shape[2] == 0) {
+	len = sprintf((char *)buf, "{'descr': '%s', 'fortran_order': False, 'shape': (%d, %d), }", descr, hp->shape[0], hp->shape[1]);
+  } else if(hp->shape[3] == 0) {
+	len = sprintf((char *)buf, "{'descr': '%s', 'fortran_order': False, 'shape': (%d, %d, %d), }", descr, hp->shape[0], hp->shape[1], hp->shape[2]);
+  } else {
+	len = sprintf((char *)buf, "{'descr': '%s', 'fortran_order': False, 'shape': (%d, %d, %d, %d), }", descr, hp->shape[0], hp->shape[1], hp->shape[2], hp->shape[3]);
+  }
+  assert(len!=0);
+  buf[hp->header_len-1] = '\n';
+  
+  fwrite(buf,1, hp->header_len, fp);
+
+  fclose(fp);
+  
   return NNN_RET_OK;
 }
 
