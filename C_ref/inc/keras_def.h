@@ -96,7 +96,9 @@ typedef struct LY_Convolution2D_tag {
   NN_DTYPE input_dtype;
   int subsample[2];
   //
+  void *nnn_whp;
   void *nnn_wp;
+  void *nnn_bhp;
   void *nnn_bp;
 } LY_Convolution2D;
 
@@ -125,8 +127,11 @@ typedef struct LY_Dense_tag {
   KR_REGULARIZER activity_regularizer;
   bool bias;
   //
+  void *nnn_whp;
   void *nnn_wp;
+  void *nnn_bhp;
   void *nnn_bp;
+
 } LY_Dense;
 
 typedef struct LY_MaxPooling2D_tag {
