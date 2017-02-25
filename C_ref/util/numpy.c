@@ -45,7 +45,18 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
   np_print_heaer_info(hp);
 
   //引数のサイズと、numpyヘッダーのサイズを比較
-  size_from_shape = hp->shape[0] *  hp->shape[1] *  hp->shape[2] *  hp->shape[3];
+  if(hp->shape[1] == 0) {
+	  size_from_shape = hp->shape[0];
+  } else if (hp->shape[2] == 0) {
+	  size_from_shape = hp->shape[0] * hp->shape[1];
+  } else if  (hp->shape[3] == 0) {
+	  size_from_shape = hp->shape[0] * hp->shape[1] * hp->shape[2];
+  } else {
+	  size_from_shape = hp->shape[0] * hp->shape[1] *  hp->shape[2] *  hp->shape[3];
+  }
+
+  printf("size = %d, size_from_shape = %d\n", size, size_from_shape);
+
   if(size != size_from_shape) {
 	printf("ERROR:numpy header error %s\n", numpy_fname);
 	return NNN_NP_HEADER_ERR;	
@@ -190,7 +201,7 @@ int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 
 void np_print_heaer_info(const NUMPY_HEADER *hp)
 {
-  printf("major_version=%d\n", hp->major_version);
+  printf("major_version=%d, ", hp->major_version);
   printf("minor_version=%d\n", hp->minor_version);
   printf("HEADER LEN=%d\n", hp->header_len);
 
