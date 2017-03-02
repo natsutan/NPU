@@ -1,14 +1,35 @@
 #include "nnnet.h"
 #include "nnnet_op.h"
 
-int nnn_run(NNNET* np, void *dp)
+//dummy
+int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
 {
-
-  int i;
-  for(i=0;i<np->layernum;i++) {
-    layer_print_name(np->layer+i);
-  }
-
-  return 0;
+    return NNN_RET_ERR;
 }
+
+int nnn_Activation(NNNET_LAYER *np, void *inp, void *outp)
+{
+    return NNN_RET_ERR;
+}
+
+int nnn_MaxPooling2D(NNNET_LAYER *np, void *inp, void *outp)
+{
+    return NNN_RET_ERR;
+}
+
+int nnn_Dense(NNNET_LAYER *np, void *inp, void *outp)
+{
+    return NNN_RET_ERR;
+}
+
+int nnn_Dropout(NNNET_LAYER *np, void *inp, void *outp)
+{
+    return NNN_RET_ERR;
+}
+
+int nnn_Flatten(NNNET_LAYER *np, void *inp, void *outp)
+{
+    return NNN_RET_ERR;
+}
+
 

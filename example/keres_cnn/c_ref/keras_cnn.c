@@ -7,13 +7,14 @@
 
 int main(void)
 {
-
+  int data[28][28];
 
   NNNET *np;
   np = nnn_init();
   printf("%p\n", np);
   nnn_run(np, NULL);
   nnn_load_weight_from_files(np, "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/");
+  nnn_run(np, data);
 
   return 0;
 }

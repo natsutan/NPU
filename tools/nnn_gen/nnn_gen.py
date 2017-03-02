@@ -32,6 +32,7 @@ def generate_header_file(file):
         fp.write('int nnn_load_weight_from_files(NNNET* np, const char *path);\n')
         fp.write('int nnn_run(NNNET* np, void *dp);\n')
 
+
 def get_prev_layer_output_dimension(i):
     """一つ前の層の出力数を取得する"""
     if i == 0:
@@ -40,6 +41,16 @@ def get_prev_layer_output_dimension(i):
     l = model.layers[i]
     shape = l.output_shape
     return shape[-1]
+
+
+def get_prev_layer_output_name(i):
+    if i == 0:
+        # 入力層
+        return 'dp'
+    l = model.get_config()[i-1]
+    config = l['config']
+    name = config['name']
+    return make_output_variable_name(name)
 
 
 def write_global_vaiable(fp):
@@ -100,8 +111,8 @@ def write_global_vaiable(fp):
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
             [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
-            fp.write('NUMPY_HEADER %s\n;' % variable_name_w_header)
-            fp.write('NUMPY_HEADER %s\n;' % variable_name_b_nph)
+            fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
+            fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
             fp.write("%s %s[%d];\n" %
                      (type_str, variable_name_w, config['input_dim']))
             fp.write("%s %s[%d];\n" %
@@ -130,6 +141,9 @@ def write_global_vaiable(fp):
             sys.exit(1)
 
     fp.write('\n')
+
+def make_func_name(name):
+    return 'nnn_' + name
 
 
 def make_output_variable_name(name):
@@ -358,6 +372,32 @@ def write_nnn_load_weight_from_files(fp):
     fp.write('\n')
 
 
+
+def write_nnn_run(fp):
+    fp.write('int nnn_run(NNNET* np, void *dp)\n')
+    fp.write('{\n')
+    fp.write('\tint ret;\n')
+    fp.write('\n')
+
+    for i, l in enumerate(model.get_config()):
+        class_name = l['class_name']
+        config = l['config']
+        name = config['name']
+        inp = get_prev_layer_output_name(i)
+        outp = make_output_variable_name(name)
+        func_name = make_func_name(class_name)
+        fp.write("//%s\n" % name)
+        fp.write("\tret = %s(&(g_nnn.layer[%d]), %s, %s);\n" % (func_name, i, inp, outp))
+        fp.write('\tif(ret != NNN_RET_OK){\n')
+        fp.write('\t\treturn ret;\n')
+        fp.write('\t}\n')
+        fp.write('\n')
+
+    fp.write('\treturn NNN_RET_OK;\n')
+    fp.write('}\n')
+    fp.write('\n')
+
+
 def generate_c_file(file):
     with open(file, 'w') as fp:
         write_file_header(fp)
@@ -365,6 +405,8 @@ def generate_c_file(file):
         write_global_vaiable(fp)
         write_nnn_init(fp)
         write_nnn_load_weight_from_files(fp)
+        write_nnn_run(fp)
+
 
 
 def write_file_header(fp):

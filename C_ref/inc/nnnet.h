@@ -18,3 +18,4 @@
 
 #include "nnnet_def.h"
 #include "numpy.h"
+#include "nnn_func.h"

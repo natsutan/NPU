@@ -1,0 +1,18 @@
+env = Environment(CCFLAGS='-Wall -I../../../C_ref/inc/')
+
+# Command(['nnn_gen.c'], None, '/home/natu/myproj/NPU/tools/nnn_gen/nnn_gen.py')
+nnn_lib_path = '../../../C_ref/nnnet/'
+
+
+targets = { 'output/keras_cnn'    :
+            [
+                'keras_cnn.c', 'nnn_gen/nnn_gen.c',
+                nnn_lib_path + 'nnnet.c', nnn_lib_path + 'nnn_op.c',
+	    ],}
+
+
+for target in targets:
+    objs = targets[target]
+    env.Program(target, objs)
+
+

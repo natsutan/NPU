@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "numpy.h"
+#include "nnnet.h"
 #include "assert.h"
 
 //see https://docs.scipy.org/doc/numpy-dev/neps/npy-format.html
