@@ -4,7 +4,7 @@
 #include "assert.h"
 
 //see https://docs.scipy.org/doc/numpy-dev/neps/npy-format.html
-const NUMPY_HEADER default_numpy_header = {0,0,0,0,0,{0,0,0,0}};
+const NUMPY_HEADER default_numpy_header = {0,0,0,NN_DTYPE_NONE, 0, {0,0,0,0}};
 
 
 //x93NUMPY
@@ -42,7 +42,7 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
   }
 
   printf("load from %s\n", numpy_fname);
-  np_print_heaer_info(hp);
+  //np_print_heaer_info(hp);
 
   //引数のサイズと、numpyヘッダーのサイズを比較
   if(hp->shape[1] == 0) {
@@ -62,8 +62,17 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
 	return NNN_NP_HEADER_ERR;	
   }
 
-  fread(dp, 4, size, fp);
-
+  switch (hp->descr) {
+  case NN_FLOAT32:
+	  fread(dp, 4, size, fp);
+	  break;
+  case NN_UINT8:
+	  fread(dp, 1, size, fp);
+	  break;
+  default:
+	  printf("ERROR:numpy header error dscr = %d\n", hp->descr);
+	  return NNN_NP_HEADER_ERR;
+  }
 
   fclose(fp);
 
@@ -109,7 +118,7 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
   fread(&buf, 1, hp->header_len, fp);
   buf[hp->header_len] = '\0';
 
-  ret = np_parse_header_dic((char *)buf, hp);
+  ret = np_parse_header_dic((char *)buf, hp);prev_dim
   if(ret != NNN_RET_OK) {
 	return ret;
   }
@@ -156,6 +165,8 @@ int np_parse_header_dic(char *buf, NUMPY_HEADER *hp)
 	  cp = strtok(NULL, delimiter);
 	  if(strstr(cp, "'<f4'")!=NULL) {
 		hp->descr = NN_FLOAT32; 
+	  } else if(strstr(cp, "'|u1'")!=NULL) {
+		hp->descr = NN_UINT8;
 	  } else {
 		printf("ERROR unkown descr %s\n", cp);
 		return NNN_NP_HEADER_ERR;

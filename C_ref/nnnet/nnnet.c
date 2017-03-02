@@ -2,10 +2,7 @@
 #include "nnnet_op.h"
 
 //dummy
-int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
-{
-    return NNN_RET_ERR;
-}
+
 
 int nnn_Activation(NNNET_LAYER *np, void *inp, void *outp)
 {
