@@ -32,6 +32,15 @@ def generate_header_file(file):
         fp.write('int nnn_load_weight_from_files(NNNET* np, const char *path);\n')
         fp.write('int nnn_run(NNNET* np, void *dp);\n')
 
+def get_prev_layer_output_dimension(i):
+    """一つ前の層の出力数を取得する"""
+    if i == 0:
+        # 入力層
+        return 1
+    l = model.layers[i]
+    shape = l.output_shape
+    return shape[-1]
+
 
 def write_global_vaiable(fp):
     # 将来的にはstaticにしてファイル内にシンボルを隠蔽
@@ -61,27 +70,38 @@ def write_global_vaiable(fp):
 
     fp.write('\n')
     fp.write('// weights\n')
-    for l in model.get_config():
+    for i, l in enumerate(model.get_config()):
         class_name = l['class_name']
         config = l['config']
         name = config['name']
         if class_name == 'Convolution2D':
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
-            [variable_name_w, variable_name_b] = make_weight_variable_names(name)
+            [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
 
             # row と colの値が違う場合は、仕様を決めること
+            fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
+            fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
+
+            prev_dim = get_prev_layer_output_dimension(i)
+
             assert(config['nb_row'] == config['nb_col'])
-            fp.write("%s %s[%d][%d][%d];\n" %
+            if prev_dim == 1:
+                fp.write("%s %s[%d][%d][%d];\n" %
                     (type_str, variable_name_w, config['nb_filter'], config['nb_col'], config['nb_row']))
+            else:
+                fp.write("%s %s[%d][%d][%d][%d];\n" %
+                    (type_str, variable_name_w, prev_dim, config['nb_filter'], config['nb_col'], config['nb_row']))
+
             fp.write("%s %s[%d];\n" %
                  (type_str, variable_name_b, config['nb_filter']))
 
         elif class_name == 'Dense':
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
-            variable_name_w = 'w_' + name + '_W'
-            variable_name_b = 'w_' + name + '_B'
+            [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
+            fp.write('NUMPY_HEADER %s\n;' % variable_name_w_header)
+            fp.write('NUMPY_HEADER %s\n;' % variable_name_b_nph)
             fp.write("%s %s[%d];\n" %
                      (type_str, variable_name_w, config['input_dim']))
             fp.write("%s %s[%d];\n" %
@@ -118,8 +138,10 @@ def make_output_variable_name(name):
 
 def make_weight_variable_names(name):
     w = 'w_' + name + '_W'
-    b = 'w_' + name + '_B'
-    return w, b
+    b = 'w_' + name + '_b'
+    w_head = 'nph_' + name + '_W'
+    b_head = 'nph_' + name + '_b'
+    return w, w_head, b, b_head
 
 
 def write_initialize_array_type(fp, config, member):
@@ -164,9 +186,11 @@ def write_initialize_number_type(fp, config, member):
 
 def write_initialize_wight(fp, config):
     name = config['name']
-    [variable_name_w, variable_name_b] = make_weight_variable_names(name)
+    [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
     fp.write("\t%s.nnn_wp=%s;\n" % (name, variable_name_w))
     fp.write("\t%s.nnn_bp=%s;\n" % (name, variable_name_b))
+    fp.write("\t%s.nnn_whp=&%s;\n" % (name, variable_name_w_header))
+    fp.write("\t%s.nnn_bhp=&%s;\n" % (name, variable_name_b_nph))
 
 
 def print_info(func):
@@ -244,6 +268,8 @@ def write_nnn_init(fp):
         name = config['name']
 
         fp.write('\tstrcpy(g_nnn.layer[%d].name, "%s");\n' % (cnt, name) )
+        prev_dim = get_prev_layer_output_dimension(cnt)
+        fp.write('\tg_nnn.layer[%d].prev_dim = %d;\n' % (cnt, prev_dim))
 
         if len(name) > NNN_MAX_LAYER_NAME:
             print("ERROR %s is too long" % name)
@@ -283,16 +309,27 @@ def write_nnn_load_weight_from_files(fp):
     fp.write('\tint path_len;\n')
     fp.write('\tint fname_w_len;\n')
     fp.write('\tint fname_b_len;\n')
+    fp.write('\tint ret;\n')
     fp.write('\n')
 
-    for l in model.get_config():
+    for i, l in enumerate(model.get_config()):
         class_name = l['class_name']
         config = l['config']
 
         if class_name in ['Convolution2D', 'Dense']:
             name = config['name']
             fname_w = name+'_W_z.npy'
-            fname_b = name+'_B_z.npy'
+            fname_b = name+'_b_z.npy'
+            [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_header] = make_weight_variable_names(name)
+            if class_name == 'Convolution2D':
+                prev_dim = get_prev_layer_output_dimension(i)
+                w_size = config['nb_row'] * config['nb_col'] * config['nb_filter'] * prev_dim
+                b_size = config['nb_filter']
+            else:
+                #dense
+                prev_dim = get_prev_layer_output_dimension(i)
+                w_size = config['input_dim'] * prev_dim
+                b_size = config['output_dim']
 
             fp.write('// %s\n' % name)
             fp.write('\tpath_len = strlen(path);\n')
@@ -300,8 +337,19 @@ def write_nnn_load_weight_from_files(fp):
             fp.write('\tfname_b_len = strlen("%s");\n' % fname_b)
             fp.write('\tassert(path_len+fname_w_len<NNN_MAX_PATH);\n')
             fp.write('\tassert(path_len+fname_b_len<NNN_MAX_PATH);\n')
-
-
+            fp.write('\n')
+            fp.write('\tstrcpy(buf, path);\n')
+            fp.write('\tstrcat(buf, "%s");\n' % fname_w)
+            fp.write('\tret = load_from_numpy(%s, buf, %d, &%s);\n' % (variable_name_w, w_size, variable_name_w_header))
+            fp.write('\tif(ret != NNN_RET_OK){\n')
+            fp.write('\t\treturn ret;\n')
+            fp.write('\t}\n')
+            fp.write('\tstrcpy(buf, path);\n')
+            fp.write('\tstrcat(buf, "%s");\n' % fname_b)
+            fp.write('\tret = load_from_numpy(%s, buf, %d, &%s);\n' % (variable_name_b, b_size, variable_name_b_header))
+            fp.write('\tif(ret != NNN_RET_OK){\n')
+            fp.write('\t\treturn ret;\n')
+            fp.write('\t}\n')
 
             fp.write('\n')
 

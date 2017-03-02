@@ -6,6 +6,7 @@
 typedef struct nnnet_layer_tag {
   KR_LAYER_TYPE type;
   char name[NNN_MAX_LAYER_NAME];
+  int prev_dim;
   void *p_param;  //pointer to parameters
   void *p_data;   //pointer to data, eg:weights
 } NNNET_LAYER;
