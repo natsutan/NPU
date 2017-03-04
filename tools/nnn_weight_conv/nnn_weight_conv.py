@@ -51,7 +51,7 @@ def save_weights_from_hdf5_group(f):
             print('')
 
             filename = weight_name.replace(':0', '_z') + '.npy'
-            np.save(filename, data, allow_pickle=False)
+            np.save(filename, data2, allow_pickle=False)
             print("save %s to %s" % (weight_name, filename))
 
 
@@ -67,7 +67,7 @@ def tf_reshape(data):
 
     new_shape = list(ori_shape)
     new_shape.reverse()
-    new_data = np.zeros(new_shape)
+    new_data = np.zeros(new_shape, dtype=data.dtype)
 
     i_r = range(new_shape[0])
     j_r = range(new_shape[1])
@@ -86,6 +86,8 @@ def tf_reshape(data):
         print("error")
         sys.exit(1)
 
+#    f0 = data[:,:,:,0]
+#    f1 = data[:,:,:,1]
 
     return new_data
 

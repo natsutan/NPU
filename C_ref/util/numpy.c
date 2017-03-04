@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
 #include "nnnet.h"
 #include "assert.h"
 
@@ -64,7 +66,10 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
 
   switch (hp->descr) {
   case NN_FLOAT32:
+	  assert(sizeof(float)==4);
+	  printf("fp = %d\n", ftell(fp));
 	  fread(dp, 4, size, fp);
+	  printf("fp = %d\n", ftell(fp));
 	  break;
   case NN_UINT8:
 	  fread(dp, 1, size, fp);
