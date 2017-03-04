@@ -118,7 +118,7 @@ int np_check_header(FILE *fp, NUMPY_HEADER *hp)
   fread(&buf, 1, hp->header_len, fp);
   buf[hp->header_len] = '\0';
 
-  ret = np_parse_header_dic((char *)buf, hp);prev_dim
+  ret = np_parse_header_dic((char *)buf, hp);
   if(ret != NNN_RET_OK) {
 	return ret;
   }
