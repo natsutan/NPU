@@ -99,10 +99,10 @@ def write_global_vaiable(fp):
             assert(config['nb_row'] == config['nb_col'])
             if prev_dim == 1:
                 fp.write("%s %s[%d][%d][%d];\n" %
-                    (type_str, variable_name_w, config['nb_filter'], config['nb_col'], config['nb_row']))
+                    (type_str, variable_name_w,  config['nb_row'], config['nb_col'], config['nb_filter']))
             else:
                 fp.write("%s %s[%d][%d][%d][%d];\n" %
-                    (type_str, variable_name_w, prev_dim, config['nb_filter'], config['nb_col'], config['nb_row']))
+                    (type_str, variable_name_w, config['nb_row'], config['nb_col'], config['nb_filter'], prev_dim))
 
             fp.write("%s %s[%d];\n" %
                  (type_str, variable_name_b, config['nb_filter']))
@@ -110,11 +110,12 @@ def write_global_vaiable(fp):
         elif class_name == 'Dense':
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
+            prev_dim = get_prev_layer_output_dimension(i)
             [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
-            fp.write("%s %s[%d];\n" %
-                     (type_str, variable_name_w, config['input_dim']))
+            fp.write("%s %s[%d][%d];\n" %
+                     (type_str, variable_name_w, config['input_dim'], prev_dim))
             fp.write("%s %s[%d];\n" %
                      (type_str, variable_name_b, config['input_dim']))
 
@@ -241,11 +242,13 @@ def write_Convolution2D(fp, config):
 def write_Activation(fp, config):
     write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
 
+
 @print_info
 def write__MaxPooling2D(fp, config):
     write_initialize_array_type(fp, config, 'strides')
     write_initialize_array_type(fp, config, 'pool_size')
     write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
+
 
 @print_info
 def write_Dropout(fp, config):
@@ -256,6 +259,7 @@ def write_Dropout(fp, config):
 def write_Flatten(fp, config):
     # do nothing
     pass
+
 
 @print_info
 def write_Dense(fp, config):
@@ -290,22 +294,38 @@ def write_nnn_init(fp):
             sys.exit(1)
 
         if class_name == 'Convolution2D':
+            fp.write('\tg_nnn.layer[%d].type = TP_CONVOLUTION2D;\n' % cnt)
             write_Convolution2D(fp, config)
         elif class_name == 'Activation':
+            fp.write('\tg_nnn.layer[%d].type = TP_ACTIVATION;\n' % cnt)
             write_Activation(fp, config)
         elif class_name == 'MaxPooling2D':
+            fp.write('\tg_nnn.layer[%d].type = TP_MAXPOOLING2D;\n' % cnt)
             write__MaxPooling2D(fp, config)
         elif class_name == 'Dropout':
+            fp.write('\tg_nnn.layer[%d].type = TP_DROPOUT;\n' % cnt)
             write_Dropout(fp, config)
         elif class_name == 'Flatten':
+            fp.write('\tg_nnn.layer[%d].type = TP_FLATTEN;\n' % cnt)
             write_Flatten(fp, config)
         elif class_name == 'Dense':
+            fp.write('\tg_nnn.layer[%d].type = TP_DENSE;\n' % cnt)
             write_Dense(fp, config)
         else:
             print("ERROR:layer %s is not supported." % class_name)
             sys.exit(1)
 
         output_variable = make_output_variable_name(name)
+
+        # いったん入力だけ
+        if cnt == 0:
+            fp.write('\tg_nnn.layer[%d].input_dtype = NN_UINT8;\n' % cnt)
+        else:
+            fp.write('\tg_nnn.layer[%d].input_dtype = NN_FLOAT32;\n' % cnt)
+
+        fp.write('\tg_nnn.layer[%d].wight_dtype = NN_FLOAT32;\n' % cnt)
+        fp.write('\tg_nnn.layer[%d].output_dtype = NN_FLOAT32;\n' % cnt)
+
         fp.write('\tg_nnn.layer[%d].p_param = &%s;\n' % (cnt, name))
         fp.write('\tg_nnn.layer[%d].p_data = &%s;\n' % (cnt, output_variable))
 
@@ -406,8 +426,6 @@ def generate_c_file(file):
         write_nnn_init(fp)
         write_nnn_load_weight_from_files(fp)
         write_nnn_run(fp)
-
-
 
 def write_file_header(fp):
     today = datetime.date.today()
