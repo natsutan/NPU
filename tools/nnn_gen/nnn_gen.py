@@ -99,10 +99,10 @@ def write_global_vaiable(fp):
             assert(config['nb_row'] == config['nb_col'])
             if prev_dim == 1:
                 fp.write("%s %s[%d][%d][%d];\n" %
-                    (type_str, variable_name_w,  config['nb_row'], config['nb_col'], config['nb_filter']))
+                    (type_str, variable_name_w,  config['nb_filter'], config['nb_col'], config['nb_row']))
             else:
                 fp.write("%s %s[%d][%d][%d][%d];\n" %
-                    (type_str, variable_name_w, config['nb_row'], config['nb_col'], config['nb_filter'], prev_dim))
+                    (type_str, variable_name_w, prev_dim, config['nb_filter'], config['nb_col'], config['nb_row']))
 
             fp.write("%s %s[%d];\n" %
                  (type_str, variable_name_b, config['nb_filter']))
@@ -115,7 +115,7 @@ def write_global_vaiable(fp):
             fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
             fp.write("%s %s[%d][%d];\n" %
-                     (type_str, variable_name_w, config['input_dim'], prev_dim))
+                     (type_str, variable_name_w, prev_dim, config['input_dim']))
             fp.write("%s %s[%d];\n" %
                      (type_str, variable_name_b, config['input_dim']))
 
@@ -130,10 +130,10 @@ def write_global_vaiable(fp):
         type_str = type_dic[dtype]
         if len(shape) == 4:
             fp.write("%s %s[%d][%d][%d];\n" %
-                    (type_str, variable_name, shape[1], shape[2], shape[3]))
+                    (type_str, variable_name, shape[3], shape[2], shape[1]))
         elif len(shape) == 3:
             fp.write("%s %s[%d][%d];\n" %
-                    (type_str, variable_name, shape[1], shape[2]))
+                    (type_str, variable_name, shape[2], shape[1]))
         elif len(shape) == 2:
             fp.write("%s %s[%d];\n" %
                     (type_str, variable_name, shape[1]))

@@ -3,6 +3,8 @@
 # Kerasの学習データ抜き出しスクリプト
 import h5py
 import numpy as np
+import sys
+import itertools
 
 input_hd5 = 'cnn.h5'
 
@@ -44,10 +46,49 @@ def save_weights_from_hdf5_group(f):
         for weight_name in weight_names:
             data = g[weight_name].value
             print(data.shape)
+            data2 = tf_reshape(data)
+            print(data2.shape)
+            print('')
 
             filename = weight_name.replace(':0', '_z') + '.npy'
             np.save(filename, data, allow_pickle=False)
             print("save %s to %s" % (weight_name, filename))
+
+
+def tf_reshape(data):
+    """
+    matrixの並びを変える.
+    [3][3][1][32]->[32][1][3][3]
+    """
+    ori_shape = data.shape
+
+    if len(ori_shape) == 1:
+        return data
+
+    new_shape = list(ori_shape)
+    new_shape.reverse()
+    new_data = np.zeros(new_shape)
+
+    i_r = range(new_shape[0])
+    j_r = range(new_shape[1])
+
+    if len(ori_shape) == 2:
+        for i,j in itertools.product(i_r, j_r):
+            new_data[i][j] = data[j][i]
+    elif len(ori_shape) == 3:
+        for i, j, k in itertools.product(i_r, j_r, range(new_shape[2])):
+            new_data[i][j][k] = data[k][j][i]
+    elif len(ori_shape) == 4:
+        # [32][1][3][3]:
+        for i,j,k,l in itertools.product(i_r, j_r, range(new_shape[2]), range(new_shape[3])):
+            new_data[i][j][k][l] = data[l][k][j][i]
+    else:
+        print("error")
+        sys.exit(1)
+
+
+    return new_data
+
 
 save_weights(input_hd5)
 
