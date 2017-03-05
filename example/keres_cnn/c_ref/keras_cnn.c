@@ -8,6 +8,8 @@
 
 const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/I.npy";
 
+extern float convolution2d_1_output[32][26][26];
+
 int main(void)
 {
   unsigned char data[28][28];
@@ -33,8 +35,26 @@ int main(void)
   ret = nnn_run(np, data);
   if(ret!=NNN_RET_OK) {
     printf("error nnn_run returns %d\n", ret);
-      exit(1);
+      //exit(1);
   }
+
+  NUMPY_HEADER np_header_26;
+  np_header_26 = np_header;  //入力のヘッダーをコピー
+  np_header_26.descr = NN_FLOAT32;
+  np_header_26.shape[0] = 26;
+  np_header_26.shape[1] = 26;
+  np_header_26.shape[2] = 0;
+  np_header_26.shape[3] = 0;
+
+
+  char out_fname[256];
+
+  for(int f=0;f<32;f++) {
+	  sprintf(out_fname, "output/conv2d1_%02d.npy", f);
+	  save_to_numpy(convolution2d_1_output[f], out_fname, &np_header_26);
+  }
+
+
 
   return 0;
 }

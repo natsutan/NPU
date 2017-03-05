@@ -1,5 +1,8 @@
+#include <stdio.h>
 #include <assert.h>
 #include "nnnet.h"
+
+int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp);
 
 int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
 {
@@ -17,11 +20,6 @@ int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
 		printf("ERROR no supported parameter %s\n", np->name);
     	return NNN_RET_ERR;
 	}
-
-
-
-
-
 
 
     return ret;
@@ -43,9 +41,9 @@ int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp)
 
 
 	int fill_num = cnvp->nb_filter;
-	int input_size_x = cnvp->batch_input_shape[0];
-	int input_size_y = cnvp->batch_input_shape[1];
-	int input_size_num = cnvp->batch_input_shape[2];
+	int input_size_x = cnvp->batch_input_shape[1];
+	int input_size_y = cnvp->batch_input_shape[2];
+	int input_size_num = cnvp->batch_input_shape[3];
 
 	int f, x, y, n;
 	int idx_i,idx_o;

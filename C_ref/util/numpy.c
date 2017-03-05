@@ -67,9 +67,7 @@ int load_from_numpy(void *dp, const char *numpy_fname, int size, NUMPY_HEADER *h
   switch (hp->descr) {
   case NN_FLOAT32:
 	  assert(sizeof(float)==4);
-	  printf("fp = %d\n", ftell(fp));
 	  fread(dp, 4, size, fp);
-	  printf("fp = %d\n", ftell(fp));
 	  break;
   case NN_UINT8:
 	  fread(dp, 1, size, fp);
@@ -259,6 +257,7 @@ int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER *hp)
   int len;
   char *descr;
   char *type_float = "<f4";
+  int size_from_shape;
   
   assert(dp!=NULL);
   assert(numpy_fname!=NULL);
@@ -267,6 +266,17 @@ int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER *hp)
   assert(hp->fortran_order == false);
 	
 	
+  //引数のサイズと、numpyヘッダーのサイズを比較
+  if(hp->shape[1] == 0) {
+	  size_from_shape = hp->shape[0];
+  } else if (hp->shape[2] == 0) {
+	  size_from_shape = hp->shape[0] * hp->shape[1];
+  } else if  (hp->shape[3] == 0) {
+	  size_from_shape = hp->shape[0] * hp->shape[1] * hp->shape[2];
+  } else {
+	  size_from_shape = hp->shape[0] * hp->shape[1] *  hp->shape[2] *  hp->shape[3];
+  }
+
   fp = fopen(numpy_fname, "wb");
   if(fp==NULL) {
 	printf("ERROR:cant'open %s\n", numpy_fname);
@@ -275,6 +285,7 @@ int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER *hp)
 
   //write magic number
   fwrite(np_magic, 1, 6, fp);
+
 
   //version
   fwrite(&(hp->major_version), 1, 1, fp);
@@ -307,9 +318,12 @@ int save_to_numpy(void *dp, const char *numpy_fname, NUMPY_HEADER *hp)
 	len = sprintf((char *)buf, "{'descr': '%s', 'fortran_order': False, 'shape': (%d, %d, %d, %d), }", descr, hp->shape[0], hp->shape[1], hp->shape[2], hp->shape[3]);
   }
   assert(len!=0);
+  buf[len] = ' ';
   buf[hp->header_len-1] = '\n';
   
   fwrite(buf,1, hp->header_len, fp);
+
+  fwrite(dp, 4, size_from_shape, fp);
 
   fclose(fp);
   
