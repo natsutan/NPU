@@ -34,7 +34,7 @@ int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp)
 	LY_Convolution2D *cnvp;
 	cnvp = np->p_param;
 
-	unsigned int *ip = (unsigned int *)inp;
+	unsigned char *ip = (unsigned char *)inp;
 	float *op = outp;
 	float *wp = cnvp->nnn_wp;
 	float *bp = cnvp->nnn_bp;
