@@ -29,6 +29,7 @@ int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
 int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp)
 {
 	float filter3x3[3][3];
+	unsigned int data3x3[3][3];
 	float bias;
 
 	LY_Convolution2D *cnvp;
@@ -66,7 +67,7 @@ int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp)
 				for(y=0;y<3;y++) {
 					idx_i = f * 3 * 3 + y * 3 + x;
 					w_data = *(wp+idx_i);
-					filter3x3[y][x] = w_data;
+					filter3x3[x][y] = w_data;
 				}
 			}
 			bias = *(bp+f);
@@ -74,20 +75,32 @@ int Convolution2D_3x3_iui8_of(NNNET_LAYER *np, void *inp, void *outp)
 			//apply filter
 			for(y=1;y<input_size_y;y++) {
 				for(x=1;x<input_size_x;x++) {
+					//get data
 					idx_i = n * (input_size_y * input_size_x) + (y - 1) * input_size_y + x;
-					o_data  = *(ip + idx_i - 1) * filter3x3[0][0];
-					o_data += *(ip + idx_i)     * filter3x3[0][1];
-					o_data += *(ip + idx_i + 1) * filter3x3[0][2];
+					data3x3[0][0] = *(ip + idx_i - 1);
+					data3x3[0][1] = *(ip + idx_i);
+					data3x3[0][2] = *(ip + idx_i + 1);
 
 					idx_i = n * (input_size_y * input_size_x) + y * input_size_y + x;
-					o_data += *(ip + idx_i - 1) * filter3x3[1][0];
-					o_data += *(ip + idx_i)     * filter3x3[1][1];
-					o_data += *(ip + idx_i + 1) * filter3x3[1][2];
+					data3x3[1][0] = *(ip + idx_i - 1);
+					data3x3[1][1] = *(ip + idx_i);
+					data3x3[1][2] = *(ip + idx_i + 1);
 
 					idx_i = n * (input_size_y * input_size_x) + (y + 1) * input_size_y + x;
-					o_data += *(ip + idx_i - 1) * filter3x3[2][0];
-					o_data += *(ip + idx_i)     * filter3x3[2][1];
-					o_data += *(ip + idx_i + 1) * filter3x3[2][2];
+					data3x3[2][0] = *(ip + idx_i - 1);
+					data3x3[2][1] = *(ip + idx_i);
+					data3x3[2][2] = *(ip + idx_i + 1);
+
+
+					o_data  = filter3x3[0][0] * data3x3[0][0];
+					o_data += filter3x3[0][1] * data3x3[0][1];
+					o_data += filter3x3[0][2] * data3x3[0][2];
+					o_data += filter3x3[1][0] * data3x3[1][0];
+					o_data += filter3x3[1][1] * data3x3[1][1];
+					o_data += filter3x3[1][2] * data3x3[1][2];
+					o_data += filter3x3[2][0] * data3x3[2][0];
+					o_data += filter3x3[2][1] * data3x3[2][1];
+					o_data += filter3x3[2][2] * data3x3[2][2];
 
 					//activation linear
 					o_data += bias;

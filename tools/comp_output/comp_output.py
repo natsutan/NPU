@@ -9,7 +9,7 @@ kr_data = np.load(keras_file)
 print(kr_data.shape)
 
 #for i in range(32):
-i=0
+i=31
 ko = kr_data[:,:,:,i]
 nn = np.load(nnn_dir + 'conv2d1_%02d.npy' % i)
 ko_f = ko.flatten()
@@ -18,5 +18,4 @@ nn_f = nn.flatten()
 x = np.arange(26*26)
 plt.plot(x, ko_f, color='b')
 plt.plot(x, nn_f, color='r')
-plt.ylim(-100, 50)
 plt.show()

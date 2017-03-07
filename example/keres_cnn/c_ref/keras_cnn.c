@@ -7,6 +7,7 @@
 
 
 const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/I.npy";
+//const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
 
@@ -37,7 +38,7 @@ int main(void)
     printf("error nnn_run returns %d\n", ret);
       //exit(1);
   }
-
+  expected
   NUMPY_HEADER np_header_26;
   np_header_26 = np_header;  //入力のヘッダーをコピー
   np_header_26.descr = NN_FLOAT32;

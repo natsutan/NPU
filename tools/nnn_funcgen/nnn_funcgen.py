@@ -22,3 +22,36 @@
 #     入力 8bit unsigned integer
 #     重み 引数に含まれる
 #     出力 float
+import os
+
+output_dir = '/home/natu/proj/myproj/NPU/C_ref/nnnet/'
+
+
+def make_dir(func):
+    import functools
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        odir = args[0]
+        if not os.path.exists(odir):
+            os.mkdir(path)
+
+        ret = func(*args, **kwargs)
+        return ret
+    return wrapper
+
+
+@make_dir
+def make_conv_2d(odir):
+    print(odir)
+
+
+
+
+
+func_table = [['convolution2d', make_conv_2d],]
+
+for f in func_table:
+    odir = os.path.join(output_dir, f[0])
+    f[1](odir)
+
+
