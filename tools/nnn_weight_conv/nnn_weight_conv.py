@@ -5,8 +5,10 @@ import h5py
 import numpy as np
 import sys
 import itertools
+import os
 
-input_hd5 = 'cnn.h5'
+input_hd5 = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/cnn.h5'
+output_dir = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/'
 
 
 def save_weights(filepath, by_name=False):
@@ -51,8 +53,9 @@ def save_weights_from_hdf5_group(f):
             print('')
 
             filename = weight_name.replace(':0', '_z') + '.npy'
-            np.save(filename, data2, allow_pickle=False)
-            print("save %s to %s" % (weight_name, filename))
+            filepath = os.path.join(output_dir, filename)
+            np.save(filepath, data2, allow_pickle=False)
+            print("save %s to %s" % (weight_name, filepath))
 
 
 def tf_reshape(data):

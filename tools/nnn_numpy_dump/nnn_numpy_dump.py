@@ -1,6 +1,6 @@
 import numpy as np
 
-file = 'dense_1_b_z.npy'
+file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/convolution2d_2_W_z.npy'
 
 data = np.load(file)
 print(data.shape)

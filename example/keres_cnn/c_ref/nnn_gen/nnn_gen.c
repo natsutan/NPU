@@ -27,12 +27,12 @@ float w_convolution2d_1_W[32][3][3];
 float w_convolution2d_1_b[32];
 NUMPY_HEADER nph_convolution2d_2_W;
 NUMPY_HEADER nph_convolution2d_2_b;
-float w_convolution2d_2_W[32][32][3][3];
-float w_convolution2d_2_b[32];
+float w_convolution2d_2_W[40][40][3][3];
+float w_convolution2d_2_b[40];
 NUMPY_HEADER nph_dense_1_W;
 NUMPY_HEADER nph_dense_1_b;
-float w_dense_1_W[128][4608];
-float w_dense_1_b[4608];
+float w_dense_1_W[128][5760];
+float w_dense_1_b[5760];
 NUMPY_HEADER nph_dense_2_W;
 NUMPY_HEADER nph_dense_2_b;
 float w_dense_2_W[46][128];
@@ -41,11 +41,11 @@ float w_dense_2_b[128];
 // output
 float convolution2d_1_output[32][26][26];
 float activation_1_output[32][26][26];
-float convolution2d_2_output[32][24][24];
-float activation_2_output[32][24][24];
-float maxpooling2d_1_output[32][12][12];
-float dropout_1_output[32][12][12];
-float flatten_1_output[4608];
+float convolution2d_2_output[40][24][24];
+float activation_2_output[40][24][24];
+float maxpooling2d_1_output[40][12][12];
+float dropout_1_output[40][12][12];
+float flatten_1_output[5760];
 float dense_1_output[128];
 float activation_3_output[128];
 float dropout_2_output[128];
@@ -104,9 +104,9 @@ NNNET* nnn_init(void)
 	g_nnn.layer[1].p_data = &activation_1_output;
 
 	strcpy(g_nnn.layer[2].name, "convolution2d_2");
-	g_nnn.layer[2].prev_dim = 32;
+	g_nnn.layer[2].prev_dim = 40;
 	g_nnn.layer[2].type = TP_CONVOLUTION2D;
-	convolution2d_2.nb_filter = 32;
+	convolution2d_2.nb_filter = 40;
 	convolution2d_2.nb_row = 3;
 	convolution2d_2.nb_col = 3;
 	convolution2d_2.activation = LINEAR;
@@ -134,10 +134,10 @@ NNNET* nnn_init(void)
 	g_nnn.layer[2].p_data = &convolution2d_2_output;
 
 	strcpy(g_nnn.layer[3].name, "activation_2");
-	g_nnn.layer[3].prev_dim = 32;
+	g_nnn.layer[3].prev_dim = 40;
 	g_nnn.layer[3].type = TP_ACTIVATION;
 	activation_2.activation = RELU;
-	activation_2.nnn_input_shape[0]=32;
+	activation_2.nnn_input_shape[0]=40;
 	activation_2.nnn_input_shape[1]=24;
 	activation_2.nnn_input_shape[2]=24;
 	activation_2.nnn_input_shape[3]=1;
@@ -148,7 +148,7 @@ NNNET* nnn_init(void)
 	g_nnn.layer[3].p_data = &activation_2_output;
 
 	strcpy(g_nnn.layer[4].name, "maxpooling2d_1");
-	g_nnn.layer[4].prev_dim = 32;
+	g_nnn.layer[4].prev_dim = 40;
 	g_nnn.layer[4].type = TP_MAXPOOLING2D;
 	maxpooling2d_1.strides[0] = 2;
 	maxpooling2d_1.strides[1] = 2;
@@ -162,7 +162,7 @@ NNNET* nnn_init(void)
 	g_nnn.layer[4].p_data = &maxpooling2d_1_output;
 
 	strcpy(g_nnn.layer[5].name, "dropout_1");
-	g_nnn.layer[5].prev_dim = 32;
+	g_nnn.layer[5].prev_dim = 40;
 	g_nnn.layer[5].type = TP_DROPOUT;
 	dropout_1.p = 0.25;
 	g_nnn.layer[5].input_dtype = NN_FLOAT32;
@@ -172,7 +172,7 @@ NNNET* nnn_init(void)
 	g_nnn.layer[5].p_data = &dropout_1_output;
 
 	strcpy(g_nnn.layer[6].name, "flatten_1");
-	g_nnn.layer[6].prev_dim = 4608;
+	g_nnn.layer[6].prev_dim = 5760;
 	g_nnn.layer[6].type = TP_FLATTEN;
 	g_nnn.layer[6].input_dtype = NN_FLOAT32;
 	g_nnn.layer[6].wight_dtype = NN_FLOAT32;
@@ -183,7 +183,7 @@ NNNET* nnn_init(void)
 	strcpy(g_nnn.layer[7].name, "dense_1");
 	g_nnn.layer[7].prev_dim = 128;
 	g_nnn.layer[7].type = TP_DENSE;
-	dense_1.input_dim = 4608;
+	dense_1.input_dim = 5760;
 	dense_1.output_dim = 128;
 	dense_1.activation = LINEAR;
 	dense_1.b_regularizer = RG_NONE;
@@ -290,13 +290,13 @@ int nnn_load_weight_from_files(NNNET* np, const char *path)
 
 	strcpy(buf, path);
 	strcat(buf, "convolution2d_2_W_z.npy");
-	ret = load_from_numpy(w_convolution2d_2_W, buf, 9216, &nph_convolution2d_2_W);
+	ret = load_from_numpy(w_convolution2d_2_W, buf, 14400, &nph_convolution2d_2_W);
 	if(ret != NNN_RET_OK){
 		return ret;
 	}
 	strcpy(buf, path);
 	strcat(buf, "convolution2d_2_b_z.npy");
-	ret = load_from_numpy(w_convolution2d_2_b, buf, 32, &nph_convolution2d_2_b);
+	ret = load_from_numpy(w_convolution2d_2_b, buf, 40, &nph_convolution2d_2_b);
 	if(ret != NNN_RET_OK){
 		return ret;
 	}
@@ -310,7 +310,7 @@ int nnn_load_weight_from_files(NNNET* np, const char *path)
 
 	strcpy(buf, path);
 	strcat(buf, "dense_1_W_z.npy");
-	ret = load_from_numpy(w_dense_1_W, buf, 589824, &nph_dense_1_W);
+	ret = load_from_numpy(w_dense_1_W, buf, 737280, &nph_dense_1_W);
 	if(ret != NNN_RET_OK){
 		return ret;
 	}
