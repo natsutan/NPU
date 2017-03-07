@@ -79,6 +79,10 @@ NNNET* nnn_init(void)
 	convolution2d_1.nnn_bp=w_convolution2d_1_b;
 	convolution2d_1.nnn_whp=&nph_convolution2d_1_W;
 	convolution2d_1.nnn_bhp=&nph_convolution2d_1_b;
+	convolution2d_1.nnn_input_shape[0]=0;
+	convolution2d_1.nnn_input_shape[1]=0;
+	convolution2d_1.nnn_input_shape[2]=0;
+	convolution2d_1.nnn_input_shape[3]=0;
 	g_nnn.layer[0].input_dtype = NN_UINT8;
 	g_nnn.layer[0].wight_dtype = NN_FLOAT32;
 	g_nnn.layer[0].output_dtype = NN_FLOAT32;
@@ -119,6 +123,10 @@ NNNET* nnn_init(void)
 	convolution2d_2.nnn_bp=w_convolution2d_2_b;
 	convolution2d_2.nnn_whp=&nph_convolution2d_2_W;
 	convolution2d_2.nnn_bhp=&nph_convolution2d_2_b;
+	convolution2d_2.nnn_input_shape[0]=32;
+	convolution2d_2.nnn_input_shape[1]=26;
+	convolution2d_2.nnn_input_shape[2]=26;
+	convolution2d_2.nnn_input_shape[3]=1;
 	g_nnn.layer[2].input_dtype = NN_FLOAT32;
 	g_nnn.layer[2].wight_dtype = NN_FLOAT32;
 	g_nnn.layer[2].output_dtype = NN_FLOAT32;

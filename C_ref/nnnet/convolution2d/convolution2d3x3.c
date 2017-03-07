@@ -19,14 +19,26 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 	float *bp = cnvp->nnn_bp;
 
 	int fill_num = cnvp->nb_filter;
-	int input_size_x = cnvp->batch_input_shape[1];
-	int input_size_y = cnvp->batch_input_shape[2];
-	int input_size_num = cnvp->batch_input_shape[3];
+	int input_size_x;
+	int input_size_y;
+	int input_size_num;
 
 	int f, x, y, n;
 	int idx_i,idx_o;
 	float w_data;
 	float o_data;
+
+    if (cnvp->nnn_input_shape[0] == 0) {
+        //入力層はbatch_input_shapeの値を使う
+	    input_size_x = cnvp->batch_input_shape[1];
+	    input_size_y = cnvp->batch_input_shape[2];
+	    input_size_num = cnvp->batch_input_shape[3];
+    } else {
+        //ここは怪しい
+	    input_size_x = cnvp->nnn_input_shape[1];
+	    input_size_y = cnvp->nnn_input_shape[2];
+	    input_size_num = cnvp->nnn_input_shape[3];
+    }
 
 	//parameter check o_data
 	assert(cnvp->nb_row==3);
@@ -103,14 +115,26 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 	float *bp = cnvp->nnn_bp;
 
 	int fill_num = cnvp->nb_filter;
-	int input_size_x = cnvp->batch_input_shape[1];
-	int input_size_y = cnvp->batch_input_shape[2];
-	int input_size_num = cnvp->batch_input_shape[3];
+	int input_size_x;
+	int input_size_y;
+	int input_size_num;
 
 	int f, x, y, n;
 	int idx_i,idx_o;
 	float w_data;
 	float o_data;
+
+    if (cnvp->nnn_input_shape[0] == 0) {
+        //入力層はbatch_input_shapeの値を使う
+	    input_size_x = cnvp->batch_input_shape[1];
+	    input_size_y = cnvp->batch_input_shape[2];
+	    input_size_num = cnvp->batch_input_shape[3];
+    } else {
+        //ここは怪しい
+	    input_size_x = cnvp->nnn_input_shape[1];
+	    input_size_y = cnvp->nnn_input_shape[2];
+	    input_size_num = cnvp->nnn_input_shape[3];
+    }
 
 	//parameter check o_data
 	assert(cnvp->nb_row==3);

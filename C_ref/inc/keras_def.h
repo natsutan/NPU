@@ -96,6 +96,7 @@ typedef struct LY_Convolution2D_tag {
   NN_DTYPE input_dtype;
   int subsample[2];
   //
+  int nnn_input_shape[4];
   void *nnn_whp;
   void *nnn_wp;
   void *nnn_bhp;

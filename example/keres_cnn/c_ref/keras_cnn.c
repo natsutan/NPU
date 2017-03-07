@@ -11,6 +11,8 @@ const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/I
 
 extern float convolution2d_1_output[32][26][26];
 extern float activation_1_output[32][26][26];
+extern float convolution2d_2_output[32][24][24];
+extern float activation_2_output[32][24][24];
 
 int main(void)
 {
@@ -60,6 +62,20 @@ int main(void)
 	  sprintf(out_fname, "output/act1_%02d.npy", f);
 	  save_to_numpy(activation_1_output[f], out_fname, &np_header_26);
   }
+
+  NUMPY_HEADER np_header_24;
+  np_header_24 = np_header;  //入力のヘッダーをコピー
+  np_header_24.descr = NN_FLOAT32;
+  np_header_24.shape[0] = 24;
+  np_header_24.shape[1] = 24;
+  np_header_24.shape[2] = 0;
+  np_header_24.shape[3] = 0;
+  for(int f=0;f<32;f++) {
+	  sprintf(out_fname, "output/act2_%02d.npy", f);
+	  save_to_numpy(convolution2d_2_output[f], out_fname, &np_header_24);
+  }
+
+
 
 
   return 0;

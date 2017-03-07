@@ -45,6 +45,6 @@ get_4th_layer_output = K.function([model.layers[0].input],
 
 layer_output = get_4th_layer_output([images,])
 print(layer_output[0].shape)
-np.save('output/conv2d_2_out.npy', layer_output[0], allow_pickle=False)
+np.save('output/act2_out.npy', layer_output[0], allow_pickle=False)
 
 

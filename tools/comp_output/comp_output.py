@@ -6,6 +6,8 @@ import seaborn as sns
 #keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/convolution2d_out.npy'
 # act 1
 keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/act1_out.npy'
+# act 2
+#keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/act2_out.npy'
 
 nnn_dir = '/home/natu/myproj/NPU/example/keres_cnn/c_ref/output/output/'
 
@@ -13,7 +15,7 @@ kr_data = np.load(keras_file)
 print(kr_data.shape)
 
 #for i in range(32):
-i=31
+i=0
 ko = kr_data[:,:,:,i]
 nn = np.load(nnn_dir + 'act1_%02d.npy' % i)
 ko_f = ko.flatten()

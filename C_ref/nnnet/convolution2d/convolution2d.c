@@ -17,6 +17,11 @@ int nnn_Convolution2D(NNNET_LAYER *np, void *inp, void *outp)
 		//3x3 filter
 		if((np->input_dtype == NN_UINT8) && (np->wight_dtype == NN_FLOAT32) && (np->wight_dtype == NN_FLOAT32)) {
 			ret = convolution2d3x3_iui8_of(np, inp, outp);
+		}else if ((np->input_dtype == NN_FLOAT32) && (np->wight_dtype == NN_FLOAT32) && (np->wight_dtype == NN_FLOAT32)) {
+			ret = convolution2d3x3_if_of(np, inp, outp);
+		} else {
+			printf("ERROR no supported parameter %s\n", np->name);
+	    	return NNN_RET_ERR;
 		}
 	} else {
 		printf("ERROR no supported parameter %s\n", np->name);
