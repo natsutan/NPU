@@ -208,6 +208,35 @@ def write_initialize_wight(fp, config):
     fp.write("\t%s.nnn_bhp=&%s;\n" % (name, variable_name_b_nph))
 
 
+def wrrite_nnn_input_shape(fp, config, shape):
+    name = config['name']
+    shape_l = [1 if x is None else x for x in shape]
+
+    if len(shape_l) == 4:
+        fp.write('\t%s.nnn_input_shape[0]=%d;\n' % (name, shape_l[3]))
+        fp.write('\t%s.nnn_input_shape[1]=%d;\n' % (name, shape_l[2]))
+        fp.write('\t%s.nnn_input_shape[2]=%d;\n' % (name, shape_l[1]))
+        fp.write('\t%s.nnn_input_shape[3]=%d;\n' % (name, shape_l[0]))
+    elif len(shape) == 3:
+        fp.write('\t%s.nnn_input_shape[0]=%d;\n' % (name, shape_l[2]))
+        fp.write('\t%s.nnn_input_shape[1]=%d;\n' % (name, shape_l[1]))
+        fp.write('\t%s.nnn_input_shape[2]=%d;\n' % (name, shape_l[0]))
+        fp.write('\t%s.nnn_input_shape[3]=0;\n' % name)
+    elif len(shape) == 2:
+        fp.write('\t%s.nnn_input_shape[0]=%d;\n' % (name, shape_l[1]))
+        fp.write('\t%s.nnn_input_shape[1]=%d;\n' % (name, shape_l[0]))
+        fp.write('\t%s.nnn_input_shape[2]=0;\n' % name)
+        fp.write('\t%s.nnn_input_shape[3]=0;\n' % name)
+    elif len(shape) == 1:
+        fp.write('\t%s.nnn_input_shape[0]=%d;\n' % (name, shape_l[0]))
+        fp.write('\t%s.nnn_input_shape[1]=0;\n' % name)
+        fp.write('\t%s.nnn_input_shape[2]=0;\n' % name)
+        fp.write('\t%s.nnn_input_shape[3]=0;\n' % name)
+    else:
+        print("ERROR:layer %s, shape = %s is not supported." % (name, str(shape)))
+        sys.exit(1)
+
+
 def print_info(func):
     import functools
     @functools.wraps(func)
@@ -239,8 +268,9 @@ def write_Convolution2D(fp, config):
 
 
 @print_info
-def write_Activation(fp, config):
+def write_Activation(fp, config, output_shape):
     write_initialize_enum_type(fp, config, 'activation', activation_dic, 'NO_ACTIVATION')
+    wrrite_nnn_input_shape(fp, config, output_shape)
 
 
 @print_info
@@ -284,6 +314,7 @@ def write_nnn_init(fp):
         config = l['config']
 
         name = config['name']
+        output_shape = model.layers[cnt].output_shape
 
         fp.write('\tstrcpy(g_nnn.layer[%d].name, "%s");\n' % (cnt, name) )
         prev_dim = get_prev_layer_output_dimension(cnt)
@@ -298,7 +329,7 @@ def write_nnn_init(fp):
             write_Convolution2D(fp, config)
         elif class_name == 'Activation':
             fp.write('\tg_nnn.layer[%d].type = TP_ACTIVATION;\n' % cnt)
-            write_Activation(fp, config)
+            write_Activation(fp, config, output_shape)
         elif class_name == 'MaxPooling2D':
             fp.write('\tg_nnn.layer[%d].type = TP_MAXPOOLING2D;\n' % cnt)
             write__MaxPooling2D(fp, config)

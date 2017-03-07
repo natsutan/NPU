@@ -105,6 +105,8 @@ typedef struct LY_Convolution2D_tag {
 
 typedef struct LY_Activation_tag {
   KR_ACTIVATION activation;
+  //
+  int nnn_input_shape[4];
 } LY_Activation;
 
 

@@ -67,6 +67,9 @@ def write_file_header(fp):
     fp.write("// %s\n" % today.strftime('%Y/%m/%d %H:%M:%S'))
     fp.write("//----------------------------------------------------------------------------------------------------\n")
 
+@make_dir
+def make_activation(name, odir):
+    pass
 
 
 @make_dir
@@ -121,7 +124,8 @@ def make_conv_2d(name, odir):
 
 
 
-func_table = [['convolution2d', make_conv_2d],]
+func_table = [['convolution2d', make_conv_2d],
+              ['activation', make_activation]]
 
 for f in func_table:
     name = f[0]

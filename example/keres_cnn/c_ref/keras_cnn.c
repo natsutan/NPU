@@ -10,13 +10,14 @@ const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/I
 //const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
+extern float activation_1_output[32][26][26];
 
 int main(void)
 {
-  unsigned char data[28][28];
   int ret;
   NNNET *np;
 
+  unsigned int data[28][28];
   NUMPY_HEADER np_header = default_numpy_header;
 
   np = nnn_init();
@@ -48,7 +49,6 @@ int main(void)
   np_header_26.shape[2] = 0;
   np_header_26.shape[3] = 0;
 
-
   char out_fname[256];
 
   for(int f=0;f<32;f++) {
@@ -56,6 +56,10 @@ int main(void)
 	  save_to_numpy(convolution2d_1_output[f], out_fname, &np_header_26);
   }
 
+  for(int f=0;f<32;f++) {
+	  sprintf(out_fname, "output/act1_%02d.npy", f);
+	  save_to_numpy(activation_1_output[f], out_fname, &np_header_26);
+  }
 
 
   return 0;

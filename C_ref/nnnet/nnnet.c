@@ -4,10 +4,6 @@
 //dummy
 
 
-int nnn_Activation(NNNET_LAYER *np, void *inp, void *outp)
-{
-    return NNN_RET_ERR;
-}
 
 int nnn_MaxPooling2D(NNNET_LAYER *np, void *inp, void *outp)
 {
