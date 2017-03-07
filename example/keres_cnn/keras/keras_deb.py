@@ -10,8 +10,8 @@ model.load_weights('output/cnn.h5')
 
 # load image
 images = np.empty([0, 28, 28], np.float32)
-#img_ori = Image.open('data/I.png')
-img_ori = Image.open('data/p.png')
+img_ori = Image.open('data/I.png')
+#img_ori = Image.open('data/p.png')
 
 img_gray = ImageOps.grayscale(img_ori)
 
@@ -30,5 +30,21 @@ get_1st_layer_output = K.function([model.layers[0].input],
                                   [model.layers[0].output])
 layer_output = get_1st_layer_output([images,])
 print(layer_output[0].shape)
-np.save('output/p_convolution2d_out.npy', layer_output[0], allow_pickle=False)
-np.save('output/p.npy', img_ary, allow_pickle=False)
+np.save('output/convolution2d_out.npy', layer_output[0], allow_pickle=False)
+#np.save('output/p.npy', img_ary, allow_pickle=False)
+
+get_2nd_layer_output = K.function([model.layers[0].input],
+                                  [model.layers[1].output])
+
+layer_output = get_2nd_layer_output([images,])
+print(layer_output[0].shape)
+np.save('output/act1_out.npy', layer_output[0], allow_pickle=False)
+
+get_4th_layer_output = K.function([model.layers[0].input],
+                                  [model.layers[3].output])
+
+layer_output = get_4th_layer_output([images,])
+print(layer_output[0].shape)
+np.save('output/conv2d_2_out.npy', layer_output[0], allow_pickle=False)
+
+
