@@ -30,9 +30,9 @@ int $func_name (NNNET_LAYER *np, void *inp, void *outp)
 	    input_size_num = cnvp->batch_input_shape[3];
     } else {
         //ここは怪しい
-	    input_size_x = cnvp->nnn_input_shape[1];
-	    input_size_y = cnvp->nnn_input_shape[2];
-	    input_size_num = cnvp->nnn_input_shape[3];
+	    input_size_x = cnvp->nnn_input_shape[1];  //画像サイズ
+	    input_size_y = cnvp->nnn_input_shape[2];  //画像サイズ
+	    input_size_num = cnvp->nnn_input_shape[0]; //入力の数
     }
 
 	//parameter check o_data

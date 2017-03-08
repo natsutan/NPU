@@ -26,8 +26,8 @@ import os
 import datetime
 import string
 
-incdir = '/home/natu/proj/myproj/NPU/C_ref/inc/'
-output_dir = '/home/natu/proj/myproj/NPU/C_ref/nnnet/'
+incdir = '../../C_ref/inc/'
+output_dir = '../../C_ref/nnnet/'
 
 ctype_dic = {'NN_FLOAT32': 'float', 'NN_UINT8': 'unsigned char'}
 mangle_dic = {'NN_FLOAT32': 'f', 'NN_UINT8': 'ui8'}
@@ -52,7 +52,7 @@ def make_dir(func):
     def wrapper(*args, **kwargs):
         odir = args[1]
         if not os.path.exists(odir):
-            os.mkdir(path)
+            os.mkdir(odir)
 
         ret = func(*args, **kwargs)
         return ret
@@ -127,6 +127,7 @@ def make_conv_2d(name, odir):
 func_table = [['convolution2d', make_conv_2d],
               ['activation', make_activation]]
 
+print(os.getcwd())
 for f in func_table:
     name = f[0]
     odir = os.path.join(output_dir, name)
