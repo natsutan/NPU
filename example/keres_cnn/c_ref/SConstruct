@@ -11,6 +11,8 @@ targets = { 'output/keras_cnn'    :
 		nnn_lib_path + 'nnn_op.c',
 		nnn_lib_path + '../util/numpy.c',
 		nnn_lib_path + 'convolution2d/convolution2d.c',
+		nnn_lib_path + 'convolution2d/convolution2d3x3.c',
+		nnn_lib_path + 'activation/activation.c',
 	    ],}
 
 

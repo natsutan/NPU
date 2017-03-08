@@ -3,17 +3,17 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # conv2d 1
-#keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/convolution2d_out.npy'
+keras_file = '../../example/keres_cnn/keras/output/convolution2d_out.npy'
 # act 1
 #keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/act1_out.npy'
 
 # conv2
-keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/conv2_out.npy'
+#keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/conv2_out.npy'
 
 # act 2
-keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/act2_out.npy'
+#keras_file = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/act2_out.npy'
 
-nnn_dir = '/home/natu/myproj/NPU/example/keres_cnn/c_ref/output/output/'
+nnn_dir = '../../example/keres_cnn/c_ref/output/output/'
 
 kr_data = np.load(keras_file)
 print(kr_data.shape)

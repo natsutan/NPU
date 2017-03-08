@@ -7,8 +7,8 @@ import sys
 import itertools
 import os
 
-input_hd5 = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/cnn.h5'
-output_dir = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/'
+input_hd5 = '../../example/keres_cnn/keras/output/cnn.h5'
+output_dir = '../..//example/keres_cnn/keras/output/'
 
 
 def save_weights(filepath, by_name=False):

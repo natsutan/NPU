@@ -3,8 +3,8 @@ from PIL import Image
 from PIL import ImageOps
 
 image_size = 28
-infile = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/O.png'
-outfile  = '/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/O.npy'
+infile = '/home/natsutani/proj/NPU/example/keres_cnn/keras/data/O.png'
+outfile = '/home/natsutani/proj/NPU/example/keres_cnn/keras/data/O.npy'
 
 img_ori = Image.open(infile)
 img_rgb = img_ori.convert('RGB')

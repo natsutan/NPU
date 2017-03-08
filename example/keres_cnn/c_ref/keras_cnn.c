@@ -6,8 +6,8 @@
 #include "nnn_gen/nnn_gen.h"
 
 
-//const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/I.npy";
-const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/p.npy";
+const char infile[] = "../../keras/data/I.npy";
+//const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
 extern float activation_1_output[32][26][26];
@@ -24,7 +24,7 @@ int main(void)
 
   np = nnn_init();
 
-  ret = nnn_load_weight_from_files(np, "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/output/");
+  ret = nnn_load_weight_from_files(np, "../../keras/output/");
   if(ret!=NNN_RET_OK) {
     printf("error nnn_load_weight_from_files returns %d\n", ret);
       exit(1);

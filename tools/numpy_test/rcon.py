@@ -8,6 +8,10 @@ print('')
 fil_1 = arr[:,:,:,1]
 print(fil_1)
 
-print(arr.shape)
+arr_2 = arr.reshape((32,1,3,3))
 
+fil2_0 = arr_2[0,:,:,:]
+print(fil2_0)
+
+print(arr_2.shape)
 
