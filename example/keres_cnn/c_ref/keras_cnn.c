@@ -6,8 +6,8 @@
 #include "nnn_gen/nnn_gen.h"
 
 
-const char infile[] = "../../keras/data/I.npy";
-//const char infile[] = "/home/natu/proj/myproj/NPU/example/keres_cnn/keras/data/p.npy";
+//const char infile[] = "../../keras/data/I.npy";
+const char infile[] = "../../keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
 extern float activation_1_output[32][26][26];

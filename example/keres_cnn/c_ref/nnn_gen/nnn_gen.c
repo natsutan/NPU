@@ -31,12 +31,12 @@ float w_convolution2d_2_W[32][40][3][3];
 float w_convolution2d_2_b[40];
 NUMPY_HEADER nph_dense_1_W;
 NUMPY_HEADER nph_dense_1_b;
-float w_dense_1_W[5760];
-float w_dense_1_b[5760];
+float w_dense_1_W[128][5760];
+float w_dense_1_b[128];
 NUMPY_HEADER nph_dense_2_W;
 NUMPY_HEADER nph_dense_2_b;
-float w_dense_2_W[128];
-float w_dense_2_b[128];
+float w_dense_2_W[46][128];
+float w_dense_2_b[46];
 
 // output
 float convolution2d_1_output[32][26][26];

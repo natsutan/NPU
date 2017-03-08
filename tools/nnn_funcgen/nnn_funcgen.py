@@ -83,6 +83,7 @@ def make_conv_2d(name, odir):
     write_file_header(c_fp)
 
     # header file include
+    header_fp.write('#include <string.h>\n')
     header_fp.write('#include <assert.h>\n')
     header_fp.write('#include "nnnet.h"\n')
     header_fp.write('#include "nnnet_def.h"\n')

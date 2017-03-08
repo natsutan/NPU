@@ -46,12 +46,14 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 	assert(cnvp->border_mode==BD_VALID);
 	assert(cnvp->activation==LINEAR);
 
+    memset(op, 0.0, input_size_num * input_size_y * input_size_x);
+
 	for(n=0;n<input_size_num;n++){
 		for(f=0;f<fill_num;f++) {
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
-					idx_i = f * 3 * 3 + y * 3 + x;
+					idx_i = (n * input_size_num * 3 * 3) + (f * 3 * 3) + (y * 3) + x;
 					w_data = *(wp+idx_i);
 					filter3x3[x][y] = w_data;
 				}
@@ -63,6 +65,9 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 				for(x=1;x<input_size_x;x++) {
 					//get data
 					idx_i = n * (input_size_y * input_size_x) + (y - 1) * input_size_y + x;
+					idx_o = f * (input_size_y - 2) * (input_size_x - 2) + (y-1) * (input_size_y - 2) + (x-1);
+                    o_data = *(op + idx_o);
+
 					data3x3[0][0] = *(ip + idx_i - 1);
 					data3x3[0][1] = *(ip + idx_i);
 					data3x3[0][2] = *(ip + idx_i + 1);
@@ -78,7 +83,7 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 					data3x3[2][2] = *(ip + idx_i + 1);
 
 
-					o_data  = filter3x3[0][0] * data3x3[0][0];
+					o_data += filter3x3[0][0] * data3x3[0][0];
 					o_data += filter3x3[0][1] * data3x3[0][1];
 					o_data += filter3x3[0][2] * data3x3[0][2];
 					o_data += filter3x3[1][0] * data3x3[1][0];
@@ -91,7 +96,6 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 					//activation linear
 					o_data += bias;
 
-					idx_o = f * (input_size_y - 2) * (input_size_x - 2) + (y-1) * (input_size_y - 2) + (x-1);
 					*(op + idx_o) = o_data;
 				}
 			}
@@ -142,12 +146,14 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 	assert(cnvp->border_mode==BD_VALID);
 	assert(cnvp->activation==LINEAR);
 
+    memset(op, 0.0, input_size_num * input_size_y * input_size_x);
+
 	for(n=0;n<input_size_num;n++){
 		for(f=0;f<fill_num;f++) {
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
-					idx_i = f * 3 * 3 + y * 3 + x;
+					idx_i = (n * input_size_num * 3 * 3) + (f * 3 * 3) + (y * 3) + x;
 					w_data = *(wp+idx_i);
 					filter3x3[x][y] = w_data;
 				}
@@ -159,6 +165,9 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 				for(x=1;x<input_size_x;x++) {
 					//get data
 					idx_i = n * (input_size_y * input_size_x) + (y - 1) * input_size_y + x;
+					idx_o = f * (input_size_y - 2) * (input_size_x - 2) + (y-1) * (input_size_y - 2) + (x-1);
+                    o_data = *(op + idx_o);
+
 					data3x3[0][0] = *(ip + idx_i - 1);
 					data3x3[0][1] = *(ip + idx_i);
 					data3x3[0][2] = *(ip + idx_i + 1);
@@ -174,7 +183,7 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 					data3x3[2][2] = *(ip + idx_i + 1);
 
 
-					o_data  = filter3x3[0][0] * data3x3[0][0];
+					o_data += filter3x3[0][0] * data3x3[0][0];
 					o_data += filter3x3[0][1] * data3x3[0][1];
 					o_data += filter3x3[0][2] * data3x3[0][2];
 					o_data += filter3x3[1][0] * data3x3[1][0];
@@ -187,7 +196,6 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 					//activation linear
 					o_data += bias;
 
-					idx_o = f * (input_size_y - 2) * (input_size_x - 2) + (y-1) * (input_size_y - 2) + (x-1);
 					*(op + idx_o) = o_data;
 				}
 			}

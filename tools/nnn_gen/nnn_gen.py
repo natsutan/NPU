@@ -113,10 +113,10 @@ def write_global_vaiable(fp):
             [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
+            fp.write("%s %s[%d][%d];\n" %
+                     (type_str, variable_name_w,  config['output_dim'], config['input_dim']))
             fp.write("%s %s[%d];\n" %
-                     (type_str, variable_name_w, config['input_dim']))
-            fp.write("%s %s[%d];\n" %
-                     (type_str, variable_name_b, config['input_dim']))
+                     (type_str, variable_name_b, config['output_dim']))
 
     # output
     fp.write('\n')
@@ -141,6 +141,7 @@ def write_global_vaiable(fp):
             sys.exit(1)
 
     fp.write('\n')
+
 
 def make_func_name(name):
     return 'nnn_' + name
