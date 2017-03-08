@@ -38,7 +38,7 @@ def get_prev_layer_output_dimension(i):
     if i == 0:
         # 入力層
         return 1
-    l = model.layers[i]
+    l = model.layers[i-1]
     shape = l.output_shape
     return shape[-1]
 
@@ -110,12 +110,11 @@ def write_global_vaiable(fp):
         elif class_name == 'Dense':
             dtype = config.get('input_dtype', 'float32')
             type_str = type_dic[dtype]
-            prev_dim = get_prev_layer_output_dimension(i)
             [variable_name_w, variable_name_w_header, variable_name_b, variable_name_b_nph] = make_weight_variable_names(name)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_w_header)
             fp.write('NUMPY_HEADER %s;\n' % variable_name_b_nph)
-            fp.write("%s %s[%d][%d];\n" %
-                     (type_str, variable_name_w, prev_dim, config['input_dim']))
+            fp.write("%s %s[%d];\n" %
+                     (type_str, variable_name_w, config['input_dim']))
             fp.write("%s %s[%d];\n" %
                      (type_str, variable_name_b, config['input_dim']))
 
@@ -403,7 +402,7 @@ def write_nnn_load_weight_from_files(fp):
             else:
                 #dense
                 prev_dim = get_prev_layer_output_dimension(i)
-                w_size = config['input_dim'] * prev_dim
+                w_size = config['input_dim'] * config['output_dim']
                 b_size = config['output_dim']
 
             fp.write('// %s\n' % name)
