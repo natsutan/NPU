@@ -48,8 +48,8 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 
     memset(op, 0.0, input_size_num * input_size_y * input_size_x);
 
-	for(n=0;n<input_size_num;n++){
-		for(f=0;f<fill_num;f++) {
+	for(f=0;f<fill_num;f++) {
+	    for(n=0;n<input_size_num;n++){
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
@@ -59,6 +59,13 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 				}
 			}
 			bias = *(bp+f);
+
+			if(f==0) {
+				printf("n%02d\n", n);
+				printf("[%f, %f, %f,\n", filter3x3[0][0], filter3x3[0][1], filter3x3[0][2]);
+				printf(" %f, %f, %f,\n", filter3x3[1][0], filter3x3[1][1], filter3x3[1][2]);
+				printf(" %f, %f, %f]\n", filter3x3[2][0], filter3x3[2][1], filter3x3[2][2]);
+			}
 
 			//apply filter
 			for(y=1;y<input_size_y;y++) {
@@ -94,7 +101,9 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 					o_data += filter3x3[2][2] * data3x3[2][2];
 
 					//activation linear
-					o_data += bias;
+					if(n==0) {
+    					o_data += bias;
+                    }
 
 					*(op + idx_o) = o_data;
 				}
@@ -148,8 +157,8 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 
     memset(op, 0.0, input_size_num * input_size_y * input_size_x);
 
-	for(n=0;n<input_size_num;n++){
-		for(f=0;f<fill_num;f++) {
+	for(f=0;f<fill_num;f++) {
+	    for(n=0;n<input_size_num;n++){
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
@@ -159,6 +168,13 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 				}
 			}
 			bias = *(bp+f);
+
+			if(f==0) {
+				printf("n%02d\n", n);
+				printf("[%f, %f, %f,\n", filter3x3[0][0], filter3x3[0][1], filter3x3[0][2]);
+				printf(" %f, %f, %f,\n", filter3x3[1][0], filter3x3[1][1], filter3x3[1][2]);
+				printf(" %f, %f, %f]\n", filter3x3[2][0], filter3x3[2][1], filter3x3[2][2]);
+			}
 
 			//apply filter
 			for(y=1;y<input_size_y;y++) {
@@ -194,7 +210,9 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 					o_data += filter3x3[2][2] * data3x3[2][2];
 
 					//activation linear
-					o_data += bias;
+					if(n==0) {
+    					o_data += bias;
+                    }
 
 					*(op + idx_o) = o_data;
 				}
