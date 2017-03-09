@@ -279,10 +279,11 @@ def write_Activation(fp, config, shape):
 
 
 @print_info
-def write__MaxPooling2D(fp, config):
+def write__MaxPooling2D(fp, config, shape):
     write_initialize_array_type(fp, config, 'strides')
     write_initialize_array_type(fp, config, 'pool_size')
     write_initialize_enum_type(fp, config, 'border_mode', border_mode_dic, 'BD_NONE')
+    wrrite_nnn_input_shape(fp, config, shape)
 
 
 @print_info
@@ -342,7 +343,7 @@ def write_nnn_init(fp):
             write_Activation(fp, config, input_shape)
         elif class_name == 'MaxPooling2D':
             fp.write('\tg_nnn.layer[%d].type = TP_MAXPOOLING2D;\n' % cnt)
-            write__MaxPooling2D(fp, config)
+            write__MaxPooling2D(fp, config, input_shape)
         elif class_name == 'Dropout':
             fp.write('\tg_nnn.layer[%d].type = TP_DROPOUT;\n' % cnt)
             write_Dropout(fp, config)

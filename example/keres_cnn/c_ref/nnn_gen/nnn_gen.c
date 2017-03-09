@@ -155,6 +155,10 @@ NNNET* nnn_init(void)
 	maxpooling2d_1.pool_size[0] = 2;
 	maxpooling2d_1.pool_size[1] = 2;
 	maxpooling2d_1.border_mode = BD_VALID;
+	maxpooling2d_1.nnn_input_shape[0]=40;
+	maxpooling2d_1.nnn_input_shape[1]=24;
+	maxpooling2d_1.nnn_input_shape[2]=24;
+	maxpooling2d_1.nnn_input_shape[3]=1;
 	g_nnn.layer[4].input_dtype = NN_FLOAT32;
 	g_nnn.layer[4].wight_dtype = NN_FLOAT32;
 	g_nnn.layer[4].output_dtype = NN_FLOAT32;
@@ -375,7 +379,6 @@ int nnn_run(NNNET* np, void *dp)
 //maxpooling2d_1
 	ret = nnn_MaxPooling2D(&(g_nnn.layer[4]), activation_2_output, maxpooling2d_1_output);
 	if(ret != NNN_RET_OK){
-		printf("error nnn_MaxPooling2D\n");
 		return ret;
 	}
 

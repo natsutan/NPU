@@ -50,9 +50,15 @@ np.save('output/conv2_out.npy', layer_output[0], allow_pickle=False)
 get_4th_layer_output = K.function([model.layers[0].input],
                                   [model.layers[3].output])
 
-
 layer_output = get_4th_layer_output([images,])
 print(layer_output[0].shape)
 np.save('output/act2_out.npy', layer_output[0], allow_pickle=False)
 
+
+get_5th_layer_output = K.function([model.layers[0].input],
+                                  [model.layers[4].output])
+
+layer_output = get_5th_layer_output([images,])
+print(layer_output[0].shape)
+np.save('output/maxpool_out.npy', layer_output[0], allow_pickle=False)
 

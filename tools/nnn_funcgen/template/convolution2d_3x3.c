@@ -56,8 +56,8 @@ int $func_name (NNNET_LAYER *np, void *inp, void *outp)
 			bias = *(bp+f);
 
 			//apply filter
-			for(y=1;y<input_size_y;y++) {
-				for(x=1;x<input_size_x;x++) {
+			for(y=1;y<input_size_y-1;y++) {
+				for(x=1;x<input_size_x-1;x++) {
 					//get data
 					idx_i = n * (input_size_y * input_size_x) + ((y - 1) * input_size_x) + x;
 					idx_o = f * (input_size_y - 2) * (input_size_x - 2) + ((y - 1) * (input_size_y - 2)) + (x - 1);

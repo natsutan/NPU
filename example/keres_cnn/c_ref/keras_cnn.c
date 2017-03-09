@@ -12,6 +12,14 @@ extern float convolution2d_1_output[32][26][26];
 extern float activation_1_output[32][26][26];
 extern float convolution2d_2_output[32][24][24];
 extern float activation_2_output[32][24][24];
+extern float maxpooling2d_1_output[40][12][12];
+extern float dropout_1_output[40][12][12];
+extern float flatten_1_output[5760];
+extern float dense_1_output[128];
+extern float activation_3_output[128];
+extern float dropout_2_output[128];
+extern float dense_2_output[46];
+extern float activation_4_output[46];
 
 int main(void)
 {
@@ -72,6 +80,18 @@ int main(void)
   for(int f=0;f<32;f++) {
 	  sprintf(out_fname, "output/act2_%02d.npy", f);
 	  save_to_numpy(activation_2_output[f], out_fname, &np_header_24);
+  }
+
+  NUMPY_HEADER np_header_12;
+  np_header_12 = np_header;  //入力のヘッダーをコピー
+  np_header_12.descr = NN_FLOAT32;
+  np_header_12.shape[0] = 12;
+  np_header_12.shape[1] = 12;
+  np_header_12.shape[2] = 0;
+  np_header_12.shape[3] = 0;
+  for(int f=0;f<32;f++) {
+	  sprintf(out_fname, "output/mp_%02d.npy", f);
+	  save_to_numpy(maxpooling2d_1_output[f], out_fname, &np_header_12);
   }
 
 

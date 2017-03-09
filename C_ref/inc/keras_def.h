@@ -141,4 +141,6 @@ typedef struct LY_MaxPooling2D_tag {
   int strides[2];
   int pool_size[2];
   KR_BOADER_MODE border_mode;  
+  //
+  int nnn_input_shape[4];
 } LY_MaxPooling2D;
