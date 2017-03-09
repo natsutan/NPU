@@ -42,12 +42,12 @@ int maxpool2d_2x2(NNNET_LAYER *np, void *inp, void *outp)
 		for(y=0;y<input_size_y;y+=2) {
 			for(x=0;x<input_size_x;x+=2){
 				idx_i = (n * input_size_y * input_size_x) + (y * input_size_x) + x;
-				idx_o = n * (input_size_y * input_size_x / 4) + (y * input_size_x / 2) + (x/2);
+				idx_o = n * (input_size_y * input_size_x / 4) + (y * input_size_x / 4) + (x/2);
 
 				data[0] = *(ip + idx_i);
 				data[1] = *(ip + idx_i + 1);
 				data[2] = *(ip + idx_i + input_size_x);
-				data[3] = *(ip + idx_i + input_size_x + 11);
+				data[3] = *(ip + idx_i + input_size_x + 1);
 
 				//max
 				max = data[0];

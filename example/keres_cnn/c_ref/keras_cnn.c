@@ -89,11 +89,10 @@ int main(void)
   np_header_12.shape[1] = 12;
   np_header_12.shape[2] = 0;
   np_header_12.shape[3] = 0;
-  for(int f=0;f<32;f++) {
+  for(int f=0;f<40;f++) {
 	  sprintf(out_fname, "output/mp_%02d.npy", f);
 	  save_to_numpy(maxpooling2d_1_output[f], out_fname, &np_header_12);
   }
-
 
 
 
