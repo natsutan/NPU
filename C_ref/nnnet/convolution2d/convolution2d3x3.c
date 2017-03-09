@@ -53,7 +53,7 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
-					idx_i = (n * input_size_num * 3 * 3) + (f * 3 * 3) + (y * 3) + x;
+					idx_i = (f * input_size_num * 3 * 3) + (n * 3 * 3) + (y * 3) + x;
 					w_data = *(wp+idx_i);
 					filter3x3[x][y] = w_data;
 				}
@@ -61,7 +61,7 @@ int convolution2d3x3_iui8_of (NNNET_LAYER *np, void *inp, void *outp)
 			bias = *(bp+f);
 
 			if(f==0) {
-				printf("n%02d\n", n);
+				printf("n%02d, idx = %d\n", n, idx_i);
 				printf("[%f, %f, %f,\n", filter3x3[0][0], filter3x3[0][1], filter3x3[0][2]);
 				printf(" %f, %f, %f,\n", filter3x3[1][0], filter3x3[1][1], filter3x3[1][2]);
 				printf(" %f, %f, %f]\n", filter3x3[2][0], filter3x3[2][1], filter3x3[2][2]);
@@ -162,7 +162,7 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 			// get filter
 			for(x=0;x<3;x++) {
 				for(y=0;y<3;y++) {
-					idx_i = (n * input_size_num * 3 * 3) + (f * 3 * 3) + (y * 3) + x;
+					idx_i = (f * input_size_num * 3 * 3) + (n * 3 * 3) + (y * 3) + x;
 					w_data = *(wp+idx_i);
 					filter3x3[x][y] = w_data;
 				}
@@ -170,7 +170,7 @@ int convolution2d3x3_if_of (NNNET_LAYER *np, void *inp, void *outp)
 			bias = *(bp+f);
 
 			if(f==0) {
-				printf("n%02d\n", n);
+				printf("n%02d, idx = %d\n", n, idx_i);
 				printf("[%f, %f, %f,\n", filter3x3[0][0], filter3x3[0][1], filter3x3[0][2]);
 				printf(" %f, %f, %f,\n", filter3x3[1][0], filter3x3[1][1], filter3x3[1][2]);
 				printf(" %f, %f, %f]\n", filter3x3[2][0], filter3x3[2][1], filter3x3[2][2]);
