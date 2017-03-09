@@ -32,7 +32,7 @@ print(kr_data.shape)
 ko = kr_data[:,:,:,i]
 
 #nn = np.load(nnn_dir + 'act2_%02d.npy' % i)
-nn = np.load(nnn_dir + 'mp_%02d.npy' % i)
+nn = np.load(nnn_dir + 'do_%02d.npy' % i)
 ko_f = ko.flatten()
 nn_f = nn.flatten()
 

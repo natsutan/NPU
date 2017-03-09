@@ -113,6 +113,8 @@ typedef struct LY_Activation_tag {
 
 typedef struct LY_Dropout_tag {
   float p;
+  //
+  int nnn_input_shape[4];
 } LY_Dropout;
 
 

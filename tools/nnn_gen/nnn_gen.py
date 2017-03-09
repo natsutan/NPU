@@ -287,9 +287,9 @@ def write__MaxPooling2D(fp, config, shape):
 
 
 @print_info
-def write_Dropout(fp, config):
+def write_Dropout(fp, config, shape):
     write_initialize_number_type(fp, config, 'p')
-
+    wrrite_nnn_input_shape(fp, config, shape)
 
 @print_info
 def write_Flatten(fp, config):
@@ -346,7 +346,7 @@ def write_nnn_init(fp):
             write__MaxPooling2D(fp, config, input_shape)
         elif class_name == 'Dropout':
             fp.write('\tg_nnn.layer[%d].type = TP_DROPOUT;\n' % cnt)
-            write_Dropout(fp, config)
+            write_Dropout(fp, config, input_shape)
         elif class_name == 'Flatten':
             fp.write('\tg_nnn.layer[%d].type = TP_FLATTEN;\n' % cnt)
             write_Flatten(fp, config)
