@@ -10,8 +10,8 @@ model.load_weights('output/cnn.h5')
 
 # load image
 images = np.empty([0, 28, 28], np.float32)
-#img_ori = Image.open('data/I.png')
-img_ori = Image.open('data/p.png')
+img_ori = Image.open('data/I.png')
+#img_ori = Image.open('data/p.png')
 
 img_gray = ImageOps.grayscale(img_ori)
 

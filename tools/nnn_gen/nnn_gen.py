@@ -102,7 +102,7 @@ def write_global_vaiable(fp):
                     (type_str, variable_name_w,  config['nb_filter'], config['nb_col'], config['nb_row']))
             else:
                 fp.write("%s %s[%d][%d][%d][%d];\n" %
-                    (type_str, variable_name_w, prev_dim, config['nb_filter'], config['nb_col'], config['nb_row']))
+                    (type_str, variable_name_w, config['nb_filter'], prev_dim, config['nb_col'], config['nb_row']))
 
             fp.write("%s %s[%d];\n" %
                  (type_str, variable_name_b, config['nb_filter']))

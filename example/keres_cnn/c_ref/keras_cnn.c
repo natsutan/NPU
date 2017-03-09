@@ -5,9 +5,8 @@
 #include "nnnet.h"
 #include "nnn_gen/nnn_gen.h"
 
-
-//const char infile[] = "../../keras/data/I.npy";
-const char infile[] = "../../keras/data/p.npy";
+const char infile[] = "../../keras/data/I.npy";
+//const char infile[] = "../../keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
 extern float activation_1_output[32][26][26];
@@ -72,7 +71,7 @@ int main(void)
   np_header_24.shape[3] = 0;
   for(int f=0;f<32;f++) {
 	  sprintf(out_fname, "output/act2_%02d.npy", f);
-	  save_to_numpy(convolution2d_2_output[f], out_fname, &np_header_24);
+	  save_to_numpy(activation_2_output[f], out_fname, &np_header_24);
   }
 
 

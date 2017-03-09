@@ -27,7 +27,7 @@ float w_convolution2d_1_W[32][3][3];
 float w_convolution2d_1_b[32];
 NUMPY_HEADER nph_convolution2d_2_W;
 NUMPY_HEADER nph_convolution2d_2_b;
-float w_convolution2d_2_W[32][40][3][3];
+float w_convolution2d_2_W[40][32][3][3];
 float w_convolution2d_2_b[40];
 NUMPY_HEADER nph_dense_1_W;
 NUMPY_HEADER nph_dense_1_b;
@@ -375,6 +375,7 @@ int nnn_run(NNNET* np, void *dp)
 //maxpooling2d_1
 	ret = nnn_MaxPooling2D(&(g_nnn.layer[4]), activation_2_output, maxpooling2d_1_output);
 	if(ret != NNN_RET_OK){
+		printf("error nnn_MaxPooling2D\n");
 		return ret;
 	}
 
