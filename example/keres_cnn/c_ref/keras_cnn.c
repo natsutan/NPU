@@ -5,7 +5,7 @@
 #include "nnnet.h"
 #include "nnn_gen/nnn_gen.h"
 
-const char infile[] = "../../keras/data/I.npy";
+const char infile[] = "../../keras/data/O.npy";
 //const char infile[] = "../../keras/data/p.npy";
 
 extern float convolution2d_1_output[32][26][26];
@@ -60,47 +60,10 @@ int main(void)
   save_to_numpy(dense_2_output, "output/dense2.npy", &np_header_f);
 
 
-
-
   printf("finish\n");
   for(int i=0;i<46;i++) {
-	  printf("%f\n", dense_2_output[i]);
+	  printf("%f\n", activation_4_output[i]);
   }
-
-
-
-
-
 
   return 0;
 }
-
-
-#if 0
-
-NUMPY_HEADER np_header_24;
-np_header_24 = np_header;  //入力のヘッダーをコピー
-np_header_24.descr = NN_FLOAT32;
-np_header_24.shape[0] = 24;
-np_header_24.shape[1] = 24;
-np_header_24.shape[2] = 0;
-np_header_24.shape[3] = 0;
-for(int f=0;f<32;f++) {
-	  sprintf(out_fname, "output/act2_%02d.npy", f);
-	  save_to_numpy(activation_2_output[f], out_fname, &np_header_24);
-}
-
-NUMPY_HEADER np_header_12;
-np_header_12 = np_header;  //入力のヘッダーをコピー
-np_header_12.descr = NN_FLOAT32;
-np_header_12.shape[0] = 12;
-np_header_12.shape[1] = 12;
-np_header_12.shape[2] = 0;
-np_header_12.shape[3] = 0;
-for(int f=0;f<40;f++) {
-	  sprintf(out_fname, "output/do_%02d.npy", f);
-	  save_to_numpy(dropout_1_output[f], out_fname, &np_header_12);
-}
-#endif
-
-
