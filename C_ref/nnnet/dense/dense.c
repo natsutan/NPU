@@ -48,18 +48,11 @@ int full_connection(NNNET_LAYER *np, void *inp, void *outp)
 			data = *(ip + idx_i );
 			weight = *(wp + (f * input_num) + idx_i);
 			accumlator += data * weight;
-			if(f<=1) {
-				if(n < 10) {
-					printf("n = %d, data = %f, w = %f\n", n, data, weight);
-				}
-			}
-
 		}
 		idx_o = f;
 		bias = *(bp + f);
 		accumlator += bias;
 		*(op + idx_o) = accumlator;
-		printf("f = %d, acc = %f\n", f, accumlator );
 	}
 
 
