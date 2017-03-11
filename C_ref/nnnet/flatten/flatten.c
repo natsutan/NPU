@@ -67,8 +67,7 @@ int flatten(NNNET_LAYER *np, void *inp, void *outp)
 	}
 
 
-
-	return NNN_RET_ERR;
+	return NNN_RET_OK;
 }
 
 

@@ -17,7 +17,7 @@ act2_file = '../../example/keres_cnn/keras/output/act2_out.npy'
 
 
 # mp
-lakeras_file = '../../example/keres_cnn/keras/output/flat_out.npy'
+keras_file = '../../example/keres_cnn/keras/output/dense_out.npy'
 
 nnn_dir = '../../example/keres_cnn/c_ref/output/output/'
 
@@ -33,11 +33,12 @@ print(kr_data.shape)
 ko = kr_data[0,:]
 
 #nn = np.load(nnn_dir + 'act2_%02d.npy' % i)
-nn = np.load(nnn_dir + 'flat.npy')
+nn = np.load(nnn_dir + 'dense.npy')
 
 
 ko_f = ko.flatten()
 nn_f = nn.flatten()
+print(ko_f)
 
 x = np.arange(len(ko_f))
 plt.plot(x, ko_f, color='b')

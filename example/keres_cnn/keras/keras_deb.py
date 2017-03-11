@@ -57,12 +57,18 @@ np.save('output/conv1_out.npy', layer_output[0], allow_pickle=False)
 data = np.zeros([1, 12, 12, 40], np.float32)
 f = K.learning_phase()
 
-get_5th_layer_output = K.function([model.layers[0].input, K.learning_phase()],
+get_6th_layer_output = K.function([model.layers[0].input, K.learning_phase()],
                                   [model.layers[6].output])
 
-
-layer_output = get_5th_layer_output([images, 0])
+layer_output = get_6th_layer_output([images, 0])
 print(layer_output[0].shape)
 np.save('output/flat_out.npy', layer_output[0], allow_pickle=False)
 
+
+get_7th_layer_output = K.function([model.layers[0].input, K.learning_phase()],
+                                  [model.layers[7].output])
+
+layer_output = get_7th_layer_output([images, 0])
+print(layer_output[0].shape)
+np.save('output/dense_out.npy', layer_output[0], allow_pickle=False)
 

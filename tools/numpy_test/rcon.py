@@ -1,6 +1,10 @@
 import numpy as np
 
-arr = np.load('input/convolution2d_1_W_z.npy')
+arr = np.load('input/dense_1_W_z.npy')
+print(arr.shape)
+
+print(arr[1,:])
+
 print('input/convolution2d_1_W_z.npy')
 fil_0 = arr[:,:,:,0]
 print(fil_0)

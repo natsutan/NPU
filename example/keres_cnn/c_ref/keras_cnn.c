@@ -52,12 +52,13 @@ int main(void)
   NUMPY_HEADER np_header_f;
   np_header_f = np_header;  //入力のヘッダーをコピー
   np_header_f.descr = NN_FLOAT32;
-  np_header_f.shape[0] = 5760;
+  np_header_f.shape[0] = 128;
   np_header_f.shape[1] = 1;
   np_header_f.shape[2] = 0;
   np_header_f.shape[3] = 0;
 
-  save_to_numpy(flatten_1_output, "output/flat.npy", &np_header_f);
+  save_to_numpy(dense_1_output, "output/dense.npy", &np_header_f);
+
 
 
 
