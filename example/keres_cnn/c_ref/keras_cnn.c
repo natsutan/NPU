@@ -48,57 +48,58 @@ int main(void)
     printf("error nnn_run returns %d\n", ret);
   }
 
+
+  NUMPY_HEADER np_header_f;
+  np_header_f = np_header;  //入力のヘッダーをコピー
+  np_header_f.descr = NN_FLOAT32;
+  np_header_f.shape[0] = 5760;
+  np_header_f.shape[1] = 1;
+  np_header_f.shape[2] = 0;
+  np_header_f.shape[3] = 0;
+
+  save_to_numpy(flatten_1_output, "output/flat.npy", &np_header_f);
+
+
+
   printf("finish\n");
   for(int i=0;i<46;i++) {
 	  printf("%f\n", dense_2_output[i]);
   }
 
-  NUMPY_HEADER np_header_26;
-  np_header_26 = np_header;  //入力のヘッダーをコピー
-  np_header_26.descr = NN_FLOAT32;
-  np_header_26.shape[0] = 26;
-  np_header_26.shape[1] = 26;
-  np_header_26.shape[2] = 0;
-  np_header_26.shape[3] = 0;
 
-  char out_fname[256];
 
-  for(int f=0;f<32;f++) {
-	  sprintf(out_fname, "output/conv2d1_%02d.npy", f);
-	  save_to_numpy(convolution2d_1_output[f], out_fname, &np_header_26);
-  }
-
-  for(int f=0;f<32;f++) {
-	  sprintf(out_fname, "output/act1_%02d.npy", f);
-	  save_to_numpy(activation_1_output[f], out_fname, &np_header_26);
-  }
-
-  NUMPY_HEADER np_header_24;
-  np_header_24 = np_header;  //入力のヘッダーをコピー
-  np_header_24.descr = NN_FLOAT32;
-  np_header_24.shape[0] = 24;
-  np_header_24.shape[1] = 24;
-  np_header_24.shape[2] = 0;
-  np_header_24.shape[3] = 0;
-  for(int f=0;f<32;f++) {
-	  sprintf(out_fname, "output/act2_%02d.npy", f);
-	  save_to_numpy(activation_2_output[f], out_fname, &np_header_24);
-  }
-
-  NUMPY_HEADER np_header_12;
-  np_header_12 = np_header;  //入力のヘッダーをコピー
-  np_header_12.descr = NN_FLOAT32;
-  np_header_12.shape[0] = 12;
-  np_header_12.shape[1] = 12;
-  np_header_12.shape[2] = 0;
-  np_header_12.shape[3] = 0;
-  for(int f=0;f<40;f++) {
-	  sprintf(out_fname, "output/do_%02d.npy", f);
-	  save_to_numpy(dropout_1_output[f], out_fname, &np_header_12);
-  }
 
 
 
   return 0;
 }
+
+
+#if 0
+
+NUMPY_HEADER np_header_24;
+np_header_24 = np_header;  //入力のヘッダーをコピー
+np_header_24.descr = NN_FLOAT32;
+np_header_24.shape[0] = 24;
+np_header_24.shape[1] = 24;
+np_header_24.shape[2] = 0;
+np_header_24.shape[3] = 0;
+for(int f=0;f<32;f++) {
+	  sprintf(out_fname, "output/act2_%02d.npy", f);
+	  save_to_numpy(activation_2_output[f], out_fname, &np_header_24);
+}
+
+NUMPY_HEADER np_header_12;
+np_header_12 = np_header;  //入力のヘッダーをコピー
+np_header_12.descr = NN_FLOAT32;
+np_header_12.shape[0] = 12;
+np_header_12.shape[1] = 12;
+np_header_12.shape[2] = 0;
+np_header_12.shape[3] = 0;
+for(int f=0;f<40;f++) {
+	  sprintf(out_fname, "output/do_%02d.npy", f);
+	  save_to_numpy(dropout_1_output[f], out_fname, &np_header_12);
+}
+#endif
+
 

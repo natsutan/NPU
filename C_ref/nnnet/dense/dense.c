@@ -52,7 +52,7 @@ int full_connection(NNNET_LAYER *np, void *inp, void *outp)
 		idx_o = f;
 		bias = *(bp + f);
 		accumlator += bias;
-		*(bp + idx_o) = accumlator;
+		*(op + idx_o) = accumlator;
 	}
 
 

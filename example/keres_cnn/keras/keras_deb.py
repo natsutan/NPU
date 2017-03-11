@@ -31,34 +31,38 @@ get_1st_layer_output = K.function([model.layers[0].input],
 layer_output = get_1st_layer_output([images,])
 print(layer_output[0].shape)
 np.save('output/conv1_out.npy', layer_output[0], allow_pickle=False)
-#np.save('output/p.npy', img_ary, allow_pickle=False)
-
-get_2nd_layer_output = K.function([model.layers[0].input],
-                                  [model.layers[1].output])
-
-layer_output = get_2nd_layer_output([images,])
-print(layer_output[0].shape)
-np.save('output/act1_out.npy', layer_output[0], allow_pickle=False)
-
-get_3rd_layer_output = K.function([model.layers[0].input],
-                                  [model.layers[2].output])
-
-layer_output = get_3rd_layer_output([images,])
-print(layer_output[0].shape)
-np.save('output/conv2_out.npy', layer_output[0], allow_pickle=False)
-
-get_4th_layer_output = K.function([model.layers[0].input],
-                                  [model.layers[3].output])
-
-layer_output = get_4th_layer_output([images,])
-print(layer_output[0].shape)
-np.save('output/act2_out.npy', layer_output[0], allow_pickle=False)
 
 
-get_5th_layer_output = K.function([model.layers[0].input],
-                                  [model.layers[9].output])
-layer_output = get_5th_layer_output([images,])
+#get_2nd_layer_output = K.function([model.layers[0].input],
+#                                  [model.layers[1].output])
+
+#layer_output = get_2nd_layer_output([images,])
 #print(layer_output[0].shape)
-#np.save('output/flat_out.npy', layer_output[0], allow_pickle=False)
+#np.save('output/act1_out.npy', layer_output[0], allow_pickle=False)
+
+#get_3rd_layer_output = K.function([model.layers[0].input],
+#                                  [model.layers[2].output])
+
+#layer_output = get_3rd_layer_output([images,])
+#print(layer_output[0].shape)
+#np.save('output/conv2_out.npy', layer_output[0], allow_pickle=False)
+
+#get_4th_layer_output = K.function([model.layers[0].input],
+#                                  [model.layers[3].output])
+
+#layer_output = get_4th_layer_output([images,])
+#print(layer_output[0].shape)
+#np.save('output/act2_out.npy', layer_output[0], allow_pickle=False)
+
+data = np.zeros([1, 12, 12, 40], np.float32)
+f = K.learning_phase()
+
+get_5th_layer_output = K.function([model.layers[0].input, K.learning_phase()],
+                                  [model.layers[6].output])
+
+
+layer_output = get_5th_layer_output([images, 0])
+print(layer_output[0].shape)
+np.save('output/flat_out.npy', layer_output[0], allow_pickle=False)
 
 

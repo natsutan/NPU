@@ -17,7 +17,7 @@ act2_file = '../../example/keres_cnn/keras/output/act2_out.npy'
 
 
 # mp
-keras_file = '../../example/keres_cnn/keras/output/maxpool_out.npy'
+lakeras_file = '../../example/keres_cnn/keras/output/flat_out.npy'
 
 nnn_dir = '../../example/keres_cnn/c_ref/output/output/'
 
@@ -29,10 +29,13 @@ kr_data = np.load(keras_file)
 print(kr_data.shape)
 
 #for i in range(32):
-ko = kr_data[:,:,:,i]
+#ko = kr_data[:,:,:,i]
+ko = kr_data[0,:]
 
 #nn = np.load(nnn_dir + 'act2_%02d.npy' % i)
-nn = np.load(nnn_dir + 'do_%02d.npy' % i)
+nn = np.load(nnn_dir + 'flat.npy')
+
+
 ko_f = ko.flatten()
 nn_f = nn.flatten()
 
