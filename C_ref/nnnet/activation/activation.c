@@ -43,7 +43,14 @@ int avtivation_relu (NNNET_LAYER *np, void *inp, void *outp)
     int m_max = actp->nnn_input_shape[1];
     int n_max = actp->nnn_input_shape[0];
 
-    assert(k_max!=0);
+    if(k_max == 0) {
+    	k_max = 1;
+    }
+    if(l_max == 0) {
+    	l_max = 1;
+    }
+    assert(m_max!=0);
+    assert(n_max!=0);
 
     //入力と出力は同じサイズなのでidｘを共有
 	int idx;

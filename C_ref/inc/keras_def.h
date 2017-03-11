@@ -120,6 +120,7 @@ typedef struct LY_Dropout_tag {
 
 typedef struct LY_Flatten_tag {
   /* nothing */
+  int nnn_input_shape[4];
 } LY_Flatten;
 
 
@@ -146,3 +147,4 @@ typedef struct LY_MaxPooling2D_tag {
   //
   int nnn_input_shape[4];
 } LY_MaxPooling2D;
+

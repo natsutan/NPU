@@ -292,9 +292,8 @@ def write_Dropout(fp, config, shape):
     wrrite_nnn_input_shape(fp, config, shape)
 
 @print_info
-def write_Flatten(fp, config):
-    # do nothing
-    pass
+def write_Flatten(fp, config, shape):
+    wrrite_nnn_input_shape(fp, config, shape)
 
 
 @print_info
@@ -306,6 +305,7 @@ def write_Dense(fp, config):
     write_initialize_enum_type(fp, config, 'W_regularizer', regularizer_dic, 'RG_NONE')
     write_initialize_enum_type(fp, config, 'activity_regularizer', regularizer_dic, 'RG_NONE')
     write_initialize_bool_type(fp, config, 'bias')
+    write_initialize_wight(fp, config);
 
 
 def write_nnn_init(fp):
@@ -349,7 +349,7 @@ def write_nnn_init(fp):
             write_Dropout(fp, config, input_shape)
         elif class_name == 'Flatten':
             fp.write('\tg_nnn.layer[%d].type = TP_FLATTEN;\n' % cnt)
-            write_Flatten(fp, config)
+            write_Flatten(fp, config, input_shape)
         elif class_name == 'Dense':
             fp.write('\tg_nnn.layer[%d].type = TP_DENSE;\n' % cnt)
             write_Dense(fp, config)

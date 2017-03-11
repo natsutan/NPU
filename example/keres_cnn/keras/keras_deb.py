@@ -56,9 +56,9 @@ np.save('output/act2_out.npy', layer_output[0], allow_pickle=False)
 
 
 get_5th_layer_output = K.function([model.layers[0].input],
-                                  [model.layers[4].output])
-
+                                  [model.layers[9].output])
 layer_output = get_5th_layer_output([images,])
-print(layer_output[0].shape)
-np.save('output/maxpool_out.npy', layer_output[0], allow_pickle=False)
+#print(layer_output[0].shape)
+#np.save('output/flat_out.npy', layer_output[0], allow_pickle=False)
+
 

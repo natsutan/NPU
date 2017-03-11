@@ -46,9 +46,12 @@ int main(void)
   ret = nnn_run(np, data);
   if(ret!=NNN_RET_OK) {
     printf("error nnn_run returns %d\n", ret);
-      //exit(1);
   }
 
+  printf("finish\n");
+  for(int i=0;i<46;i++) {
+	  printf("%f\n", dense_2_output[i]);
+  }
 
   NUMPY_HEADER np_header_26;
   np_header_26 = np_header;  //入力のヘッダーをコピー
