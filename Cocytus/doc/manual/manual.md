@@ -46,7 +46,7 @@ Table: オプション一覧
 | 重み指定| --keras_weight | [Cocyuts] | keras_weight | "~/foo/baa.h5" | 変換する重み(hdf5ファイル)を指定する。（必須)|
 | 出力ディレクトリ | --output_dir | [Cocyuts] | output_dir | "~/proj/" | ファイルの出力先（必須)|
 | 重み出力ディレクトリ| --weight_output_dir | [Cocyuts] | weight_output_dir | "~/proj/weight/" | コキュートス重みファイルの出力先。省略されるとコキュートス重みファイルを生成しません。|
-| 最適化レベル| --optimize | [Optimize] | optimeize | 2 | ニューラルネットの最適化レベｒの指定。０で最適化をしない（デフォルト値）。未実装|
+| 最適化レベル| --optimize | [Optimize] | optimeize | 2 | ニューラルネットの最適化レベルの指定。０で最適化をしない（デフォルト値）。未実装|
 
 ## iniファイル例
 
