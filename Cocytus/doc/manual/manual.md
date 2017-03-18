@@ -75,7 +75,7 @@ Table: オプション一覧
 - tools
 - example
     - mnist_cnn
-    - vga16
+    - vgg16
 
 参考：
 http://www.hexacosa.net/pph_ja/
