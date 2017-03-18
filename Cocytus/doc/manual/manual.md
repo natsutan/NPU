@@ -38,14 +38,44 @@ python cocuytus.py [options] iniファイル
 ## オプション一覧
 オプションの一覧を以下に示す。
 
+Table: オプション一覧
+
 | オプション名 | コマンドラインオプション| iniファイルセクション|iniファイルエントリー |設定例|内容|
 |:-----------|:------------|:------------|:------------|:------------|:--------|
 | ネットワーク指定| --keras_json | [Cocyuts] | keres_json | "~/foo/baa.json" | 変換するネットワーク(jsonファイル)を指定する。（必須)|
 | 重み指定| --keras_weight | [Cocyuts] | keras_weight | "~/foo/baa.h5" | 変換する重み(hdf5ファイル)を指定する。（必須)|
-| 出力ディレクトリ| --output_dir | [Cocyuts] | output_dir | "~/proj/" | ファイルの出力先（必須)|
+| 出力ディレクトリ | --output_dir | [Cocyuts] | output_dir | "~/proj/" | ファイルの出力先（必須)|
+| 重み出力ディレクトリ| --weight_output_dir | [Cocyuts] | weight_output_dir | "~/proj/weight/" | コキュートス重みファイルの出力先。省略されるとコキュートス重みファイルを生成しません。|
+| 最適化レベル| --optimize | [Optimize] | optimeize | 2 | ニューラルネットの最適化レベｒの指定。０で最適化をしない（デフォルト値）。未実装|
 
 ## iniファイル例
 
+
 # ディレクトリ構成
 
+- cocytus
+    - *<b>cocytus.py</b>*
+    - compiler
+        - *<b>compiler.py</b>*
+    - cocytus_net
+        - acivation
+        - convolution
+        - etc..
+    - weight_converter
+    - util
+- test
+    - *<b>test.py</b>*
+    - python_test
+    - c_test
+- doc
+    - manual マニュアル
+    - spec　　仕様書
+    - users_guide ユーザーズガイド
 
+- tools
+- example
+    - mnist_cnn
+    - vga16
+
+参考：
+http://www.hexacosa.net/pph_ja/
